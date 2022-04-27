@@ -11,11 +11,12 @@ class SplashscreenController extends GetxController {
   void onInit() {
     print('called');
     Timer(Duration(seconds: 3), () {
-      if (Get.find<AuthService>().isAuth) {
-        Get.offAllNamed(Routes.AFTER_LOGIN);
-      } else {
-        Get.offAllNamed(Routes.LOGIN);
-      }
+      // if (Get.find<AuthService>().isAuth) {
+      //   Get.offAllNamed(Routes.AFTER_LOGIN);
+      // } else {
+      //   Get.offAllNamed(Routes.LOGIN);
+      // }
+      Get.offAllNamed(Routes.LOGIN);
     });
     super.onInit();
   }

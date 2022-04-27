@@ -30,8 +30,8 @@ class LoginController extends GetxController {
   @override
   void onInit() {
     loginFormKey = GlobalKey<FormState>();
-    getLocation();
-    insertLocalDB();
+    //getLocation();
+    //insertLocalDB();
     super.onInit();
   }
 

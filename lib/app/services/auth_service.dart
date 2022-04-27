@@ -42,7 +42,7 @@ class AuthService extends GetxService {
     if (_box.hasData('current_user')) {
       currentUser.value = LoginResponse.fromJson(await _box.read('current_user'));
     }
-    print('customer data: ${currentUser.value.api_info?.original?.user?.name}');
+    print('customer data: ${currentUser.value.data?.user!.username}');
   }
 
   Future removeCurrentUser() async {
@@ -50,9 +50,9 @@ class AuthService extends GetxService {
     await _box.remove('current_user');
   }
 
-  bool get isAuth => currentUser.value.api_info?.original?.access_token == null ? false : true;
+  bool get isAuth => currentUser.value.data!.access_token == null ? false : true;
 
   //bool get isAdmin => currentUser.value.roleName == 'admin_api' ? true : false;
 
-  String? get apiToken => currentUser.value.api_info?.original?.access_token;
+  String? get apiToken => currentUser.value.data!.access_token;
 }

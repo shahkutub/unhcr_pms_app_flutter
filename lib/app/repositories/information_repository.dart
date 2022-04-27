@@ -23,7 +23,7 @@ class InformationRepository {
   final dbHelper = DatabaseHelper.instance;
 
   Future addName(data, _connectionStatus) async {
-    String? token = Get.find<AuthService>().currentUser.value.api_info!.original!.access_token;
+    String? token = Get.find<AuthService>().currentUser.value.data!.access_token;
     print(data.toString());
     int a = 1;
     print(_connectionStatus.toString());
@@ -77,7 +77,7 @@ class InformationRepository {
   }
 
   Future<void> sync(data, _connectionStatus) async {
-    String? token = Get.find<AuthService>().currentUser.value.api_info!.original!.access_token;
+    String? token = Get.find<AuthService>().currentUser.value.data!.access_token;
     print(data.toString());
     int a = 1;
     print(_connectionStatus.toString());
@@ -101,7 +101,7 @@ class InformationRepository {
   Future<InspectionListREsponse> getInspectionList(Map data) async {
 
 
-    String? token = Get.find<AuthService>().currentUser.value.api_info!.original!.access_token;
+    String? token = Get.find<AuthService>().currentUser.value.data!.access_token;
 
     var response;
 
@@ -131,7 +131,7 @@ class InformationRepository {
 
   Future<InspectionListREsponse> getInspectionListAll() async {
 
-    String? token = Get.find<AuthService>().currentUser.value.api_info!.original!.access_token;
+    String? token = Get.find<AuthService>().currentUser.value.data!.access_token;
 
     var response;
 
@@ -159,7 +159,7 @@ class InformationRepository {
   }
 
   Future<PostResponse> postInspection(Inspection_model inspection_model, _connectionStatus) async {
-    String? token = Get.find<AuthService>().currentUser.value.api_info!.original!.access_token;
+    String? token = Get.find<AuthService>().currentUser.value.data!.access_token;
     Map data = {
 
       'thana_id': inspection_model.thana_id.toString(),
@@ -237,7 +237,7 @@ class InformationRepository {
   }
 
   Future<all_division_dis_thanan_model> getDivDisThana() async {
-    String? token = Get.find<AuthService>().currentUser.value.api_info!.original!.access_token;
+    String? token = Get.find<AuthService>().currentUser.value.data!.access_token;
     var headers = {'Authorization': 'Bearer $token'};
     APIManager _manager = APIManager();
     var response;
@@ -266,7 +266,7 @@ class InformationRepository {
 
 
   Future<AllStudentRessponse> getAllStudent() async {
-    String? token = Get.find<AuthService>().currentUser.value.api_info!.original!.access_token;
+    String? token = Get.find<AuthService>().currentUser.value.data!.access_token;
     var headers = {'Authorization': 'Bearer $token'};
     APIManager _manager = APIManager();
     var response;
@@ -291,7 +291,7 @@ class InformationRepository {
 
 
   Future<InstituteTypeModel> getInstituteType() async {
-    String? token = Get.find<AuthService>().currentUser.value.api_info!.original!.access_token;
+    String? token = Get.find<AuthService>().currentUser.value.data!.access_token;
     var headers = {'Authorization': 'Bearer $token'};
     APIManager _manager = APIManager();
     var response;
@@ -314,7 +314,7 @@ class InformationRepository {
   }
 
   Future<InstitutionDataModel> getInstitute(String divId,String disId,String thanaId,String insTypeId) async {
-    String? token = Get.find<AuthService>().currentUser.value.api_info!.original!.access_token;
+    String? token = Get.find<AuthService>().currentUser.value.data!.access_token;
     var headers = {'Authorization': 'Bearer $token'};
     APIManager _manager = APIManager();
     var response;
@@ -338,7 +338,7 @@ class InformationRepository {
 
 
   Future<InstitutionDataModel> getInstituteAll() async {
-    String? token = Get.find<AuthService>().currentUser.value.api_info!.original!.access_token;
+    String? token = Get.find<AuthService>().currentUser.value.data!.access_token;
     var headers = {'Authorization': 'Bearer $token'};
     APIManager _manager = APIManager();
     var response;

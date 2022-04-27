@@ -4,6 +4,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:hive_flutter/adapters.dart';
 
 import '../../../services/auth_service.dart';
 import '../controllers/after_login_controller.dart';
@@ -417,157 +418,199 @@ class AfterLoginView extends GetView<after_login_controller> {
   @override
   Widget build(BuildContext context) {
     return Scaffold( //first scaffold
-        appBar: AppBar(
-          title: Text("N-PMS Dash Board"),
-          backgroundColor: Colors.blue,
-          leading: IconButton(
-            onPressed: (){
-              //on drawer menu pressed
-              if(_drawerscaffoldkey.currentState!.isDrawerOpen){
-                //if drawer is open, then close the drawer
-                Navigator.pop(context);
-              }else{
-                _drawerscaffoldkey.currentState!.openDrawer();
-                //if drawer is closed then open the drawer.
-              }
-            },
-            icon: Icon(Icons.menu,
-
-            ),
-          ), // Set menu icon at leading of AppBar
-        ),
-
-
-        body:Scaffold(
-          //second scaffold
-            key:_drawerscaffoldkey, //set gobal key defined above
-            drawer:  Drawer(
-                child:  ListView(
-                  children: <Widget>[
-                    // UserAccountsDrawerHeader(
-                    //   accountName: Text("John Doe"),
-                    //   accountEmail: Text("johndoe@email.com"),
-                      // currentAccountPicture: GestureDetector(
-                      //     child: CircleAvatar(
-                      //       backgroundImage: NetworkImage(mainProfilePic),
-                      //     ),
-                      //     onTap: () => print("Current User")
-                      // ),
-
-                      //.. This line of code provides the usage of multiple accounts
-                      /* otherAccountsPictures: <Widget>[
-              GestureDetector(
-                onTap: ()=> switchUser(),
-                child: CircleAvatar(
-                  backgroundImage: NetworkImage(otherProfilePic)
+          appBar: AppBar(
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.start, //Center Row contents horizontally,
+              crossAxisAlignment: CrossAxisAlignment.center, //Center Row contents vertically,
+              children: [
+                Container(
+                  //margin: EdgeInsets.only(left:20,top: 20),
+                  height: 50,
+                  width: 50,
+                  child:CircleAvatar(
+                    radius: 48, // Image radius
+                    backgroundImage: NetworkImage('imageUrl'),
+                  ) ,
                 ),
-              ),
-            ], */
 
-                      // decoration: BoxDecoration(
-                      //   image: DecorationImage(
-                      //       fit: BoxFit.fill,
-                      //       image: NetworkImage("https://png.pngtree.com/thumb_back/fh260/background/20190828/pngtree-dark-vector-abstract-background-image_302715.jpg")
-                      //   ),
-                      // ),
-                   // ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    ListTile(
-                        title: Text("Home Page",
-                          style: TextStyle(color: Colors.black,fontSize: 17),
-                        ),
-                        trailing: Icon(Icons.menu,
-                          color: Colors.purple,
-                        ),
-                        onTap: () {
-                          Navigator.of(context).pop();
-                          // Navigator.of(context).push(new MaterialPageRoute(builder:
-                          //     (BuildContext context) => OtherPage("Home Page"),
-                          // ));
-                        }
+                SizedBox(
+                  width: 10,
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+
+                    Obx(
+                          () => Text(""+controller.userNAme.value,
+                              style: TextStyle(color: Colors.white,fontSize: 12),
+                              textAlign:TextAlign.center,
+                            ),
                     ),
 
 
-
-                    ListTile(
-                        title: Text("Consumption Tally"),
-                        trailing: Icon(Icons.security),
-                        onTap: () {
-                          Navigator.of(context).pop();
-                          // Navigator.of(context).push(new MaterialPageRoute(builder:
-                          //     (BuildContext context) => OtherPage("Settings Page"),
-                          // ));
-                        }
-                    ),
-                    ListTile(
-                        title: Text("Internal Request",
-                          style: TextStyle(color: Colors.black,fontSize: 17),),
-                        trailing: Icon(Icons.report,color: Colors.blueAccent,),
-                        onTap: () {
-                          Navigator.of(context).pop();
-                          // Navigator.of(context).push(new MaterialPageRoute(builder:
-                          //     (BuildContext context) => OtherPage("Settings Page"),
-                          // ));
-                        }
-                    ),
-
-
-
-                    ListTile(
-                        title: Text("Stock Loss"),
-                        trailing: Icon(Icons.security),
-                        onTap: () {
-                          Navigator.of(context).pop();
-                          // Navigator.of(context).push(new MaterialPageRoute(builder:
-                          //     (BuildContext context) => OtherPage("Settings Page"),
-                          // ));
-                        }
-                    ),
-
-                    ListTile(
-                        title: Text("Report"),
-                        trailing: Icon(Icons.security),
-                        onTap: () {
-                          Navigator.of(context).pop();
-                          // Navigator.of(context).push(new MaterialPageRoute(builder:
-                          //     (BuildContext context) => OtherPage("Settings Page"),
-                          // ));
-                        }
-                    ),
-
-                    ListTile(
-                        title: Text("Sync",
-                          style: TextStyle(color: Colors.black,fontSize: 17),
-                          //textAlign:TextAlign.center,
-                        ),
-                        trailing: Icon(Icons.sync,
-                          color: Colors.pink,
-                        ),
-                        onTap: () {
-                          Navigator.of(context).pop();
-                          // Navigator.of(context).push(new MaterialPageRoute(builder:
-                          //     (BuildContext context) => OtherPage("About Page"),
-                          // ));
-                        }
-                    ),
-
-                    Divider(thickness: 1.0,),
-                    ListTile(
-                      title: Text("Log Out"),
-                      trailing: Icon(Icons.logout),
-                      //onTap: () => Navigator.of(context).pop(),
-                      onTap: (){
-                        Get.find<AuthService>().removeCurrentUser();
-                        Get.toNamed(Routes.LOGIN);
-                      },
-
-
+                    Text("Admin",
+                      style: TextStyle(color: Colors.white,fontSize: 12),
+                      textAlign:TextAlign.center,
                     ),
                   ],
-                )
+                ),
+
+
+
+              ],
             ),
+            backgroundColor: Colors.blueAccent,
+
+          ),
+
+          bottomNavigationBar: BottomAppBar(
+            color: Colors.blueAccent,
+            child: Container(
+              //height: 50,
+              padding: EdgeInsets.all(5),
+              child: Row(
+                children: [
+                  Text(
+                    "Technical Support By: ",style: TextStyle(color: Colors.black),
+                  ),
+                  Text(
+                    "  Nanosoft",style: TextStyle(color: Colors.white),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          body:Scaffold(
+            //second scaffold
+            //   key:_drawerscaffoldkey, //set gobal key defined above
+            //   drawer:  Drawer(
+            //       child:  ListView(
+            //         children: <Widget>[
+            //           // UserAccountsDrawerHeader(
+            //           //   accountName: Text("John Doe"),
+            //           //   accountEmail: Text("johndoe@email.com"),
+            //             // currentAccountPicture: GestureDetector(
+            //             //     child: CircleAvatar(
+            //             //       backgroundImage: NetworkImage(mainProfilePic),
+            //             //     ),
+            //             //     onTap: () => print("Current User")
+            //             // ),
+            //
+            //             //.. This line of code provides the usage of multiple accounts
+            //             /* otherAccountsPictures: <Widget>[
+            //     GestureDetector(
+            //       onTap: ()=> switchUser(),
+            //       child: CircleAvatar(
+            //         backgroundImage: NetworkImage(otherProfilePic)
+            //       ),
+            //     ),
+            //   ], */
+            //
+            //             // decoration: BoxDecoration(
+            //             //   image: DecorationImage(
+            //             //       fit: BoxFit.fill,
+            //             //       image: NetworkImage("https://png.pngtree.com/thumb_back/fh260/background/20190828/pngtree-dark-vector-abstract-background-image_302715.jpg")
+            //             //   ),
+            //             // ),
+            //          // ),
+            //           SizedBox(
+            //             height: 30,
+            //           ),
+            //           ListTile(
+            //               title: Text("Home Page",
+            //                 style: TextStyle(color: Colors.black,fontSize: 17),
+            //               ),
+            //               trailing: Icon(Icons.menu,
+            //                 color: Colors.purple,
+            //               ),
+            //               onTap: () {
+            //                 Navigator.of(context).pop();
+            //                 // Navigator.of(context).push(new MaterialPageRoute(builder:
+            //                 //     (BuildContext context) => OtherPage("Home Page"),
+            //                 // ));
+            //               }
+            //           ),
+            //
+            //
+            //
+            //           ListTile(
+            //               title: Text("Consumption Tally"),
+            //               trailing: Icon(Icons.security),
+            //               onTap: () {
+            //                 Navigator.of(context).pop();
+            //                 // Navigator.of(context).push(new MaterialPageRoute(builder:
+            //                 //     (BuildContext context) => OtherPage("Settings Page"),
+            //                 // ));
+            //               }
+            //           ),
+            //           ListTile(
+            //               title: Text("Internal Request",
+            //                 style: TextStyle(color: Colors.black,fontSize: 17),),
+            //               trailing: Icon(Icons.report,color: Colors.blueAccent,),
+            //               onTap: () {
+            //                 Navigator.of(context).pop();
+            //                 // Navigator.of(context).push(new MaterialPageRoute(builder:
+            //                 //     (BuildContext context) => OtherPage("Settings Page"),
+            //                 // ));
+            //               }
+            //           ),
+            //
+            //
+            //
+            //           ListTile(
+            //               title: Text("Stock Loss"),
+            //               trailing: Icon(Icons.security),
+            //               onTap: () {
+            //                 Navigator.of(context).pop();
+            //                 // Navigator.of(context).push(new MaterialPageRoute(builder:
+            //                 //     (BuildContext context) => OtherPage("Settings Page"),
+            //                 // ));
+            //               }
+            //           ),
+            //
+            //           ListTile(
+            //               title: Text("Report"),
+            //               trailing: Icon(Icons.security),
+            //               onTap: () {
+            //                 Navigator.of(context).pop();
+            //                 // Navigator.of(context).push(new MaterialPageRoute(builder:
+            //                 //     (BuildContext context) => OtherPage("Settings Page"),
+            //                 // ));
+            //               }
+            //           ),
+            //
+            //           ListTile(
+            //               title: Text("Sync",
+            //                 style: TextStyle(color: Colors.black,fontSize: 17),
+            //                 //textAlign:TextAlign.center,
+            //               ),
+            //               trailing: Icon(Icons.sync,
+            //                 color: Colors.pink,
+            //               ),
+            //               onTap: () {
+            //                 Navigator.of(context).pop();
+            //                 // Navigator.of(context).push(new MaterialPageRoute(builder:
+            //                 //     (BuildContext context) => OtherPage("About Page"),
+            //                 // ));
+            //               }
+            //           ),
+            //
+            //           Divider(thickness: 1.0,),
+            //           ListTile(
+            //             title: Text("Log Out"),
+            //             trailing: Icon(Icons.logout),
+            //             //onTap: () => Navigator.of(context).pop(),
+            //             onTap: (){
+            //               Get.find<AuthService>().removeCurrentUser();
+            //               Get.toNamed(Routes.LOGIN);
+            //             },
+            //
+            //
+            //           ),
+            //         ],
+            //       )
+            //   ),
             // body: SingleChildScrollView(
             //     child: Container(
             //       child: Column(
@@ -685,124 +728,426 @@ class AfterLoginView extends GetView<after_login_controller> {
             //       ),
             //     ),)
 
-            body:  Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
+            body:Center(
+              child: SingleChildScrollView(
+                reverse: true,
+                child:Container(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
 
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Card(
-                            margin: EdgeInsets.only(top: 30),
-                            elevation: 5,
-                            child:Container(
-                              height: 110,
-                              width: 180,
-                              //padding: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                color: Colors.green,
-                                border: Border.all(color: Colors.green),
-                                borderRadius: BorderRadius.all(
-                                    Radius.circular(8.0) //                 <--- border radius here
-                                ),
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
+                      // Container(
+                      //   //height: 70,
+                      //   padding: EdgeInsets.all(10),
+                      //   //margin: EdgeInsets.all(3),
+                      //   decoration: BoxDecoration(
+                      //     color: Colors.blueAccent,
+                      //     //border: Border.all(color: Colors.white),
+                      //     borderRadius: BorderRadius.all(
+                      //         Radius.circular(0.0) //                 <--- border radius here
+                      //     ),
+                      //   ),
+                      //   child: Row(
+                      //       mainAxisAlignment: MainAxisAlignment.start, //Center Row contents horizontally,
+                      //       crossAxisAlignment: CrossAxisAlignment.center, //Center Row contents vertically,
+                      //     children: [
+                      //       Container(
+                      //         margin: EdgeInsets.only(left:20,top: 20),
+                      //         height: 50,
+                      //         width: 50,
+                      //         child:CircleAvatar(
+                      //           radius: 48, // Image radius
+                      //           backgroundImage: NetworkImage('imageUrl'),
+                      //         ) ,
+                      //       ),
+                      //
+                      //       SizedBox(
+                      //        width: 10,
+                      //       ),
+                      //       Column(
+                      //         mainAxisAlignment: MainAxisAlignment.center,
+                      //         crossAxisAlignment: CrossAxisAlignment.center,
+                      //          children: [
+                      //            SizedBox(
+                      //              height: 10,
+                      //            ),
+                      //            Text("Test User",
+                      //              style: TextStyle(color: Colors.white,fontSize: 12),
+                      //              textAlign:TextAlign.center,
+                      //            ),
+                      //
+                      //            Text("Admin",
+                      //              style: TextStyle(color: Colors.white,fontSize: 12),
+                      //              textAlign:TextAlign.center,
+                      //            ),
+                      //          ],
+                      //       ),
+                      //
+                      //
+                      //
+                      //     ],
+                      //   ),
+                      // ),
 
-                                  Text("200",
-                                    style: TextStyle(color: Colors.white,fontSize: 25),
-                                    textAlign:TextAlign.center,
-                                  ),
-                                  SizedBox(
-                                    height: 15,
-                                  ),
-                                  Text("Today Serve",
-                                    style: TextStyle(color: Colors.white,fontSize: 17),
-                                    textAlign:TextAlign.center,
-                                  ),
-                                ],
-                              ),
-                            )
+                      Container(
+                        //padding: EdgeInsets.all(10),
+                        margin: EdgeInsets.all(3),
+                        decoration: BoxDecoration(
+                          //color: Colors.green,
+                          border: Border.all(color: Colors.white),
+                          borderRadius: BorderRadius.all(
+                              Radius.circular(0.0) //                 <--- border radius here
+                          ),
                         ),
-                        SizedBox(
-                          width: 15,
+                        child:Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Card(
+                                elevation: 0,
+                                child:Container(
+                                  height: 75,
+                                  width: 115,
+                                  //padding: EdgeInsets.all(10),
+                                  // decoration: BoxDecoration(
+                                  //   //color: Colors.green,
+                                  //   border: Border.all(color: Colors.red),
+                                  //   borderRadius: BorderRadius.all(
+                                  //       Radius.circular(8.0) //                 <--- border radius here
+                                  //   ),
+                                  // ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+
+                                      Icon(Icons.security,color: Colors.pink,),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text("Consumption Tally",
+                                        style: TextStyle(color: Colors.black,fontSize: 12),
+                                        textAlign:TextAlign.center,
+                                      ),
+                                    ],
+                                  ),
+                                )
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Card(
+                                elevation: 0,
+                                child:Container(
+                                  height: 75,
+                                  width: 110,
+                                  //padding: EdgeInsets.all(10),
+                                  // decoration: BoxDecoration(
+                                  //   //color: Colors.green,
+                                  //   border: Border.all(color: Colors.red),
+                                  //   borderRadius: BorderRadius.all(
+                                  //       Radius.circular(8.0) //                 <--- border radius here
+                                  //   ),
+                                  // ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+
+                                      Icon(Icons.request_quote_outlined,color: Colors.pink,),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text("Internal Request",
+                                        style: TextStyle(color: Colors.black,fontSize: 12),
+                                        textAlign:TextAlign.center,
+                                      ),
+                                    ],
+                                  ),
+                                )
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Card(
+                                elevation: 0,
+                                child:Container(
+                                  height: 75,
+                                  width: 110,
+                                  //padding: EdgeInsets.all(10),
+                                  // decoration: BoxDecoration(
+                                  //   //color: Colors.green,
+                                  //   border: Border.all(color: Colors.red),
+                                  //   borderRadius: BorderRadius.all(
+                                  //       Radius.circular(8.0) //                 <--- border radius here
+                                  //   ),
+                                  // ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+
+                                      Icon(Icons.security,color: Colors.pink,),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text("Stock Loss",
+                                        style: TextStyle(color: Colors.black,fontSize: 12),
+                                        textAlign:TextAlign.center,
+                                      ),
+                                    ],
+                                  ),
+                                )
+                            ),
+
+                          ],
                         ),
-                        Card(
-                            margin: EdgeInsets.only(top: 30),
-                            elevation: 5,
-                            child:Container(
-                              height: 110,
-                              width: 180,
-                              //padding: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                color: Colors.red,
-                                border: Border.all(color: Colors.red),
-                                borderRadius: BorderRadius.all(
-                                    Radius.circular(8.0) //                 <--- border radius here
-                                ),
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-
-                                  Text("20",
-                                    style: TextStyle(color: Colors.white,fontSize: 25),
-                                    textAlign:TextAlign.center,
-                                  ),
-
-                                  SizedBox(
-                                    height: 15,
-                                  ),
-
-                                  Text("Expiry Medicine",
-                                    style: TextStyle(color: Colors.white,fontSize: 17),
-                                    textAlign:TextAlign.center,
-                                  ),
-
-                                ],
-                              ),
-                            )
-                        ),
-                      ],
-                    ),
-
-                    SizedBox(
-                      height: 30,
-                    ),
-
-                    AspectRatio(
-                      aspectRatio: 1.7,
-                      child: Card(
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-                        color: const Color(0xff2c4260),
-                        child: const _BarChart(),
                       ),
-                    ),
 
-                    Text("Weakly Consumption",
-                      style: TextStyle(color: Colors.black,fontSize: 17),
-                      textAlign:TextAlign.center,
-                    ),
+                      SizedBox(
+                        height: 0,
+                      ),
 
+                      Container(
+                        //padding: EdgeInsets.all(10),
+                        margin: EdgeInsets.all(3),
+                        decoration: BoxDecoration(
+                          //color: Colors.green,
+                          border: Border.all(color: Colors.white),
+                          borderRadius: BorderRadius.all(
+                              Radius.circular(0.0) //                 <--- border radius here
+                          ),
+                        ),
+                        child:Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Card(
+                                elevation: 0,
+                                child:Container(
+                                  height: 75,
+                                  width: 110,
+                                  //padding: EdgeInsets.all(10),
+                                  // decoration: BoxDecoration(
+                                  //   //color: Colors.green,
+                                  //   border: Border.all(color: Colors.red),
+                                  //   borderRadius: BorderRadius.all(
+                                  //       Radius.circular(8.0) //                 <--- border radius here
+                                  //   ),
+                                  // ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
 
-                  ],
+                                      Icon(Icons.report,color: Colors.pink,),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text("Report",
+                                        style: TextStyle(color: Colors.black,fontSize: 12),
+                                        textAlign:TextAlign.center,
+                                      ),
+                                    ],
+                                  ),
+                                )
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Card(
+                                elevation: 0,
+                                child:Container(
+                                  height: 75,
+                                  width: 110,
+                                  //padding: EdgeInsets.all(10),
+                                  // decoration: BoxDecoration(
+                                  //   //color: Colors.green,
+                                  //   border: Border.all(color: Colors.red),
+                                  //   borderRadius: BorderRadius.all(
+                                  //       Radius.circular(8.0) //                 <--- border radius here
+                                  //   ),
+                                  // ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
 
+                                      Icon(Icons.sync,color: Colors.pink,),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text("Sync",
+                                        style: TextStyle(color: Colors.black,fontSize: 12),
+                                        textAlign:TextAlign.center,
+                                      ),
+                                    ],
+                                  ),
+                                )
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Card(
+                              elevation: 0,
+                              child:GestureDetector(
+                                  onTap: () {
+                                    //print("Container was tapped");
+                                    Get.find<AuthService>().removeCurrentUser();
+                                    Get.toNamed(Routes.LOGIN);
+                                  },
+                                  child: Container(
+                                    height: 75,
+                                    width: 110,
+                                    //padding: EdgeInsets.all(10),
+                                    // decoration: BoxDecoration(
+                                    //   //color: Colors.green,
+                                    //   border: Border.all(color: Colors.red),
+                                    //   borderRadius: BorderRadius.all(
+                                    //       Radius.circular(8.0) //                 <--- border radius here
+                                    //   ),
+                                    // ),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
 
-                ),
+                                        Icon(Icons.logout,color: Colors.pink,),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text("Log Out",
+                                          style: TextStyle(color: Colors.black,fontSize: 12),
+                                          textAlign:TextAlign.center,
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                              ),
+                            ),
+
+                          ],
+                        ),
+                      ),
+
+                      SizedBox(
+                        height: 20,
+                      ),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Card(
+                              margin: EdgeInsets.only(top: 5),
+                              elevation: 5,
+                              child:Container(
+                                height: 100,
+                                width: 180,
+                                //padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  color: Colors.green,
+                                  border: Border.all(color: Colors.green),
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(8.0) //                 <--- border radius here
+                                  ),
+                                ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+
+                                    Text("200",
+                                      style: TextStyle(color: Colors.white,fontSize: 25),
+                                      textAlign:TextAlign.center,
+                                    ),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    Text("Today Serve",
+                                      style: TextStyle(color: Colors.white,fontSize: 17),
+                                      textAlign:TextAlign.center,
+                                    ),
+                                  ],
+                                ),
+                              )
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Card(
+                              margin: EdgeInsets.only(top: 5),
+                              elevation: 5,
+                              child:Container(
+                                height: 100,
+                                width: 180,
+                                //padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  color: Colors.red,
+                                  border: Border.all(color: Colors.red),
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(8.0) //                 <--- border radius here
+                                  ),
+                                ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+
+                                    Text("20",
+                                      style: TextStyle(color: Colors.white,fontSize: 25),
+                                      textAlign:TextAlign.center,
+                                    ),
+
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+
+                                    Text("Expiry Medicine",
+                                      style: TextStyle(color: Colors.white,fontSize: 17),
+                                      textAlign:TextAlign.center,
+                                    ),
+
+                                  ],
+                                ),
+                              )
+                          ),
+                        ],
+                      ),
+
+                      SizedBox(
+                        height: 10,
+                      ),
+
+                      AspectRatio(
+                        aspectRatio: 1.7,
+                        child: Card(
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+                          color: const Color(0xff2c4260),
+                          child: const _BarChart(),
+                        ),
+                      ),
+
+                      Text("Weekly Consumption",
+                        style: TextStyle(color: Colors.black,fontSize: 12),
+                        textAlign:TextAlign.center,
+                      ),
+
+                    ],
+
+                  ),
+                ) ,
               ),
-        )
+            ),
 
+          )
 
-    );
+      );
+    }
   }
-}
+
 
 class _BarChart extends StatelessWidget {
   const _BarChart({Key? key}) : super(key: key);
@@ -847,7 +1192,7 @@ class _BarChart extends StatelessWidget {
 
   Widget getTitles(double value, TitleMeta meta) {
     const style = TextStyle(
-      color: Color(0xff7589a2),
+      color: Colors.red,
       fontWeight: FontWeight.bold,
       fontSize: 14,
     );

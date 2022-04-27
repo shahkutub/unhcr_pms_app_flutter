@@ -1511,6 +1511,7 @@ class InformationFormView extends GetView<InformationFormController> {
           } else {
             return Center(child: CircularProgressIndicator());
           }
-        }));
+        })
+    );
   }
 }
