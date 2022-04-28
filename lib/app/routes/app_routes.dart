@@ -15,6 +15,7 @@ abstract class Routes {
   static const INSTITUTE_SEARCH = _Paths.INSTITUTE_SEARCH;
   static const GENERAL_SEARCH = _Paths.GENERAL_SEARCH;
   static const GEO_LOCATION = _Paths.GEO_LOCATION;
+  static const ITEM_DISPATCH = _Paths.ITEM_DISPATCH;
 
 }
 
@@ -30,4 +31,5 @@ abstract class _Paths {
   static const INSTITUTE_SEARCH = '/institute_search';
   static const GENERAL_SEARCH = '/general_search';
   static const GEO_LOCATION = '/geo_location';
+  static const ITEM_DISPATCH = '/item_dispatch';
 }

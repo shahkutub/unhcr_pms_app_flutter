@@ -448,11 +448,14 @@ class AfterLoginView extends GetView<after_login_controller> {
                             ),
                     ),
 
-
-                    Text("Admin",
-                      style: TextStyle(color: Colors.white,fontSize: 12),
-                      textAlign:TextAlign.center,
+                    Obx(
+                          () => Text(""+controller.userRole.value,
+                            style: TextStyle(color: Colors.white,fontSize: 12),
+                            textAlign:TextAlign.center,
+                          ),
                     ),
+
+
                   ],
                 ),
 
@@ -472,7 +475,7 @@ class AfterLoginView extends GetView<after_login_controller> {
               child: Row(
                 children: [
                   Text(
-                    "Technical Support By: ",style: TextStyle(color: Colors.black),
+                    "Developed By: ",style: TextStyle(color: Colors.black),
                   ),
                   Text(
                     "  Nanosoft",style: TextStyle(color: Colors.white),
@@ -805,6 +808,45 @@ class AfterLoginView extends GetView<after_login_controller> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Card(
+                              elevation: 0,
+                              child:GestureDetector(
+                                  onTap: () {
+                                    Get.toNamed(Routes.ITEM_DISPATCH);
+                                  },
+                                  child: Container(
+                                    height: 75,
+                                    width: 115,
+                                    //padding: EdgeInsets.all(10),
+                                    // decoration: BoxDecoration(
+                                    //   //color: Colors.green,
+                                    //   border: Border.all(color: Colors.red),
+                                    //   borderRadius: BorderRadius.all(
+                                    //       Radius.circular(8.0) //                 <--- border radius here
+                                    //   ),
+                                    // ),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+
+                                        Icon(Icons.add_circle_outline,color: Colors.pink,),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text("Item Dispatch",
+                                          style: TextStyle(color: Colors.black,fontSize: 12),
+                                          textAlign:TextAlign.center,
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                              ),
+                            ),
+
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Card(
                                 elevation: 0,
                                 child:Container(
                                   height: 75,
@@ -867,39 +909,39 @@ class AfterLoginView extends GetView<after_login_controller> {
                                   ),
                                 )
                             ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Card(
-                                elevation: 0,
-                                child:Container(
-                                  height: 75,
-                                  width: 110,
-                                  //padding: EdgeInsets.all(10),
-                                  // decoration: BoxDecoration(
-                                  //   //color: Colors.green,
-                                  //   border: Border.all(color: Colors.red),
-                                  //   borderRadius: BorderRadius.all(
-                                  //       Radius.circular(8.0) //                 <--- border radius here
-                                  //   ),
-                                  // ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-
-                                      Icon(Icons.security,color: Colors.pink,),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text("Stock Loss",
-                                        style: TextStyle(color: Colors.black,fontSize: 12),
-                                        textAlign:TextAlign.center,
-                                      ),
-                                    ],
-                                  ),
-                                )
-                            ),
+                            // SizedBox(
+                            //   width: 5,
+                            // ),
+                            // Card(
+                            //     elevation: 0,
+                            //     child:Container(
+                            //       height: 75,
+                            //       width: 110,
+                            //       //padding: EdgeInsets.all(10),
+                            //       // decoration: BoxDecoration(
+                            //       //   //color: Colors.green,
+                            //       //   border: Border.all(color: Colors.red),
+                            //       //   borderRadius: BorderRadius.all(
+                            //       //       Radius.circular(8.0) //                 <--- border radius here
+                            //       //   ),
+                            //       // ),
+                            //       child: Column(
+                            //         mainAxisAlignment: MainAxisAlignment.center,
+                            //         crossAxisAlignment: CrossAxisAlignment.center,
+                            //         children: [
+                            //
+                            //           Icon(Icons.security,color: Colors.pink,),
+                            //           SizedBox(
+                            //             height: 5,
+                            //           ),
+                            //           Text("Stock Loss",
+                            //             style: TextStyle(color: Colors.black,fontSize: 12),
+                            //             textAlign:TextAlign.center,
+                            //           ),
+                            //         ],
+                            //       ),
+                            //     )
+                            // ),
 
                           ],
                         ),

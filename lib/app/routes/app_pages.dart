@@ -1,3 +1,5 @@
+import 'package:brac_arna/app/modules/item_dispatch/bindings/item_dispatch_binding.dart';
+import 'package:brac_arna/app/modules/item_dispatch/views/item_dispatch_view.dart';
 import 'package:brac_arna/app/modules/login/views/after_login_view.dart';
 import 'package:brac_arna/app/modules/provided_data_list/views/inspection_report_pdf_view.dart';
 import 'package:brac_arna/app/modules/provided_data_list/views/single_inspection_form_view.dart';
@@ -94,6 +96,14 @@ class AppPages {
       page: () => GeoLocationView(),
       binding: GeoLocationBinding(),
     ),
+
+    GetPage(
+      name: _Paths.ITEM_DISPATCH,
+      page: () => ItemDispatchView(),
+      binding: ItemDispatchBinding(),
+    ),
+
+
 
   ];
 }

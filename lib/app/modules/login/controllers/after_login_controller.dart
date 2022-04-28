@@ -28,11 +28,13 @@ class after_login_controller extends GetxController {
   var isLocationPermission = false.obs;
 
   var userNAme = ''.obs;
+  var userRole = ''.obs;
 
   @override
   void onInit() {
 
     userNAme.value = Get.find<AuthService>().currentUser.value.data!.user!.username!.toString();
+    userRole.value = Get.find<AuthService>().currentUser.value.data!.role_info![0].role_name!;
 
     getLocationPermission();
     //AuthRepository().allProd();
