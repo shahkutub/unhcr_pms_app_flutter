@@ -56,7 +56,7 @@ class DropDownWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
+      //padding: EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
       margin: EdgeInsets.only(left: 10, right: 10, top: topMargin, bottom: bottomMargin),
       decoration: BoxDecoration(
           color: Get.theme.cardColor,

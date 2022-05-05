@@ -135,6 +135,7 @@ class LoginView extends GetView<LoginController> {
                             children: <Widget>[
                               Container(
                                 padding: EdgeInsets.all(5.0),
+                               margin: EdgeInsets.all(5.0),
                                // decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey))),
                                 child: TextFormField(
                                  // controller: controller.userNameController.value,

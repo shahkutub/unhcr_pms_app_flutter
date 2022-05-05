@@ -53,8 +53,8 @@ class TextFieldWidgetSmall extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: 10, bottom: 5, left: 10, right: 10),
-      margin: EdgeInsets.only(left: 10, right: 10, top: topMargin, bottom: bottomMargin),
+     // padding: EdgeInsets.only(top: 10, bottom: 5, left: 10, right: 10),
+      margin: EdgeInsets.only(left: 5, right: 5, top: topMargin, bottom: bottomMargin),
       decoration: BoxDecoration(
           color: Get.theme.cardColor,
           borderRadius: BorderRadius.circular(10),
@@ -92,7 +92,7 @@ class TextFieldWidgetSmall extends StatelessWidget {
             // ),
 
               decoration:InputDecoration(
-                  contentPadding: EdgeInsets.symmetric(vertical: 25, horizontal: 10),
+                  contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
