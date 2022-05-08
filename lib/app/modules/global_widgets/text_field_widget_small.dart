@@ -16,6 +16,7 @@ class TextFieldWidgetSmall extends StatelessWidget {
       this.onTapped,
       this.validator,
       this.keyboardType,
+      this.editController,
       this.initialValue,
       this.hintText,
       this.errorText,
@@ -36,6 +37,7 @@ class TextFieldWidgetSmall extends StatelessWidget {
   final VoidCallback? onTapped;
   final FormFieldValidator<String>? validator;
   final TextInputType? keyboardType;
+  final TextEditingController? editController;
   final String? initialValue;
   final String? hintText;
   final String? errorText;
@@ -71,6 +73,7 @@ class TextFieldWidgetSmall extends StatelessWidget {
             textAlign: textAlign ?? TextAlign.start,
           ),
           TextFormField(
+            //controller: editController!!?? '',
             onTap: onTapped,
             keyboardType: keyboardType ?? TextInputType.multiline,
             onSaved: onSaved,

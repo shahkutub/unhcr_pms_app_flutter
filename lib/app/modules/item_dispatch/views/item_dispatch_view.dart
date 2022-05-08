@@ -40,8 +40,9 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
                   hintText: "Select Item",
                   initialValue: '',
                   iconData: Icons.phone_android,
-                 // data: controller.thanaList?.map((item) => item.name!).toList(),
+                  data: controller.names?.map((item) => item!).toList(),
                   onChanged: (input) {
+                    controller.itemName.value = input.toString();
                     // for (var item in controller.thanaList) {
                     //   if (item.name == input) {
                     //     controller.instituteUpazila.value = item.id!.toString();
@@ -60,15 +61,18 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
               Row(
                 mainAxisAlignment: MainAxisAlignment.center, //Center Row contents horizontally,
                 crossAxisAlignment: CrossAxisAlignment.center, //Center Row contents vertically,
-                children: [
-                  Container(
-                    width: 140,
+                children: <Widget>[
+                  new Flexible(child: Container(
+                    //height: 50,
+                    //width: 140,
                     child: TextFieldWidgetSmall(
                       labelText: "A.Qty",
                       hintText: "",
-                      initialValue: '',
+                      initialValue: controller.itemAvQty.value,
+                      keyboardType: TextInputType.number,
+                      //editController: controller.controllerDestino,
                       onChanged: (input) {
-                        // controller.victimAddress = input;
+                         controller.itemAvQty.value = input;
                       },
                       // limit: 255,
                       // validator: (input) => input!.isEmpty ? "This field Shouldn't be empty".tr : null,
@@ -76,16 +80,16 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
                       isFirst: true,
                       isLast: false,
                     ),
-                  ),
-
-                  Container(
-                    width: 140,
+                  ), flex: 1,),
+                  new Flexible(child: Container(
+                    //width: 140,
                     child: TextFieldWidgetSmall(
                       labelText: "Qty",
                       hintText: "",
                       initialValue: '',
+                      keyboardType: TextInputType.number,
                       onChanged: (input) {
-                        // controller.victimAddress = input;
+                        controller.itemQty.value = input;
                       },
                       // limit: 255,
                       // validator: (input) => input!.isEmpty ? "This field Shouldn't be empty".tr : null,
@@ -93,30 +97,34 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
                       isFirst: true,
                       isLast: false,
                     ),
-                  ),
+                  ), flex: 1,),
 
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
+                  new Flexible(child:
+                      Column(
+                        children: [
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Container(
+                            //height: 45,
+                            child:  RaisedButton(
+                              color: Colors.blueAccent,
+                              child: Text('Add',style: TextStyle(color: Colors.white),),
+                              onPressed: () {
 
-                      SizedBox(
-                        height: 22,
+                                controller.addItemToList();
+
+                                //controller.controllerDestino.text = '';
+                              },
+
+                            ),
+                          ),
+
+                        ],
                       ),
-                      RaisedButton(
-                        color: Colors.blueAccent,
-                          child: Text('Add',style: TextStyle(color: Colors.white),),
-                          onPressed: () {
-                            controller.addItemToList();
-                          },
-
-                      ),
-                    ],
-                  ),
-
-
+                   flex: 1,),
                 ],
               ),
-
 
 
               Container(
@@ -124,42 +132,51 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        // height: 50,
-                        width: 160,
-                        margin: EdgeInsets.all(2),
-                        // color: controller.msgCount[index]>=10? Colors.blue[400]:
-                        // controller.msgCount[index]>3? Colors.blue[100]: Colors.grey,
-                        child: Center(
-                            child: Text('Name',
-                              style: TextStyle(fontSize: 18),
-                            )
-                        ),
+                      Flexible(
+                          child:Container(
+                            // height: 50,
+                            //width: 160,
+                            margin: EdgeInsets.all(2),
+                            // color: controller.msgCount[index]>=10? Colors.blue[400]:
+                            // controller.msgCount[index]>3? Colors.blue[100]: Colors.grey,
+                            child: Center(
+                                child: Text('Name',
+                                  style: TextStyle(fontSize: 18),
+                                )
+                            ),
+                          ),flex: 1,
                       ),
-                      Container(
-                        // height: 50,
-                        width: 100,
-                        margin: EdgeInsets.all(2),
-                        // color: controller.msgCount[index]>=10? Colors.blue[400]:
-                        // controller.msgCount[index]>3? Colors.blue[100]: Colors.grey,
-                        child: Center(
-                            child: Text('A.Qty',
-                              style: TextStyle(fontSize: 18),
-                            )
-                        ),
+
+                      Flexible(
+                        child:Container(
+                          // height: 50,
+                          //width: 160,
+                          margin: EdgeInsets.all(2),
+                          // color: controller.msgCount[index]>=10? Colors.blue[400]:
+                          // controller.msgCount[index]>3? Colors.blue[100]: Colors.grey,
+                          child: Center(
+                              child: Text('A.Qty',
+                                style: TextStyle(fontSize: 18),
+                              )
+                          ),
+                        ),flex: 1,
                       ),
-                      Container(
-                        // height: 50,
-                        width: 100,
-                        margin: EdgeInsets.all(2),
-                        // color: controller.msgCount[index]>=10? Colors.blue[400]:
-                        // controller.msgCount[index]>3? Colors.blue[100]: Colors.grey,
-                        child: Center(
-                            child: Text('Qty',
-                              style: TextStyle(fontSize: 18),
-                            )
-                        ),
+
+                      Flexible(
+                        child:Container(
+                          // height: 50,
+                          //width: 160,
+                          margin: EdgeInsets.all(2),
+                          // color: controller.msgCount[index]>=10? Colors.blue[400]:
+                          // controller.msgCount[index]>3? Colors.blue[100]: Colors.grey,
+                          child: Center(
+                              child: Text('Qty',
+                                style: TextStyle(fontSize: 18),
+                              )
+                          ),
+                        ),flex: 1,
                       ),
+
                     ],
                   ),
               ),
@@ -173,47 +190,59 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
               Expanded(
                   child: Obx(() => ListView.builder(
                       padding: const EdgeInsets.all(8),
-                      itemCount: controller.names.length,
+                      //itemCount: controller.itemList.length,
+                      itemCount: controller.itemList.length,
                       itemBuilder: (BuildContext context, int index) {
                         return Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Container(
-                             // height: 50,
-                              width: 160,
-                              margin: EdgeInsets.all(2),
-                              color: controller.msgCount[index]>=10? Colors.blue[400]:
-                              controller.msgCount[index]>3? Colors.blue[100]: Colors.grey,
-                              child: Center(
-                                  child: Text('${controller.names[index]} (${controller.msgCount[index]})',
-                                    style: TextStyle(fontSize: 18),
-                                  )
-                              ),
-                            ),
-                            Container(
-                             // height: 50,
-                              width: 100,
-                              margin: EdgeInsets.all(2),
-                              color: controller.msgCount[index]>=10? Colors.blue[400]:
-                              controller.msgCount[index]>3? Colors.blue[100]: Colors.grey,
-                              child: Center(
-                                  child: Text('${controller.names[index]} (${controller.msgCount[index]})',
-                                    style: TextStyle(fontSize: 18),
-                                  )
-                              ),
-                            ),
-                            Container(
+
+                            Flexible(
+                              child: Container(
+                                padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
                               // height: 50,
-                              width: 100,
-                              margin: EdgeInsets.all(2),
-                              color: controller.msgCount[index]>=10? Colors.blue[400]:
-                              controller.msgCount[index]>3? Colors.blue[100]: Colors.grey,
+                              //width: 160,
+                              margin: EdgeInsets.all(5),
+
+                              // color: controller.msgCount[index]>=10? Colors.blue[400]:
+                              // controller.msgCount[index]>3? Colors.blue[100]: Colors.grey,
                               child: Center(
-                                  child: Text('${controller.names[index]} (${controller.msgCount[index]})',
+                                  child: Text('${controller.itemList[index].name}',
                                     style: TextStyle(fontSize: 18),
                                   )
                               ),
-                            ),
+                            ), flex: 1,),
+
+                            Flexible(
+                              child: Container(
+                                padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+                                // height: 50,
+                               // width: 100,
+                                margin: EdgeInsets.all(5),
+                                // color: controller.msgCount[index]>=10? Colors.blue[400]:
+                                // controller.msgCount[index]>3? Colors.blue[100]: Colors.grey,
+                                child: Center(
+                                    child: Text('${controller.itemList[index].availqty}',
+                                      style: TextStyle(fontSize: 18),
+                                    )
+                                ),
+                              ), flex: 1,),
+
+                            Flexible(
+                              child: Container(
+                                padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+                                 //height: 50,
+                               // width: 100,
+                                margin: EdgeInsets.all(5),
+                                // color: controller.msgCount[index]>=10? Colors.blue[400]:
+                                // controller.msgCount[index]>3? Colors.blue[100]: Colors.grey,
+                                child: Center(
+                                    child: Text('${controller.itemList[index].qty}',
+                                      style: TextStyle(fontSize: 18),
+                                    )
+                                ),
+                              ),flex: 1,),
+
                           ],
                         );
                       }
