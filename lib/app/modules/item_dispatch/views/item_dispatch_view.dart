@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:getwidget/components/search_bar/gf_search_bar.dart';
 
 import '../../global_widgets/dropdown_widget.dart';
 import '../../global_widgets/dropdown_widget_small.dart';
@@ -18,8 +19,20 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
   @override
   Widget build(BuildContext context) {
     Get.find<ItemDispatchController>();
-
-
+    double width;
+    double height;
+    width = MediaQuery.of(context).size.width;
+    height = MediaQuery.of(context).size.height;
+    TextEditingController _controller = TextEditingController();
+    _controller.text = "";
+    // final List<String> _suggestions = [
+    //   'Alligator',
+    //   'Buffalo',
+    //   'Chicken',
+    //   'Dog',
+    //   'Eagle',
+    //   'Frog'
+    // ];
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: PreferredSize(
@@ -28,83 +41,289 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
               backgroundColor: Colors.blueAccent,
               elevation: 0,
               centerTitle: true,
-              title: Text('Item Dispatch')
+              //title: Text('Item Dispatch')
+
+            title: Stack(alignment: Alignment.center,
+              children: <Widget>[
+                Container(
+                  alignment: Alignment.centerLeft,
+                  child: Text('N-PMS'),),
+                Container(
+                  alignment: Alignment.centerRight,
+                  child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+
+                              Obx(
+                                    () => Text(""+controller.userNAme.value,
+                                  style: TextStyle(color: Colors.white,fontSize: 12),
+                                  textAlign:TextAlign.center,
+                                ),
+                              ),
+
+                              Obx(
+                                    () => Text(""+controller.userRole.value,
+                                  style: TextStyle(color: Colors.white,fontSize: 12),
+                                  textAlign:TextAlign.center,
+                                ),
+                              ),
+
+
+                            ],
+                          ),
+                )
+              ],
+            ),
+          //   Row(
+          //   // mainAxisAlignment: MainAxisAlignment.end, //Center Row contents horizontally,
+          //   // crossAxisAlignment: CrossAxisAlignment.center, //Center Row contents vertically,
+          //   children: [
+          //     // Container(
+          //     //   //margin: EdgeInsets.only(left:20,top: 20),
+          //     //   height: 50,
+          //     //   width: 50,
+          //     //   child:CircleAvatar(
+          //     //     radius: 48, // Image radius
+          //     //     backgroundImage: NetworkImage('imageUrl'),
+          //     //   ) ,
+          //     // ),
+          //
+          //     // SizedBox(
+          //     //   width: 10,
+          //     // ),
+          //
+          //
+          //     Align(
+          //       alignment: Alignment.centerRight,
+          //       child:Column(
+          //         mainAxisAlignment: MainAxisAlignment.center,
+          //         crossAxisAlignment: CrossAxisAlignment.center,
+          //         children: [
+          //
+          //           Obx(
+          //                 () => Text(""+controller.userNAme.value,
+          //               style: TextStyle(color: Colors.white,fontSize: 12),
+          //               textAlign:TextAlign.center,
+          //             ),
+          //           ),
+          //
+          //           Obx(
+          //                 () => Text(""+controller.userRole.value,
+          //               style: TextStyle(color: Colors.white,fontSize: 12),
+          //               textAlign:TextAlign.center,
+          //             ),
+          //           ),
+          //
+          //
+          //         ],
+          //       ),
+          //     ),
+          //
+          //
+          //   ],
+          // ),
           ),
         ),
         body:Column(
             children: <Widget>[
 
-              Center(
-                child: DropDownWidgetMenu(
-                  labelText: "Item",
-                  hintText: "Select Item",
-                  initialValue: '',
-                  iconData: Icons.phone_android,
-                  data: controller.names?.map((item) => item!).toList(),
-                  onChanged: (input) {
-                    controller.itemName.value = input.toString();
-                    // for (var item in controller.thanaList) {
-                    //   if (item.name == input) {
-                    //     controller.instituteUpazila.value = item.id!.toString();
-                    //     controller.inspectionData.value.thana_id = item.id;
-                    //   }
-                    // }
-                    // // controller.getLocationData();
-                    // print('upazila: ${controller.instituteUpazila.value}');
-                  },
-                  isFirst: true,
-                  isLast: false,
-                ),
+              Container(
+                margin: EdgeInsets.only(
+                    left: width * 0.05, right: width * 0.05, top: 10),
 
+                child: Card(
+                  elevation: 5,
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  child: Container(
+                    width: width * 1,
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 2),
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.blueAccent)
+                    ),
+                    child: Autocomplete<String>(
+                      optionsBuilder: (TextEditingValue value) {
+                        // When the field is empty
+                        if (value.text.isEmpty) {
+                          return [];
+                        }
+
+                        // The logic to find out which ones should appear
+                        return controller.names.where((suggestion) =>
+                            suggestion.toLowerCase().contains(value.text.toLowerCase()));
+                      },
+                      onSelected: (value) {
+                        // setState(() {
+                        //   _selectedAnimal = value;
+                        // });
+                      },
+
+                    ),
+
+                    // TextField(
+                    //   textCapitalization: TextCapitalization.words,
+                    //   //onChanged: onSearchTextChanged,
+                    //   decoration: InputDecoration(
+                    //     hintText: 'Search Medicine', //getTranslated(context, searchMedicine_hint).toString(),
+                    //     hintStyle: TextStyle(
+                    //       fontSize: width * 0.04,
+                    //       color: Colors.blueAccent,
+                    //     ),
+                    //     suffixIcon: Padding(
+                    //       padding: const EdgeInsets.all(12),
+                    //       child: Icon(Icons.search_sharp, color: Colors.grey)
+                    //     ),
+                    //     border: InputBorder.none,
+                    //   ),
+                    // ),
+                  ),
+                ),
               ),
+              GFSearchBar(
+                  searchList: controller.names,
+                  searchQueryBuilder: (query, list) => list
+                      .where((item) {
+                    return item!.toString().toLowerCase().contains(query.toLowerCase());
+                  })
+                      .toList(),
+                  overlaySearchListItemBuilder: (dynamic item) => Container(
+                    padding: const EdgeInsets.all(8),
+                    child: Text(
+                      item,
+                      style: const TextStyle(fontSize: 18,color: Colors.black),
+                    ),
+                  ),
+                  onItemSelected: (dynamic item) {
+                    // setState(() {
+                    //   print('$item');
+                    // });
+                  }),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.center, //Center Row contents horizontally,
                 crossAxisAlignment: CrossAxisAlignment.center, //Center Row contents vertically,
                 children: <Widget>[
-                  new Flexible(child: Container(
-                    //height: 50,
+                  // new Flexible(child: Container(
+                  //   //height: 50,
+                  //   //width: 140,
+                  //   child: TextFieldWidgetSmall(
+                  //     labelText: "A.Qty",
+                  //     hintText: "",
+                  //     initialValue: controller.itemAvQty.value,
+                  //     keyboardType: TextInputType.number,
+                  //     //editController: controller.controllerDestino,
+                  //     onChanged: (input) {
+                  //        controller.itemAvQty.value = input;
+                  //     },
+                  //     // limit: 255,
+                  //     // validator: (input) => input!.isEmpty ? "This field Shouldn't be empty".tr : null,
+                  //     // iconData: Icons.person,
+                  //     isFirst: true,
+                  //     isLast: false,
+                  //   ),
+                  // ), flex: 1,),
+                  new Flexible(
+                    child: Container(
                     //width: 140,
-                    child: TextFieldWidgetSmall(
-                      labelText: "A.Qty",
-                      hintText: "",
-                      initialValue: controller.itemAvQty.value,
-                      keyboardType: TextInputType.number,
-                      //editController: controller.controllerDestino,
-                      onChanged: (input) {
-                         controller.itemAvQty.value = input;
-                      },
-                      // limit: 255,
-                      // validator: (input) => input!.isEmpty ? "This field Shouldn't be empty".tr : null,
-                      // iconData: Icons.person,
-                      isFirst: true,
-                      isLast: false,
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Center(
+                        child: Container(
+                          //width: 60.0,
+                          foregroundDecoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5.0),
+                            border: Border.all(
+                              color: Colors.blueAccent,
+                              //width: 2.0,
+                            ),
+                          ),
+                          child: Row(
+                            children: <Widget>[
+                              Expanded(
+                                flex: 1,
+                                child: TextFormField(
+                                  textAlign: TextAlign.center,
+                                  decoration: InputDecoration(
+                                    contentPadding: EdgeInsets.all(8.0),
+                                    border:InputBorder.none,
+                                    // OutlineInputBorder(
+                                    //   borderRadius: BorderRadius.circular(5.0),
+                                    // ),
+                                  ),
+                                  controller: _controller,
+                                  keyboardType: TextInputType.numberWithOptions(
+                                    decimal: false,
+                                    signed: true,
+                                  ),
+                                  style: TextStyle(color: Colors.black,fontSize: 20),
+                                ),
+                              ),
+                              Container(
+                                //height: 58.0,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        border: Border(
+                                          bottom: BorderSide(
+                                            width: 0.5,
+                                          ),
+                                        ),
+                                      ),
+                                      child: InkWell(
+                                        child: Icon(
+                                          Icons.arrow_drop_up,
+                                          size: 28.0,
+                                        ),
+                                        onTap: () {
+                                          int currentValue = int.parse(_controller.text);
+                                          //setState(() {
+                                          currentValue++;
+                                          _controller.text = (currentValue)
+                                              .toString(); // incrementing value
+                                          //});
+                                        },
+                                      ),
+                                    ),
+                                    InkWell(
+                                      child: Icon(
+                                        Icons.arrow_drop_down,
+                                        size: 28.0,
+                                      ),
+                                      onTap: () {
+                                        int currentValue = int.parse(_controller.text);
+                                        //setState(() {
+                                        print("Setting state");
+                                        currentValue--;
+                                        _controller.text =
+                                            (currentValue > 0 ? currentValue : 0)
+                                                .toString(); // decrementing value
+                                        //});
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                     ),
                   ), flex: 1,),
-                  new Flexible(child: Container(
-                    //width: 140,
-                    child: TextFieldWidgetSmall(
-                      labelText: "Qty",
-                      hintText: "",
-                      initialValue: '',
-                      keyboardType: TextInputType.number,
-                      onChanged: (input) {
-                        controller.itemQty.value = input;
-                      },
-                      // limit: 255,
-                      // validator: (input) => input!.isEmpty ? "This field Shouldn't be empty".tr : null,
-                      // iconData: Icons.person,
-                      isFirst: true,
-                      isLast: false,
-                    ),
-                  ), flex: 1,),
-
+                  SizedBox(
+                    width: 20,
+                  ),
                   new Flexible(child:
                       Column(
                         children: [
-                          SizedBox(
-                            height: 20,
-                          ),
+                          // SizedBox(
+                          //   height: 20,
+                          // ),
                           Container(
                             //height: 45,
                             child:  RaisedButton(
