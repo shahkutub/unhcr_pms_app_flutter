@@ -55,8 +55,7 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
 
-                              Obx(
-                                    () => Text(""+controller.userNAme.value,
+                              Obx(() => Text(""+controller.userNAme.value,
                                   style: TextStyle(color: Colors.white,fontSize: 12),
                                   textAlign:TextAlign.center,
                                 ),
@@ -127,7 +126,6 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
         ),
         body:Column(
             children: <Widget>[
-
               Container(
                 margin: EdgeInsets.only(
                     left: width * 0.05, right: width * 0.05, top: 10),
@@ -182,25 +180,28 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
                   ),
                 ),
               ),
-              GFSearchBar(
-                  searchList: controller.names,
-                  searchQueryBuilder: (query, list) => list
-                      .where((item) {
-                    return item!.toString().toLowerCase().contains(query.toLowerCase());
-                  })
-                      .toList(),
-                  overlaySearchListItemBuilder: (dynamic item) => Container(
-                    padding: const EdgeInsets.all(8),
-                    child: Text(
-                      item,
-                      style: const TextStyle(fontSize: 18,color: Colors.black),
-                    ),
-                  ),
-                  onItemSelected: (dynamic item) {
-                    // setState(() {
-                    //   print('$item');
-                    // });
-                  }),
+
+             GFSearchBar(
+                 searchList: controller.names,
+                 searchQueryBuilder: (query, list) => list
+                     .where((item) {
+                   return item!.toString().toLowerCase().contains(query.toLowerCase());
+                 })
+                     .toList(),
+                 overlaySearchListItemBuilder: (dynamic item) => Container(
+                   padding: const EdgeInsets.all(8),
+                   child: Text(
+                     item,
+                     style: const TextStyle(fontSize: 18,color: Colors.black),
+                   ),
+                 ),
+                 onItemSelected: (dynamic item) {
+                   // setState(() {
+                   //   print('$item');
+                   // });
+                 }),
+
+
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.center, //Center Row contents horizontally,
