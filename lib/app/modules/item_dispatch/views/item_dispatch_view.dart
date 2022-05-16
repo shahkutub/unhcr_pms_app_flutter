@@ -1,7 +1,5 @@
 
 
-import 'package:brac_arna/app/modules/global_widgets/dropdown_widget_menu.dart';
-import 'package:brac_arna/app/modules/global_widgets/text_field_widget.dart';
 import 'package:brac_arna/app/modules/item_dispatch/controllers/item_dispatch_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -9,9 +7,6 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:getwidget/components/search_bar/gf_search_bar.dart';
 
-import '../../global_widgets/dropdown_widget.dart';
-import '../../global_widgets/dropdown_widget_small.dart';
-import '../../global_widgets/text_field_widget_small.dart';
 
 class ItemDispatchView extends GetView<ItemDispatchController>{
   final _size = Get.size;
@@ -23,8 +18,8 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
     double height;
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
-    TextEditingController _controller = TextEditingController();
-    _controller.text = "";
+    // TextEditingController _controller = TextEditingController();
+    // _controller.text = "0";
     // final List<String> _suggestions = [
     //   'Alligator',
     //   'Buffalo',
@@ -55,18 +50,18 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
 
-                              Obx(() => Text(""+controller.userNAme.value,
-                                  style: TextStyle(color: Colors.white,fontSize: 12),
-                                  textAlign:TextAlign.center,
-                                ),
-                              ),
-
-                              Obx(
-                                    () => Text(""+controller.userRole.value,
-                                  style: TextStyle(color: Colors.white,fontSize: 12),
-                                  textAlign:TextAlign.center,
-                                ),
-                              ),
+                              // Obx(() => Text(""+controller.userNAme.value,
+                              //     style: TextStyle(color: Colors.white,fontSize: 12),
+                              //     textAlign:TextAlign.center,
+                              //   ),
+                              // ),
+                              //
+                              // Obx(
+                              //       () => Text(""+controller.userRole.value,
+                              //     style: TextStyle(color: Colors.white,fontSize: 12),
+                              //     textAlign:TextAlign.center,
+                              //   ),
+                              // ),
 
 
                             ],
@@ -127,79 +122,144 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
         body:Column(
             children: <Widget>[
               Container(
-                margin: EdgeInsets.only(
-                    left: width * 0.05, right: width * 0.05, top: 10),
-
-                child: Card(
-                  elevation: 5,
-                  color: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  child: Container(
-                    width: width * 1,
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 2),
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Colors.blueAccent)
+                margin: EdgeInsets.all(10),
+                padding: EdgeInsets.only(top: 0,bottom: 0,right: 10,left: 10),
+                decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.blueAccent,
                     ),
-                    child: Autocomplete<String>(
-                      optionsBuilder: (TextEditingValue value) {
-                        // When the field is empty
-                        if (value.text.isEmpty) {
-                          return [];
-                        }
+                    borderRadius: BorderRadius.all(Radius.circular(5))
+                ),
+                child:Stack(alignment: Alignment.center,
+                  children: <Widget>[
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Autocomplete<String>(
+                        optionsBuilder: (TextEditingValue value) {
+                          // When the field is empty
+                          if (value.text.isEmpty) {
+                            return [];
+                          }
 
-                        // The logic to find out which ones should appear
-                        return controller.names.where((suggestion) =>
-                            suggestion.toLowerCase().contains(value.text.toLowerCase()));
-                      },
-                      onSelected: (value) {
-                        // setState(() {
-                        //   _selectedAnimal = value;
-                        // });
-                      },
+                          // The logic to find out which ones should appear
+                          return controller.names.where((suggestion) =>
+                              suggestion.toLowerCase().contains(value.text.toLowerCase()));
+                        },
+                        onSelected: (value) {
+                          controller.itemName.value = value;
+                          // setState(() {
+                          //   _selectedAnimal = value;
+                          // });
+                        },
 
+                      ),
                     ),
+                    Container(
+                      alignment: Alignment.centerRight,
+                      child: Icon(Icons.search),
 
-                    // TextField(
-                    //   textCapitalization: TextCapitalization.words,
-                    //   //onChanged: onSearchTextChanged,
-                    //   decoration: InputDecoration(
-                    //     hintText: 'Search Medicine', //getTranslated(context, searchMedicine_hint).toString(),
-                    //     hintStyle: TextStyle(
-                    //       fontSize: width * 0.04,
-                    //       color: Colors.blueAccent,
-                    //     ),
-                    //     suffixIcon: Padding(
-                    //       padding: const EdgeInsets.all(12),
-                    //       child: Icon(Icons.search_sharp, color: Colors.grey)
-                    //     ),
-                    //     border: InputBorder.none,
-                    //   ),
-                    // ),
-                  ),
+                      // Column(
+                      //   mainAxisAlignment: MainAxisAlignment.center,
+                      //   crossAxisAlignment: CrossAxisAlignment.center,
+                      //   children: [
+                      //
+                      //     Obx(() => Text(""+controller.userNAme.value,
+                      //       style: TextStyle(color: Colors.white,fontSize: 12),
+                      //       textAlign:TextAlign.center,
+                      //     ),
+                      //     ),
+                      //
+                      //     Obx(
+                      //           () => Text(""+controller.userRole.value,
+                      //         style: TextStyle(color: Colors.white,fontSize: 12),
+                      //         textAlign:TextAlign.center,
+                      //       ),
+                      //     ),
+                      //
+                      //
+                      //   ],
+                      // ),
+                    )
+                  ],
                 ),
               ),
 
-             GFSearchBar(
-                 searchList: controller.names,
-                 searchQueryBuilder: (query, list) => list
-                     .where((item) {
-                   return item!.toString().toLowerCase().contains(query.toLowerCase());
-                 })
-                     .toList(),
-                 overlaySearchListItemBuilder: (dynamic item) => Container(
-                   padding: const EdgeInsets.all(8),
-                   child: Text(
-                     item,
-                     style: const TextStyle(fontSize: 18,color: Colors.black),
-                   ),
-                 ),
-                 onItemSelected: (dynamic item) {
-                   // setState(() {
-                   //   print('$item');
-                   // });
-                 }),
+
+
+             //  Container(
+             //    margin: EdgeInsets.only(
+             //        left: width * 0.05, right: width * 0.05, top: 10),
+             //
+             //    child: Card(
+             //      elevation: 5,
+             //      color: Colors.white,
+             //      shape: RoundedRectangleBorder(
+             //        borderRadius: BorderRadius.circular(5),
+             //      ),
+             //      child: Container(
+             //        width: width * 1,
+             //        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 2),
+             //        decoration: BoxDecoration(
+             //            border: Border.all(color: Colors.blueAccent)
+             //        ),
+             //        child: Autocomplete<String>(
+             //          optionsBuilder: (TextEditingValue value) {
+             //            // When the field is empty
+             //            if (value.text.isEmpty) {
+             //              return [];
+             //            }
+             //
+             //            // The logic to find out which ones should appear
+             //            return controller.names.where((suggestion) =>
+             //                suggestion.toLowerCase().contains(value.text.toLowerCase()));
+             //          },
+             //          onSelected: (value) {
+             //            // setState(() {
+             //            //   _selectedAnimal = value;
+             //            // });
+             //          },
+             //
+             //        ),
+             //
+             //        // TextField(
+             //        //   textCapitalization: TextCapitalization.words,
+             //        //   //onChanged: onSearchTextChanged,
+             //        //   decoration: InputDecoration(
+             //        //     hintText: 'Search Medicine', //getTranslated(context, searchMedicine_hint).toString(),
+             //        //     hintStyle: TextStyle(
+             //        //       fontSize: width * 0.04,
+             //        //       color: Colors.blueAccent,
+             //        //     ),
+             //        //     suffixIcon: Padding(
+             //        //       padding: const EdgeInsets.all(12),
+             //        //       child: Icon(Icons.search_sharp, color: Colors.grey)
+             //        //     ),
+             //        //     border: InputBorder.none,
+             //        //   ),
+             //        // ),
+             //      ),
+             //    ),
+             //  ),
+             //
+             // GFSearchBar(
+             //     searchList: controller.names,
+             //     searchQueryBuilder: (query, list) => list
+             //         .where((item) {
+             //       return item!.toString().toLowerCase().contains(query.toLowerCase());
+             //     })
+             //         .toList(),
+             //     overlaySearchListItemBuilder: (dynamic item) => Container(
+             //       padding: const EdgeInsets.all(8),
+             //       child: Text(
+             //         item,
+             //         style: const TextStyle(fontSize: 18,color: Colors.black),
+             //       ),
+             //     ),
+             //     onItemSelected: (dynamic item) {
+             //       // setState(() {
+             //       //   print('$item');
+             //       // });
+             //     }),
 
 
 
@@ -243,6 +303,7 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
                           ),
                           child: Row(
                             children: <Widget>[
+
                               Expanded(
                                 flex: 1,
                                 child: TextFormField(
@@ -254,11 +315,12 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
                                     //   borderRadius: BorderRadius.circular(5.0),
                                     // ),
                                   ),
-                                  controller: _controller,
+                                  controller: controller.controllerQty.value,
                                   keyboardType: TextInputType.numberWithOptions(
                                     decimal: false,
                                     signed: true,
                                   ),
+                                  //onChanged: ,
                                   style: TextStyle(color: Colors.black,fontSize: 20),
                                 ),
                               ),
@@ -282,10 +344,11 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
                                           size: 28.0,
                                         ),
                                         onTap: () {
-                                          int currentValue = int.parse(_controller.text);
+                                          int currentValue = int.parse(controller.controllerQty.value.text);
+                                          controller.itemQty.value = currentValue.toString();
                                           //setState(() {
                                           currentValue++;
-                                          _controller.text = (currentValue)
+                                          controller.controllerQty.value.text = (currentValue)
                                               .toString(); // incrementing value
                                           //});
                                         },
@@ -297,11 +360,12 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
                                         size: 28.0,
                                       ),
                                       onTap: () {
-                                        int currentValue = int.parse(_controller.text);
+                                        int currentValue = int.parse(controller.controllerQty.value.text);
+                                        controller.itemQty.value = currentValue.toString();
                                         //setState(() {
                                         print("Setting state");
                                         currentValue--;
-                                        _controller.text =
+                                        controller.controllerQty.value.text =
                                             (currentValue > 0 ? currentValue : 0)
                                                 .toString(); // decrementing value
                                         //});
@@ -332,6 +396,7 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
                               child: Text('Add',style: TextStyle(color: Colors.white),),
                               onPressed: () {
 
+                                controller.itemQty.value = controller.controllerQty.value.text;
                                 controller.addItemToList();
 
                                 //controller.controllerDestino.text = '';
@@ -367,20 +432,20 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
                           ),flex: 1,
                       ),
 
-                      Flexible(
-                        child:Container(
-                          // height: 50,
-                          //width: 160,
-                          margin: EdgeInsets.all(2),
-                          // color: controller.msgCount[index]>=10? Colors.blue[400]:
-                          // controller.msgCount[index]>3? Colors.blue[100]: Colors.grey,
-                          child: Center(
-                              child: Text('A.Qty',
-                                style: TextStyle(fontSize: 18),
-                              )
-                          ),
-                        ),flex: 1,
-                      ),
+                      // Flexible(
+                      //   child:Container(
+                      //     // height: 50,
+                      //     //width: 160,
+                      //     margin: EdgeInsets.all(2),
+                      //     // color: controller.msgCount[index]>=10? Colors.blue[400]:
+                      //     // controller.msgCount[index]>3? Colors.blue[100]: Colors.grey,
+                      //     child: Center(
+                      //         child: Text('A.Qty',
+                      //           style: TextStyle(fontSize: 18),
+                      //         )
+                      //     ),
+                      //   ),flex: 1,
+                      // ),
 
                       Flexible(
                         child:Container(
@@ -433,20 +498,20 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
                               ),
                             ), flex: 1,),
 
-                            Flexible(
-                              child: Container(
-                                padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                                // height: 50,
-                               // width: 100,
-                                margin: EdgeInsets.all(5),
-                                // color: controller.msgCount[index]>=10? Colors.blue[400]:
-                                // controller.msgCount[index]>3? Colors.blue[100]: Colors.grey,
-                                child: Center(
-                                    child: Text('${controller.itemList[index].availqty}',
-                                      style: TextStyle(fontSize: 18),
-                                    )
-                                ),
-                              ), flex: 1,),
+                            // Flexible(
+                            //   child: Container(
+                            //     padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+                            //     // height: 50,
+                            //    // width: 100,
+                            //     margin: EdgeInsets.all(5),
+                            //     // color: controller.msgCount[index]>=10? Colors.blue[400]:
+                            //     // controller.msgCount[index]>3? Colors.blue[100]: Colors.grey,
+                            //     child: Center(
+                            //         child: Text('${controller.itemList[index].availqty}',
+                            //           style: TextStyle(fontSize: 18),
+                            //         )
+                            //     ),
+                            //   ), flex: 1,),
 
                             Flexible(
                               child: Container(

@@ -441,19 +441,19 @@ class AfterLoginView extends GetView<after_login_controller> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
 
-                    Obx(
-                          () => Text(""+controller.userNAme.value,
-                              style: TextStyle(color: Colors.white,fontSize: 12),
-                              textAlign:TextAlign.center,
-                            ),
-                    ),
-
-                    Obx(
-                          () => Text(""+controller.userRole.value,
-                            style: TextStyle(color: Colors.white,fontSize: 12),
-                            textAlign:TextAlign.center,
-                          ),
-                    ),
+                    // Obx(
+                    //       () => Text(""+controller.userNAme.value,
+                    //           style: TextStyle(color: Colors.white,fontSize: 12),
+                    //           textAlign:TextAlign.center,
+                    //         ),
+                    // ),
+                    //
+                    // Obx(
+                    //       () => Text(""+controller.userRole.value,
+                    //         style: TextStyle(color: Colors.white,fontSize: 12),
+                    //         textAlign:TextAlign.center,
+                    //       ),
+                    // ),
 
 
                   ],

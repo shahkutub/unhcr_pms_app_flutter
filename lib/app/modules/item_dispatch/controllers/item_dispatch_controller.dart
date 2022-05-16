@@ -18,12 +18,31 @@ class ItemDispatchController extends GetxController{
   //   'Eagle',
   //   'Frog'
   // ].obs;
+  final List areaList = [
+    {"name": "Block 1", "id": "124612615"},
+    {"name": "Block 2", "id": "124612615"},
+    {"name": "Block 3", "id": "124612615"},
+    {"name": "PECHS block 1", "id": "124612615"},
+    {"name": "PECHS block 2", "id": "124612615"},
+    {"name": "PECHS block 3", "id": "124612615"},
+    {"name": "PECHS block 4", "id": "124612615"},
+    {"name": "PECHS block 5", "id": "124612615"},
+    {"name": "PECHS block 6", "id": "124612615"},
+    {"name": "PECHS block 7", "id": "12461265"},
+    {"name": "PECHS block 8", "id": "12461215"},
+    {"name": "PECHS block 9", "id": "12461615"},
+    {"name": "PECHS block 0", "id": "12462615"},
+    {"name": "PECHS block 89", "id": "12612615"},
+    {"name": "PECHS block 88", "id": "1261265"},
+    {"name": "PECHS block 87", "id": "14612615"},
+  ];
   final List<String> names = <String>['Aby', 'Aish', 'Ayan', 'Ben', 'Bob', 'Charlie', 'Cook', 'Carline'].obs;
   final List<int> msgCount = <int>[2, 0, 10, 6, 52, 4, 0, 2].obs;
   final List<ItemDispatchModel> itemList = <ItemDispatchModel>[].obs;
   final List<ItemDispatchModel> searchItemList = <ItemDispatchModel>[].obs;
 
-  var controllerDestino = TextEditingController();
+  var controllerQty = TextEditingController().obs;
+
 
   var nameInput = ''.obs;
   var itemName = ''.obs;
@@ -37,8 +56,9 @@ class ItemDispatchController extends GetxController{
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    userNAme.value = Get.find<AuthService>().currentUser.value.data!.user!.username!.toString();
-    userRole.value = Get.find<AuthService>().currentUser.value.data!.role_info![0].role_name!;
+    controllerQty.value.text = "0";
+    // userNAme.value = Get.find<AuthService>().currentUser.value.data!.user!.username!.toString();
+    // userRole.value = Get.find<AuthService>().currentUser.value.data!.role_info![0].role_name!;
 
 
   }

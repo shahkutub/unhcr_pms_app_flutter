@@ -42,7 +42,7 @@ class AuthService extends GetxService {
     if (_box.hasData('current_user')) {
       currentUser.value = LoginResponse.fromJson(await _box.read('current_user'));
     }
-    print('customer data: ${currentUser.value.data?.user!.username}');
+    //print('customer data: ${currentUser.value.data?.user!.username}');
   }
 
   Future removeCurrentUser() async {
