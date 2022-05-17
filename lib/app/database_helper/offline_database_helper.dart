@@ -7,13 +7,16 @@ import 'package:path_provider/path_provider.dart';
 class DatabaseHelper {
   static final _databaseName = "pms.db";
   static final _databaseVersion = 1;
+  static final columnId = 'id';
+  static final date = 'date';
 
   static final table = 'pms_data_table';
-
-  static final columnId = 'id';
- // static final prodId = 'prodid';
   static final prodName = 'name';
   static final status = 'status';
+
+  static final table_patient_serial = 'table_patient_serial';
+
+
 
   // make this a singleton class
   DatabaseHelper._privateConstructor();
@@ -43,6 +46,13 @@ class DatabaseHelper {
             $columnId INTEGER PRIMARY KEY,
             $prodName TEXT NOT NULL,
              $status INT NOT NULL
+          )
+          ''');
+
+    await db.execute('''
+          CREATE TABLE $table_patient_serial (
+            $columnId INTEGER PRIMARY KEY,
+            $date INT NOT NULL
           )
           ''');
   }
@@ -96,4 +106,27 @@ class DatabaseHelper {
     Database db = await instance.database;
     return await db.delete(table, where: '$columnId = ?', whereArgs: [id]);
   }
+
+
+  //patient_serial
+  Future<int> insert_patient_serial(Map<String, dynamic> row) async {
+    Database db = await instance.database;
+    return await db.insert(table_patient_serial, row);
+  }
+
+  Future<int?> getAllPatientSerialCount() async {
+    Database db = await instance.database;
+    return Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $table_patient_serial'));
+  }
+
+  Future<List<Map<String, dynamic>>> getAllPatientSerial() async {
+    Database db = await instance.database;
+    return await db.query(table_patient_serial);
+  }
+
+  Future<int> deleteSerial(String datedata) async {
+    Database db = await instance.database;
+    return await db.delete(table_patient_serial, where: '$date != ?', whereArgs: [datedata]);
+  }
+
 }

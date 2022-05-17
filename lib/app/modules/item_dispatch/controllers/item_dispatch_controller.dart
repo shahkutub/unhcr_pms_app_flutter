@@ -2,7 +2,9 @@
 
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
+import '../../../database_helper/offline_database_helper.dart';
 import '../../../services/auth_service.dart';
 
 class ItemDispatchController extends GetxController{
@@ -42,6 +44,7 @@ class ItemDispatchController extends GetxController{
   final List<ItemDispatchModel> searchItemList = <ItemDispatchModel>[].obs;
 
   var controllerQty = TextEditingController().obs;
+  var controllerItemName = TextEditingController().obs;
 
 
   var nameInput = ''.obs;
@@ -52,6 +55,8 @@ class ItemDispatchController extends GetxController{
   var userNAme = ''.obs;
   var userRole = ''.obs;
   var selectedItem = ''.obs;
+  var pSerialN0 = '0'.obs;
+  final dbHelper = DatabaseHelper.instance;
   @override
   void onInit() {
     // TODO: implement onInit
@@ -59,6 +64,45 @@ class ItemDispatchController extends GetxController{
     controllerQty.value.text = "0";
     // userNAme.value = Get.find<AuthService>().currentUser.value.data!.user!.username!.toString();
     // userRole.value = Get.find<AuthService>().currentUser.value.data!.role_info![0].role_name!;
+    //insert_patient_serialToLocalDB();
+
+     getPSerialNo();
+
+  }
+
+  Future<void> getPSerialNo() async {
+    var localdataSize = await dbHelper.getAllPatientSerial();
+    print('localdataSize: ${localdataSize.length}');
+    pSerialN0.value = '${localdataSize.length + 1}';
+  }
+
+  Future<void> insert_patient_serialToLocalDB() async {
+    var now = new DateTime.now();
+    var formatter = new DateFormat('yyyy-MM-dd');
+    String formattedDate = formatter.format(now);
+    print(formattedDate);
+
+    Map<String, dynamic> row = {
+      DatabaseHelper.date: formattedDate
+    };
+    await dbHelper.insert_patient_serial(row);
+    var localdataSize = await dbHelper.getAllPatientSerial();
+    print('localdataSize: ${localdataSize.length}');
+    getPSerialNo();
+    //await dbHelper.deleteSerial(formattedDate);
+
+    //await dbHelper.insert_patient_serial(row);
+    // var localdataSize2 = await dbHelper.getAllPatientSerial();
+    // print('localdataSize: ${localdataSize2.length}');
+
+    // var localdataSize = await dbHelper.queryAllRecords();
+    // print('localdataSize: ${localdataSize.length}');
+    // for (var i = 0; i < localdataSize.length; i++) {
+    //   Map<String, dynamic> map = localdataSize[i];
+    //   var name = map['name'];
+    //   print("name: "+name);
+    //   // var id = map['id'];
+    // }
 
 
   }
