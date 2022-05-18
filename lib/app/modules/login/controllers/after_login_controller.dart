@@ -33,8 +33,8 @@ class after_login_controller extends GetxController {
   @override
   void onInit() {
 
-    userNAme.value = Get.find<AuthService>().currentUser.value.data!.user!.username!.toString();
-    userRole.value = Get.find<AuthService>().currentUser.value.data!.role_info![0].role_name!;
+    userNAme.value = Get.find<AuthService>().currentUser.value.data!.users!.username!.toString();
+    userRole.value = Get.find<AuthService>().currentUser.value.data!.roles![0].role_name!;
 
     getLocationPermission();
     //AuthRepository().allProd();

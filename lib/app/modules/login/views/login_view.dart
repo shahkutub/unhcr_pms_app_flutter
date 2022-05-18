@@ -213,11 +213,11 @@ class LoginView extends GetView<LoginController> {
                                   // Get.offAllNamed(Routes.INFORMATION_FORM);
                                   //Get.offAllNamed(Routes.PROVIDED_DATA_LIST);
 
-                                  Get.offAllNamed(Routes.AFTER_LOGIN);
+                                 // Get.offAllNamed(Routes.AFTER_LOGIN);
 
-                                  // if (controller.loginFormKey.currentState!.validate()) {
-                                  //   controller.login();
-                                  // }
+                                  if (controller.loginFormKey.currentState!.validate()) {
+                                    controller.login();
+                                  }
                                 },
                                 child: Container(
                                   height: 50,

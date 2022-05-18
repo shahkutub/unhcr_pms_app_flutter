@@ -16,6 +16,8 @@ abstract class Routes {
   static const GENERAL_SEARCH = _Paths.GENERAL_SEARCH;
   static const GEO_LOCATION = _Paths.GEO_LOCATION;
   static const ITEM_DISPATCH = _Paths.ITEM_DISPATCH;
+  static const CONSUMPTION_TALLY = _Paths.CONSUMPTION_TALLY;
+  static const INTERNAL_REQUEST = _Paths.INTERNAL_REQUEST;
 
 }
 
@@ -32,4 +34,6 @@ abstract class _Paths {
   static const GENERAL_SEARCH = '/general_search';
   static const GEO_LOCATION = '/geo_location';
   static const ITEM_DISPATCH = '/item_dispatch';
+  static const CONSUMPTION_TALLY = '/consumption_tally';
+  static const INTERNAL_REQUEST = '/internal_request';
 }

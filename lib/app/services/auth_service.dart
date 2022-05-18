@@ -1,3 +1,4 @@
+import 'package:brac_arna/app/models/LoginDataResponse.dart';
 import 'package:brac_arna/app/models/LoginResponse.dart';
 import 'package:brac_arna/app/models/user_model.dart';
 import 'package:get/get.dart';
@@ -6,7 +7,8 @@ import 'package:get_storage/get_storage.dart';
 import 'settings_service.dart';
 
 class AuthService extends GetxService {
-  final currentUser = LoginResponse().obs;
+  //final currentUser = LoginResponse().obs;
+  final currentUser = LoginDataResponse().obs;
   late GetStorage _box;
 
   AuthService() {
@@ -32,7 +34,13 @@ class AuthService extends GetxService {
   //   return this;
   // }
 
-  void setUser(LoginResponse user) async {
+  // void setUser(LoginResponse user) async {
+  //   _box.write('current_user', user.toJson());
+  //
+  //   await getCurrentUser();
+  // }
+
+  void setUser(LoginDataResponse user) async {
     _box.write('current_user', user.toJson());
 
     await getCurrentUser();
@@ -40,15 +48,27 @@ class AuthService extends GetxService {
 
   Future getCurrentUser() async {
     if (_box.hasData('current_user')) {
-      currentUser.value = LoginResponse.fromJson(await _box.read('current_user'));
+      currentUser.value = LoginDataResponse.fromJson(await _box.read('current_user'));
     }
     //print('customer data: ${currentUser.value.data?.user!.username}');
   }
 
+  // Future getCurrentUser() async {
+  //   if (_box.hasData('current_user')) {
+  //     currentUser.value = LoginResponse.fromJson(await _box.read('current_user'));
+  //   }
+  //   //print('customer data: ${currentUser.value.data?.user!.username}');
+  // }
+
   Future removeCurrentUser() async {
-    currentUser.value = LoginResponse();
+    currentUser.value = LoginDataResponse();
     await _box.remove('current_user');
   }
+
+  // Future removeCurrentUser() async {
+  //   currentUser.value = LoginResponse();
+  //   await _box.remove('current_user');
+  // }
 
   bool get isAuth => currentUser.value.data!.access_token == null ? false : true;
 

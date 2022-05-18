@@ -441,19 +441,19 @@ class AfterLoginView extends GetView<after_login_controller> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
 
-                    // Obx(
-                    //       () => Text(""+controller.userNAme.value,
-                    //           style: TextStyle(color: Colors.white,fontSize: 12),
-                    //           textAlign:TextAlign.center,
-                    //         ),
-                    // ),
-                    //
-                    // Obx(
-                    //       () => Text(""+controller.userRole.value,
-                    //         style: TextStyle(color: Colors.white,fontSize: 12),
-                    //         textAlign:TextAlign.center,
-                    //       ),
-                    // ),
+                    Obx(
+                          () => Text(""+controller.userNAme.value,
+                              style: TextStyle(color: Colors.white,fontSize: 12),
+                              textAlign:TextAlign.center,
+                            ),
+                    ),
+
+                    Obx(
+                          () => Text(""+controller.userRole.value,
+                            style: TextStyle(color: Colors.white,fontSize: 12),
+                            textAlign:TextAlign.center,
+                          ),
+                    ),
 
 
                   ],
@@ -475,7 +475,7 @@ class AfterLoginView extends GetView<after_login_controller> {
               child: Row(
                 children: [
                   Text(
-                    "Developed By: ",style: TextStyle(color: Colors.black),
+                    "Developed & Maintenance By :",style: TextStyle(color: Colors.black),
                   ),
                   Text(
                     "  Nanosoft",style: TextStyle(color: Colors.white),
@@ -848,6 +848,11 @@ class AfterLoginView extends GetView<after_login_controller> {
                             ),
                             Card(
                                 elevation: 0,
+
+                              child:GestureDetector(
+                                onTap: () {
+                                  Get.toNamed(Routes.CONSUMPTION_TALLY);
+                                },
                                 child:Container(
                                   height: 75,
                                   width: 115,
@@ -863,7 +868,6 @@ class AfterLoginView extends GetView<after_login_controller> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment: CrossAxisAlignment.center,
                                     children: [
-
                                       Icon(Icons.security,color: Colors.pink,),
                                       SizedBox(
                                         height: 5,
@@ -875,39 +879,48 @@ class AfterLoginView extends GetView<after_login_controller> {
                                     ],
                                   ),
                                 )
+                              )
+
+
                             ),
                             SizedBox(
                               width: 5,
                             ),
                             Card(
                                 elevation: 0,
-                                child:Container(
-                                  height: 75,
-                                  width: 110,
-                                  //padding: EdgeInsets.all(10),
-                                  // decoration: BoxDecoration(
-                                  //   //color: Colors.green,
-                                  //   border: Border.all(color: Colors.red),
-                                  //   borderRadius: BorderRadius.all(
-                                  //       Radius.circular(8.0) //                 <--- border radius here
-                                  //   ),
-                                  // ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
+                              child:GestureDetector(
+                                  onTap: () {
+                                    Get.toNamed(Routes.INTERNAL_REQUEST);
+                                  },
+                                  child:Container(
+                                    height: 75,
+                                    width: 110,
+                                    //padding: EdgeInsets.all(10),
+                                    // decoration: BoxDecoration(
+                                    //   //color: Colors.green,
+                                    //   border: Border.all(color: Colors.red),
+                                    //   borderRadius: BorderRadius.all(
+                                    //       Radius.circular(8.0) //                 <--- border radius here
+                                    //   ),
+                                    // ),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
 
-                                      Icon(Icons.request_quote_outlined,color: Colors.pink,),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text("Internal Request",
-                                        style: TextStyle(color: Colors.black,fontSize: 12),
-                                        textAlign:TextAlign.center,
-                                      ),
-                                    ],
-                                  ),
-                                )
+                                        Icon(Icons.request_quote_outlined,color: Colors.pink,),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text("Internal Request",
+                                          style: TextStyle(color: Colors.black,fontSize: 12),
+                                          textAlign:TextAlign.center,
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                              ),
+
                             ),
                             // SizedBox(
                             //   width: 5,

@@ -62,8 +62,8 @@ class ItemDispatchController extends GetxController{
     // TODO: implement onInit
     super.onInit();
     controllerQty.value.text = "0";
-    // userNAme.value = Get.find<AuthService>().currentUser.value.data!.user!.username!.toString();
-    // userRole.value = Get.find<AuthService>().currentUser.value.data!.role_info![0].role_name!;
+    userNAme.value = Get.find<AuthService>().currentUser.value.data!.users!.username!.toString();
+    userRole.value = Get.find<AuthService>().currentUser.value.data!.roles![0].role_name!;
     //insert_patient_serialToLocalDB();
 
      getPSerialNo();
@@ -71,6 +71,12 @@ class ItemDispatchController extends GetxController{
   }
 
   Future<void> getPSerialNo() async {
+    var now = new DateTime.now();
+    var formatter = new DateFormat('yyyy-MM-dd');
+    String formattedDate = formatter.format(now);
+    print(formattedDate);
+    await dbHelper.deleteSerial(formattedDate);
+
     var localdataSize = await dbHelper.getAllPatientSerial();
     print('localdataSize: ${localdataSize.length}');
     pSerialN0.value = '${localdataSize.length + 1}';

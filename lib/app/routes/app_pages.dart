@@ -1,3 +1,6 @@
+import 'package:brac_arna/app/modules/consumption_tally/bindings/consumption_tally_binding.dart';
+import 'package:brac_arna/app/modules/consumption_tally/views/consumption_tally_view.dart';
+import 'package:brac_arna/app/modules/internal_request/controllers/internal_request_controller.dart';
 import 'package:brac_arna/app/modules/item_dispatch/bindings/item_dispatch_binding.dart';
 import 'package:brac_arna/app/modules/item_dispatch/views/item_dispatch_view.dart';
 import 'package:brac_arna/app/modules/login/views/after_login_view.dart';
@@ -22,6 +25,8 @@ import '../modules/institute_search/bindings/general_search_binding.dart';
 import '../modules/institute_search/bindings/institute_search_binding.dart';
 import '../modules/institute_search/views/general_search_view.dart';
 import '../modules/institute_search/views/institute_search_list_view.dart';
+import '../modules/internal_request/bindings/internal_request_binding.dart';
+import '../modules/internal_request/views/internal_request_view.dart';
 import '../modules/login/bindings/after_login_binding.dart';
 import '../modules/provided_data_list/bindings/single_inspectionView.dart';
 import '../modules/provided_data_list/bindings/single_inspectionView_pdf.dart';
@@ -103,6 +108,17 @@ class AppPages {
       binding: ItemDispatchBinding(),
     ),
 
+    GetPage(
+      name: _Paths.CONSUMPTION_TALLY,
+      page: () => ConsumptionTallyView(),
+      binding: ConsumptionTallyBinding(),
+    ),
+
+    GetPage(
+      name: _Paths.INTERNAL_REQUEST,
+      page: () => InternalRequestView(),
+      binding: InternalRequestBinding(),
+    ),
 
 
   ];

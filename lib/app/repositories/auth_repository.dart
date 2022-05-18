@@ -1,6 +1,7 @@
 import 'package:brac_arna/app/api_providers/api_manager.dart';
 import 'package:brac_arna/app/api_providers/api_url.dart';
 import 'package:brac_arna/app/models/AllProdResponse.dart';
+import 'package:brac_arna/app/models/LoginDataResponse.dart';
 import 'package:brac_arna/app/models/LoginResponse.dart';
 import 'package:brac_arna/app/models/user_model.dart';
 import 'package:brac_arna/app/services/auth_service.dart';
@@ -22,8 +23,8 @@ class AuthRepository {
       print('response: ${response}');
 
       if (response != null) {
-        Get.find<AuthService>().setUser(LoginResponse.fromJson(response));
-        return LoginResponse.fromJson(response);
+        Get.find<AuthService>().setUser(LoginDataResponse.fromJson(response));
+        return LoginDataResponse.fromJson(response);
       } else {
         return 'Unauthorised';
       }
