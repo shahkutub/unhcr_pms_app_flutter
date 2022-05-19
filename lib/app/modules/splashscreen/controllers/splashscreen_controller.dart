@@ -6,12 +6,16 @@ import 'package:get/get.dart';
 
 class SplashscreenController extends GetxController {
   //TODO: Implement SplashscreenController
-
+  var userNAme = ''.obs;
   @override
   void onInit() {
     print('called');
     Timer(Duration(seconds: 3), () {
-      if (Get.find<AuthService>().isAuth) {
+      //userNAme.value = Get.find<AuthService>().currentUser.value.data!.users!.username!.toString();
+
+      //print('called: '+userNAme.value);
+     // if (Get.find<AuthService>().isAuth) {
+      if (Get.find<AuthService>().currentUser.value.data != null) {
         Get.offAllNamed(Routes.AFTER_LOGIN);
       } else {
         Get.offAllNamed(Routes.LOGIN);

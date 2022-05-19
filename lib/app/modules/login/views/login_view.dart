@@ -139,7 +139,7 @@ class LoginView extends GetView<LoginController> {
                                // decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey))),
                                 child: TextFormField(
                                  // controller: controller.userNameController.value,
-                                  initialValue: "",
+                                  initialValue: "admin@unhcr.org",
                                   onChanged: (input) {
                                     controller.userData.value.userName = input;
                                   },
@@ -183,7 +183,7 @@ class LoginView extends GetView<LoginController> {
                                 padding: EdgeInsets.all(5.0),
                                 child: TextFormField(
                                  // controller: controller.passwordController.value,
-                                  initialValue: "",
+                                  initialValue: "Pms@1234",
                                   onChanged: (input) {
                                     controller.userData.value.password = input;
                                   },

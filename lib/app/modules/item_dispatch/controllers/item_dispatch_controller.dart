@@ -20,6 +20,19 @@ class ItemDispatchController extends GetxController{
   //   'Eagle',
   //   'Frog'
   // ].obs;
+   List<Country> countryOptions = <Country>[
+    Country(name: 'Allopurinol (Tablet 250)', size: 30370000),
+    Country(name: 'BCG (vaccine) ', size: 44579000),
+    Country(name: 'Chlorambucil (Tablet 250)', size: 8600000),
+    Country(name: 'Doxycycline (Tablet 250)', size: 110879),
+    Country(name: 'Doxycycline (Tablet 250)', size: 9984670),
+    Country(name: 'Folic acid (Tablet 250)', size: 42916),
+    Country(name: 'Gliclazide (Tablet 250)', size: 10180000),
+    Country(name: 'Glyceryl trinitrate (Tablet 250)', size: 3287263),
+    Country(name: 'North America', size: 24709000),
+    Country(name: 'South America', size: 17840000),
+  ].obs;
+
   final List areaList = [
     {"name": "Block 1", "id": "124612615"},
     {"name": "Block 2", "id": "124612615"},
@@ -38,7 +51,7 @@ class ItemDispatchController extends GetxController{
     {"name": "PECHS block 88", "id": "1261265"},
     {"name": "PECHS block 87", "id": "14612615"},
   ];
-  final List<String> names = <String>['Aby', 'Aish', 'Ayan', 'Ben', 'Bob', 'Charlie', 'Cook', 'Carline'].obs;
+  final List<String> names = <String>['Allopurinol (Tablet 250)', 'BCG (vaccine) ', 'Chlorambucil (Tablet 250)', 'Doxycycline (Tablet 250)', 'Ergometrine (Injection)', 'Folic acid (Tablet 250)', 'Gliclazide (Tablet 250)', 'Glyceryl trinitrate (Tablet 250)'].obs;
   final List<int> msgCount = <int>[2, 0, 10, 6, 52, 4, 0, 2].obs;
   final List<ItemDispatchModel> itemList = <ItemDispatchModel>[].obs;
   final List<ItemDispatchModel> searchItemList = <ItemDispatchModel>[].obs;
@@ -56,6 +69,7 @@ class ItemDispatchController extends GetxController{
   var userRole = ''.obs;
   var selectedItem = ''.obs;
   var pSerialN0 = '0'.obs;
+  var itemSize = 0.obs;
   final dbHelper = DatabaseHelper.instance;
   @override
   void onInit() {
@@ -78,6 +92,7 @@ class ItemDispatchController extends GetxController{
     await dbHelper.deleteSerial(formattedDate);
 
     var localdataSize = await dbHelper.getAllPatientSerial();
+    itemSize.value = localdataSize.length;
     print('localdataSize: ${localdataSize.length}');
     pSerialN0.value = '${localdataSize.length + 1}';
   }
@@ -153,4 +168,20 @@ class ItemDispatchModel {
   var qty = "";
 
   ItemDispatchModel(this.name, this.availqty, this.qty);
+}
+
+class Country {
+
+  const Country({
+    required this.name,
+    required this.size,
+  });
+
+  final String name;
+  final int size;
+
+  @override
+  String toString() {
+    return '$name ($size)';
+  }
 }
