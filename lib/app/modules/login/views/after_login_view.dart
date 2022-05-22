@@ -807,9 +807,10 @@ class AfterLoginView extends GetView<after_login_controller> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Card(
-                              elevation: 0,
-                              child:GestureDetector(
+                            // Card(
+                            //   elevation: 0,
+                            //   child:
+                              GestureDetector(
                                   onTap: () {
                                     Get.toNamed(Routes.ITEM_DISPATCH);
                                   },
@@ -834,22 +835,23 @@ class AfterLoginView extends GetView<after_login_controller> {
                                           height: 5,
                                         ),
                                         Text("Item Dispatch",
-                                          style: TextStyle(color: Colors.black,fontSize: 12),
+                                          style: TextStyle(color: Colors.black,fontSize: 10),
                                           textAlign:TextAlign.center,
                                         ),
                                       ],
                                     ),
                                   )
                               ),
-                            ),
+                            //),
 
                             SizedBox(
                               width: 5,
                             ),
-                            Card(
-                                elevation: 0,
-
-                              child:GestureDetector(
+                            // Card(
+                            //     elevation: 0,
+                            //
+                            //   child:
+                              GestureDetector(
                                 onTap: () {
                                   Get.toNamed(Routes.CONSUMPTION_TALLY);
                                 },
@@ -873,22 +875,23 @@ class AfterLoginView extends GetView<after_login_controller> {
                                         height: 5,
                                       ),
                                       Text("Consumption Tally",
-                                        style: TextStyle(color: Colors.black,fontSize: 12),
+                                        style: TextStyle(color: Colors.black,fontSize: 10),
                                         textAlign:TextAlign.center,
                                       ),
                                     ],
                                   ),
                                 )
-                              )
+                              ),
 
+                            //),
 
-                            ),
                             SizedBox(
                               width: 5,
                             ),
-                            Card(
-                                elevation: 0,
-                              child:GestureDetector(
+                            // Card(
+                            //     elevation: 0,
+                              //child:
+                              GestureDetector(
                                   onTap: () {
                                     Get.toNamed(Routes.INTERNAL_REQUEST);
                                   },
@@ -913,7 +916,7 @@ class AfterLoginView extends GetView<after_login_controller> {
                                           height: 5,
                                         ),
                                         Text("Internal Request",
-                                          style: TextStyle(color: Colors.black,fontSize: 12),
+                                          style: TextStyle(color: Colors.black,fontSize: 10),
                                           textAlign:TextAlign.center,
                                         ),
                                       ],
@@ -921,7 +924,7 @@ class AfterLoginView extends GetView<after_login_controller> {
                                   )
                               ),
 
-                            ),
+                           // ),
                             // SizedBox(
                             //   width: 5,
                             // ),
@@ -978,9 +981,16 @@ class AfterLoginView extends GetView<after_login_controller> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Card(
-                                elevation: 0,
-                                child:Container(
+                            // Card(
+                            //     elevation: 0,
+                            //     child:
+                            GestureDetector(
+                                onTap: () {
+                                  //print("Container was tapped");
+                                  // Get.find<AuthService>().removeCurrentUser();
+                                  // Get.toNamed(Routes.LOGIN);
+                                },
+                                child: Container(
                                   height: 75,
                                   width: 110,
                                   //padding: EdgeInsets.all(10),
@@ -1001,19 +1011,28 @@ class AfterLoginView extends GetView<after_login_controller> {
                                         height: 5,
                                       ),
                                       Text("Report",
-                                        style: TextStyle(color: Colors.black,fontSize: 12),
+                                        style: TextStyle(color: Colors.black,fontSize: 10),
                                         textAlign:TextAlign.center,
                                       ),
                                     ],
                                   ),
                                 )
                             ),
+
+                           // ),
                             SizedBox(
                               width: 5,
                             ),
-                            Card(
-                                elevation: 0,
-                                child:Container(
+                            // Card(
+                            //     elevation: 0,
+                            //     child:
+                            GestureDetector(
+                                onTap: () {
+                                  //print("Container was tapped");
+                                  // Get.find<AuthService>().removeCurrentUser();
+                                  // Get.toNamed(Routes.LOGIN);
+                                },
+                                child: Container(
                                   height: 75,
                                   width: 110,
                                   //padding: EdgeInsets.all(10),
@@ -1034,19 +1053,23 @@ class AfterLoginView extends GetView<after_login_controller> {
                                         height: 5,
                                       ),
                                       Text("Sync",
-                                        style: TextStyle(color: Colors.black,fontSize: 12),
+                                        style: TextStyle(color: Colors.black,fontSize: 10),
                                         textAlign:TextAlign.center,
                                       ),
                                     ],
                                   ),
                                 )
                             ),
+
+                            //),
                             SizedBox(
                               width: 5,
                             ),
-                            Card(
-                              elevation: 0,
-                              child:GestureDetector(
+                            // Card(
+                            //   elevation: 0,
+                            //   child:
+
+                              GestureDetector(
                                   onTap: () {
                                     //print("Container was tapped");
                                     Get.find<AuthService>().removeCurrentUser();
@@ -1073,14 +1096,14 @@ class AfterLoginView extends GetView<after_login_controller> {
                                           height: 5,
                                         ),
                                         Text("Log Out",
-                                          style: TextStyle(color: Colors.black,fontSize: 12),
+                                          style: TextStyle(color: Colors.black,fontSize: 10),
                                           textAlign:TextAlign.center,
                                         ),
                                       ],
                                     ),
                                   )
                               ),
-                            ),
+                            //),
 
                           ],
                         ),

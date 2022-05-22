@@ -5,6 +5,9 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../../database_helper/offline_database_helper.dart';
+import '../../../models/drug_list_response.dart';
+import '../../../repositories/information_repository.dart';
+import '../../../routes/app_pages.dart';
 import '../../../services/auth_service.dart';
 
 class ItemDispatchController extends GetxController{
@@ -71,6 +74,7 @@ class ItemDispatchController extends GetxController{
   var pSerialN0 = '0'.obs;
   var itemSize = 0.obs;
   final dbHelper = DatabaseHelper.instance;
+  final druglistResonse = DrugListResponse().obs;
   @override
   void onInit() {
     // TODO: implement onInit
@@ -81,6 +85,8 @@ class ItemDispatchController extends GetxController{
     //insert_patient_serialToLocalDB();
 
      getPSerialNo();
+    get_drug_list();
+
 
   }
 
@@ -97,6 +103,7 @@ class ItemDispatchController extends GetxController{
     pSerialN0.value = '${localdataSize.length + 1}';
   }
 
+  // insert serial
   Future<void> insert_patient_serialToLocalDB() async {
     var now = new DateTime.now();
     var formatter = new DateFormat('yyyy-MM-dd');
@@ -128,9 +135,44 @@ class ItemDispatchController extends GetxController{
 
   }
 
+  // insert serial
+  Future<void> insert_item_dispatch_ToLocalDB() async {
+    var now = new DateTime.now();
+    var formatter = new DateFormat('dd-MM-yyyy');
+    String formattedDate = formatter.format(now);
+    print(formattedDate);
+
+    Map<String, dynamic> row = {
+      DatabaseHelper.date: formattedDate,
+      DatabaseHelper.serial: pSerialN0.value,
+      DatabaseHelper.medicine_name: itemName.value,
+      DatabaseHelper.quantity: itemAvQty.value
+    };
+    await dbHelper.insert_item_dispatch(row);
+    var localdataSize = await dbHelper.get_tem_dispatch();
+    print('localdataitemSize: ${localdataSize.length}');
+    //getPSerialNo();
+    //await dbHelper.deleteSerial(formattedDate);
+
+    //await dbHelper.insert_patient_serial(row);
+    // var localdataSize2 = await dbHelper.getAllPatientSerial();
+    // print('localdataSize: ${localdataSize2.length}');
+
+    // var localdataSize = await dbHelper.queryAllRecords();
+    // print('localdataSize: ${localdataSize.length}');
+    // for (var i = 0; i < localdataSize.length; i++) {
+    //   Map<String, dynamic> map = localdataSize[i];
+    //   var name = map['name'];
+    //   print("name: "+name);
+    //   // var id = map['id'];
+    // }
+
+
+  }
+
   void addItemToList(){
 
-    var item = ItemDispatchModel(itemName.value, itemAvQty.value, itemQty.value);
+    var item = ItemDispatchModel('','',itemName.value, itemAvQty.value, itemQty.value);
     itemList.insert(0, item);
     print("itemList: "+itemList[0].name);
 
@@ -139,6 +181,18 @@ class ItemDispatchController extends GetxController{
     //itemAvQty.value = "";
   }
 
+
+  get_drug_list() async {
+    InformationRepository().get_drug_list().then((resp) {
+      druglistResonse.value = resp;
+      if(druglistResonse.value == null){
+        print(druglistResonse.value);
+       // Get.toNamed(Routes.LOGIN);
+      }
+
+
+    });
+  }
 
   @override
   void onReady() {
@@ -163,11 +217,14 @@ class ItemDispatchController extends GetxController{
 }
 
 class ItemDispatchModel {
+  var serial_no = "";
+  var date = "";
   var name = "";
   var availqty = "";
   var qty = "";
 
-  ItemDispatchModel(this.name, this.availqty, this.qty);
+  ItemDispatchModel(
+      this.serial_no, this.date, this.name, this.availqty, this.qty);
 }
 
 class Country {

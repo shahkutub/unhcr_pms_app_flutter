@@ -170,6 +170,7 @@ class ConsumptionTallyView extends GetView<ConsumptionTallyController>{
               ),
               Flexible(
                 child:DropdownSearch<String>(
+
                   //mode of dropdown
                   mode: Mode.MENU,
                   //to show search box
@@ -201,6 +202,15 @@ class ConsumptionTallyView extends GetView<ConsumptionTallyController>{
                     children: [
                       Flexible(
                         child:DropdownSearch<String>(
+                          // dropdownSearchDecoration: InputDecoration(
+                          //   // hintText: "Select a country",
+                          //   // labelText: "Menu mode *",
+                          //   // contentPadding: EdgeInsets.fromLTRB(12, 12, 0, 0),
+                          //   border: UnderlineInputBorder(
+                          //     borderSide: BorderSide(color: Color(0xFF01689A)),
+                          //   ),
+                          //   //border: OutlineInputBorder(borderSide: BorderSide(color:Colors.blueAccent )),
+                          // ),
                           //mode of dropdown
                           mode: Mode.MENU,
                           //to show search box

@@ -14,7 +14,13 @@ class DatabaseHelper {
   static final prodName = 'name';
   static final status = 'status';
 
+
   static final table_patient_serial = 'table_patient_serial';
+
+  static final table_item_dispatch = 'table_item_dispatch';
+  static final quantity = 'quantity';
+  static final serial = 'serial';
+  static final medicine_name = 'medicine_name';
 
 
 
@@ -53,6 +59,16 @@ class DatabaseHelper {
           CREATE TABLE $table_patient_serial (
             $columnId INTEGER PRIMARY KEY,
             $date INT NOT NULL
+          )
+          ''');
+
+    await db.execute('''
+          CREATE TABLE $table_item_dispatch (
+            $columnId INTEGER PRIMARY KEY,
+            $serial INT NOT NULL,
+            $date INT NOT NULL,
+            $medicine_name INT NOT NULL,
+            $quantity INT NOT NULL
           )
           ''');
   }
@@ -108,7 +124,7 @@ class DatabaseHelper {
   }
 
 
-  //patient_serial
+  //patient_serial add
   Future<int> insert_patient_serial(Map<String, dynamic> row) async {
     Database db = await instance.database;
     return await db.insert(table_patient_serial, row);
@@ -127,6 +143,17 @@ class DatabaseHelper {
   Future<int> deleteSerial(String datedata) async {
     Database db = await instance.database;
     return await db.delete(table_patient_serial, where: '$date != ?', whereArgs: [datedata]);
+  }
+
+  //item dispatch add
+  Future<int> insert_item_dispatch(Map<String, dynamic> row) async {
+    Database db = await instance.database;
+    return await db.insert(table_item_dispatch, row);
+  }
+
+  Future<List<Map<String, dynamic>>> get_tem_dispatch() async {
+    Database db = await instance.database;
+    return await db.query(table_item_dispatch);
   }
 
 }

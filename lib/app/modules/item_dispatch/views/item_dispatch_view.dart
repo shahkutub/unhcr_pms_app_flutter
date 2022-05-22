@@ -7,6 +7,8 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:getwidget/components/search_bar/gf_search_bar.dart';
 
+import '../../../models/drug_list_response.dart';
+
 
 class ItemDispatchView extends GetView<ItemDispatchController>{
   final _size = Get.size;
@@ -128,121 +130,158 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
               children: <Widget>[
 
                 SizedBox(
-                  height: 10,
+                  height: 5,
                 ),
                 Text(
                   "Item Dispatch",
                   style: TextStyle(color: Colors.teal, fontWeight: FontWeight.bold,fontSize: 15),
                 ),
-                SizedBox(
-                  height: 20,
-                ),
+                Stack(
+                  children: <Widget>[
+                    Align(alignment: Alignment.centerRight,
+                      child: Container(
+                        padding: EdgeInsets.all(5),
+                        margin: EdgeInsets.all(0),
+                        // decoration: BoxDecoration(
+                        //   border:Border.all(color: Colors.blueAccent) ,
+                        //   borderRadius: BorderRadius.all(Radius.circular(20)),
+                        // ),
 
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  //crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: 130,
-                         padding: EdgeInsets.all(20),
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Colors.blueAccent,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Serial no: ",
+                              style: TextStyle(color: Colors.black, fontWeight: FontWeight.normal,fontSize: 13),
                             ),
-                            shape: BoxShape.circle,
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Serial no",
-                                style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold,fontSize: 13),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Obx(() =>
-                                  Text(
-                                    controller.pSerialN0.value,
-                                    style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold,fontSize: 17),
-                                  ),
-                              ),
-                            ],
-                          ),
-                        ),
-                       // SizedBox(width: 5,),
-                        Container(
-                          width: 130,
-                          padding: EdgeInsets.only(top: 20,bottom: 20),
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Colors.blueAccent,
+                            SizedBox(
+                              height: 10,
                             ),
-                            shape: BoxShape.circle,
-                          ),
-                          child:Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "Total",
-                                    style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold,fontSize: 13),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Obx(() =>
-                                      Text(
-                                        controller.itemSize.value.toString(),
-                                        style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold,fontSize: 17),
-                                      ),
-                                  ),
-                                ],
-                              ),
-
-                            ],
-                          ),
-
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                color: Colors.blueAccent,
-                              ),
-                              borderRadius: BorderRadius.all(Radius.circular(20))
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Show list",
-                                style: TextStyle(color: Colors.teal, fontWeight: FontWeight.normal,fontSize: 13),
-                              ),
-
-                            ],
-                          ),
+                            Obx(() =>
+                                Text(
+                                  controller.pSerialN0.value,
+                                  style: TextStyle(color: Colors.red, fontWeight: FontWeight.normal,fontSize: 17),
+                                ),
+                            ),
+                          ],
                         ),
 
-                      ],
+
+                      ),
                     ),
-
-
 
                   ],
                 ),
 
+                SizedBox(
+                  height: 0,
+                ),
+
+                // Column(
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   //crossAxisAlignment: CrossAxisAlignment.center,
+                //   children: [
+                //
+                //     Row(
+                //       crossAxisAlignment: CrossAxisAlignment.center,
+                //       mainAxisAlignment: MainAxisAlignment.center,
+                //       children: [
+                //         Container(
+                //           width: 130,
+                //          padding: EdgeInsets.all(20),
+                //           decoration: BoxDecoration(
+                //             border: Border.all(
+                //               color: Colors.blueAccent,
+                //             ),
+                //             shape: BoxShape.circle,
+                //           ),
+                //           child: Column(
+                //             crossAxisAlignment: CrossAxisAlignment.center,
+                //             children: [
+                //               Text(
+                //                 "Serial no",
+                //                 style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold,fontSize: 13),
+                //               ),
+                //               SizedBox(
+                //                 height: 10,
+                //               ),
+                //               Obx(() =>
+                //                   Text(
+                //                     controller.pSerialN0.value,
+                //                     style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold,fontSize: 17),
+                //                   ),
+                //               ),
+                //             ],
+                //           ),
+                //         ),
+                //        // SizedBox(width: 5,),
+                //         Container(
+                //           width: 130,
+                //           padding: EdgeInsets.only(top: 20,bottom: 20),
+                //           decoration: BoxDecoration(
+                //             border: Border.all(
+                //               color: Colors.blueAccent,
+                //             ),
+                //             shape: BoxShape.circle,
+                //           ),
+                //           child:Row(
+                //             mainAxisAlignment: MainAxisAlignment.center,
+                //             children: [
+                //               Column(
+                //                 crossAxisAlignment: CrossAxisAlignment.center,
+                //                 children: [
+                //                   Text(
+                //                     "Total",
+                //                     style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold,fontSize: 13),
+                //                   ),
+                //                   SizedBox(
+                //                     height: 10,
+                //                   ),
+                //                   Obx(() =>
+                //                       Text(
+                //                         controller.itemSize.value.toString(),
+                //                         style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold,fontSize: 17),
+                //                       ),
+                //                   ),
+                //                 ],
+                //               ),
+                //
+                //             ],
+                //           ),
+                //
+                //         ),
+                //         Container(
+                //           padding: EdgeInsets.all(10),
+                //           decoration: BoxDecoration(
+                //               border: Border.all(
+                //                 color: Colors.blueAccent,
+                //               ),
+                //               borderRadius: BorderRadius.all(Radius.circular(20))
+                //           ),
+                //           child: Column(
+                //             crossAxisAlignment: CrossAxisAlignment.center,
+                //             children: [
+                //               Text(
+                //                 "Show list",
+                //                 style: TextStyle(color: Colors.teal, fontWeight: FontWeight.normal,fontSize: 13),
+                //               ),
+                //
+                //             ],
+                //           ),
+                //         ),
+                //
+                //       ],
+                //     ),
+                //
+                //
+                //
+                //   ],
+                // ),
+
 
 
                 SizedBox(
-                  height: 20,
+                  height: 5,
                 ),
                 // Text(
                 //   "Medicine",
@@ -262,15 +301,15 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
                       Container(
                         //padding: EdgeInsets.only(top: 25,bottom: 25),
                         alignment: Alignment.centerLeft,
-                        child: Autocomplete<Country>(
+                        child: Autocomplete<DrugInfo>(
                           optionsBuilder: (TextEditingValue textEditingValue) {
-                            return controller.countryOptions
-                                .where((Country county) => county.name.toLowerCase()
+                            return controller.druglistResonse.value.drug_info!
+                                .where((DrugInfo county) => county.name!.toLowerCase()
                                 .startsWith(textEditingValue.text.toLowerCase())
                             )
                                 .toList();
                           },
-                          displayStringForOption: (Country option) => option.name,
+                          displayStringForOption: (DrugInfo option) => option.name!+" (generic name"+option.generic_name.toString()+")",
                           fieldViewBuilder: (
                               BuildContext context,
                               TextEditingController fieldTextEditingController,
@@ -476,6 +515,7 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
                                                 _showToast(context,'Enter medicine quantity!');
                                               }else{
                                                 controller.addItemToList();
+                                                controller.insert_item_dispatch_ToLocalDB();
                                                 controller.controllerQty.value.text = "0";
                                                 controller.itemName.value = "";
                                                 fieldTextEditingController.clear();
@@ -504,8 +544,8 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
                             // );
                           },
 
-                          onSelected: (Country selection) {
-                            controller.itemName.value = selection.name;
+                          onSelected: (DrugInfo selection) {
+                            controller.itemName.value = selection.name!+" (generic name"+selection.generic_name.toString()+")";
                             FocusManager.instance.primaryFocus?.unfocus();
                             print('Selected: ${selection.name}');
                           },
@@ -662,7 +702,7 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
                 //     }),
 
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
 
                 // Row(
@@ -824,104 +864,104 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
                 // ),
 
 
-                // Obx(() {
-                //   if(controller.itemList.length>0){
-                //     return
-                //       Container(
-                //         margin: EdgeInsets.only(top: 10),
-                //         child: Row(
-                //           mainAxisAlignment: MainAxisAlignment.center,
-                //           children: [
-                //             Flexible(
-                //               child:Container(
-                //                 padding:  EdgeInsets.all(5),
-                //                 decoration: BoxDecoration(
-                //                     color: Colors.teal,
-                //                     border: Border.all(
-                //                       color: Colors.blueAccent,
-                //                     ),
-                //                     borderRadius: BorderRadius.all(Radius.circular(2))
-                //                 ),
-                //                 // height: 50,
-                //                 //width: 160,
-                //                 // color: controller.msgCount[index]>=10? Colors.blue[400]:
-                //                 // controller.msgCount[index]>3? Colors.blue[100]: Colors.grey,
-                //                 child: Center(
-                //                     child: Text('Medicine Name',
-                //                       style: TextStyle(fontSize: 15,color: Colors.white),
-                //
-                //                     )
-                //                 ),
-                //               ),flex: 4,
-                //             ),
-                //
-                //             // Flexible(
-                //             //   child:Container(
-                //             //     // height: 50,
-                //             //     //width: 160,
-                //             //     margin: EdgeInsets.all(2),
-                //             //     // color: controller.msgCount[index]>=10? Colors.blue[400]:
-                //             //     // controller.msgCount[index]>3? Colors.blue[100]: Colors.grey,
-                //             //     child: Center(
-                //             //         child: Text('A.Qty',
-                //             //           style: TextStyle(fontSize: 18),
-                //             //         )
-                //             //     ),
-                //             //   ),flex: 1,
-                //             // ),
-                //
-                //             Flexible(
-                //               child:Container(
-                //                 padding:  EdgeInsets.all(5),
-                //                 margin: EdgeInsets.only(left: 1),
-                //                 decoration: BoxDecoration(
-                //                     color: Colors.teal,
-                //                     border: Border.all(
-                //                       color: Colors.blueAccent,
-                //                     ),
-                //                     borderRadius: BorderRadius.all(Radius.circular(2))
-                //                 ),
-                //                 child: Center(
-                //                     child: Text('Qty',
-                //                       style: TextStyle(fontSize: 15,color: Colors.white),
-                //                     )
-                //                 ),
-                //               ),flex: 2,
-                //             ),
-                //
-                //
-                //             Flexible(
-                //               child:Container(
-                //                 padding:  EdgeInsets.all(5),
-                //                 margin: EdgeInsets.only(left: 1),
-                //                 decoration: BoxDecoration(
-                //                     color: Colors.teal,
-                //                     border: Border.all(
-                //                       color: Colors.blueAccent,
-                //                     ),
-                //                     borderRadius: BorderRadius.all(Radius.circular(2))
-                //                 ),
-                //                 child: Center(
-                //                     child: Text('Del',
-                //                       style: TextStyle(fontSize: 15,color: Colors.white),
-                //                     )
-                //                 ),
-                //               ),flex: 1,
-                //             ),
-                //
-                //           ],
-                //         ),
-                //       );
-                //   }else{
-                //     return SizedBox(
-                //       height: 0.0,
-                //     );
-                //   }
-                //
-                // }),
+                Obx(() {
+                  if(controller.itemList.length>0){
+                    return
+                      Container(
+                        //margin: EdgeInsets.only(top: 3),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Flexible(
+                              child:Container(
+                                padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+                                decoration: BoxDecoration(
+                                    color: Colors.teal,
+                                    border: Border.all(
+                                      color: Colors.blueAccent,
+                                    ),
+                                    borderRadius: BorderRadius.all(Radius.circular(2))
+                                ),
+                                // height: 50,
+                                //width: 160,
+                                // color: controller.msgCount[index]>=10? Colors.blue[400]:
+                                // controller.msgCount[index]>3? Colors.blue[100]: Colors.grey,
+                                child: Center(
+                                    child: Text('Medicine Name',
+                                      style: TextStyle(fontSize: 15,color: Colors.white),
+
+                                    )
+                                ),
+                              ),flex: 6,
+                            ),
+
+                            // Flexible(
+                            //   child:Container(
+                            //     // height: 50,
+                            //     //width: 160,
+                            //     margin: EdgeInsets.all(2),
+                            //     // color: controller.msgCount[index]>=10? Colors.blue[400]:
+                            //     // controller.msgCount[index]>3? Colors.blue[100]: Colors.grey,
+                            //     child: Center(
+                            //         child: Text('A.Qty',
+                            //           style: TextStyle(fontSize: 18),
+                            //         )
+                            //     ),
+                            //   ),flex: 1,
+                            // ),
+
+                            Flexible(
+                              child:Container(
+                                padding:  EdgeInsets.all(5),
+                                margin: EdgeInsets.only(left: 1),
+                                decoration: BoxDecoration(
+                                    color: Colors.teal,
+                                    border: Border.all(
+                                      color: Colors.blueAccent,
+                                    ),
+                                    borderRadius: BorderRadius.all(Radius.circular(2))
+                                ),
+                                child: Center(
+                                    child: Text('Qty',
+                                      style: TextStyle(fontSize: 15,color: Colors.white),
+                                    )
+                                ),
+                              ),flex: 2,
+                            ),
+
+
+                            Flexible(
+                              child:Container(
+                                padding:  EdgeInsets.all(5),
+                                margin: EdgeInsets.only(left: 1),
+                                decoration: BoxDecoration(
+                                    color: Colors.teal,
+                                    border: Border.all(
+                                      color: Colors.blueAccent,
+                                    ),
+                                    borderRadius: BorderRadius.all(Radius.circular(2))
+                                ),
+                                child: Center(
+                                    child: Text('Del',
+                                      style: TextStyle(fontSize: 15,color: Colors.white),
+                                    )
+                                ),
+                              ),flex: 1,
+                            ),
+
+                          ],
+                        ),
+                      );
+                  }else{
+                    return SizedBox(
+                      height: 0.0,
+                    );
+                  }
+
+                }),
 
                  SizedBox(
-                    height: 10,
+                    height: 0,
                   ),
 
                 // RaisedButton(
@@ -932,153 +972,151 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
                 // ),
 
                 // list
-                // Expanded(
-                //     child: Obx(() => ListView.builder(
-                //         padding: const EdgeInsets.all(0),
-                //         //itemCount: controller.itemList.length,
-                //         itemCount: controller.itemList.length,
-                //         itemBuilder: (BuildContext context, int index) {
-                //           return Row(
-                //             mainAxisAlignment: MainAxisAlignment.center,
-                //             children: [
-                //
-                //               Flexible(
-                //                 child: Container(
-                //
-                //                   padding: const EdgeInsets.fromLTRB(0, 7, 0, 7),
-                //                   // height: 50,
-                //                   //width: 160,
-                //                   margin: EdgeInsets.only(top: 10),
-                //                   decoration: BoxDecoration(
-                //                       color: Colors.white,
-                //                       border: Border.all(
-                //                         color: Colors.blueAccent,
-                //                       ),
-                //                       borderRadius: BorderRadius.all(Radius.circular(2))
-                //                   ),
-                //                   child: Center(
-                //                       child: Text('${controller.itemList[index].name}',
-                //                         style: TextStyle(fontSize: 10),
-                //                         //textAlign: TextAlign.left,
-                //                       )
-                //                   ),
-                //                 ), flex: 4,),
-                //
-                //               // Flexible(
-                //               //   child: Container(
-                //               //     padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                //               //     // height: 50,
-                //               //    // width: 100,
-                //               //     margin: EdgeInsets.all(5),
-                //               //     // color: controller.msgCount[index]>=10? Colors.blue[400]:
-                //               //     // controller.msgCount[index]>3? Colors.blue[100]: Colors.grey,
-                //               //     child: Center(
-                //               //         child: Text('${controller.itemList[index].availqty}',
-                //               //           style: TextStyle(fontSize: 18),
-                //               //         )
-                //               //     ),
-                //               //   ), flex: 1,),
-                //
-                //               Flexible(
-                //                 child: Container(
-                //                   padding: const EdgeInsets.fromLTRB(0, 7, 0,7),
-                //                   margin: EdgeInsets.only(left: 1,top: 10),
-                //                   decoration: BoxDecoration(
-                //                       color: Colors.white,
-                //                       border: Border.all(
-                //                         color: Colors.blueAccent,
-                //                       ),
-                //                       borderRadius: BorderRadius.all(Radius.circular(2))
-                //                   ),
-                //                   child: Center(
-                //                       child: Text('${controller.itemList[index].qty}',
-                //                         style: TextStyle(fontSize: 10,),
-                //                         //textAlign: TextAlign.left,
-                //
-                //                       )
-                //                   ),
-                //                 ),flex: 2,),
-                //
-                //               Flexible(
-                //                 child: GestureDetector(
-                //                     onTap: () {
-                //                       controller.itemList.removeAt(index);
-                //                     },
-                //                     child:Container(
-                //                       padding: const EdgeInsets.fromLTRB(0, 3, 0, 3),
-                //                       margin: EdgeInsets.only(left: 1,top: 10),
-                //                       decoration: BoxDecoration(
-                //                           color: Colors.white,
-                //                           border: Border.all(
-                //                             color: Colors.blueAccent,
-                //                           ),
-                //                           borderRadius: BorderRadius.all(Radius.circular(2))
-                //                       ),
-                //
-                //                       child: Center(
-                //                         child: Icon(Icons.cancel,color: Colors.red,
-                //                           size: 20,),
-                //                       ),)
-                //
-                //                 ),flex: 1,
-                //               ),
-                //
-                //             ],
-                //           );
-                //         }
-                //     )
-                //     )
-                // ),
-                //
-                // SizedBox(
-                //   height: 10,
-                // ),
-                //
-                // Obx(() {
-                //   if(controller.itemList.length>0){
-                //     return
-                //       GestureDetector(
-                //         onTap: () {
-                //           controller.insert_patient_serialToLocalDB();
-                //           controller.itemList.clear();
-                //           _showToast(context,'Added Successfully');
-                //           // Get.offAllNamed(Routes.INFORMATION_FORM);
-                //           //Get.offAllNamed(Routes.PROVIDED_DATA_LIST);
-                //
-                //           //Get.offAllNamed(Routes.AFTER_LOGIN);
-                //
-                //           // if (controller.loginFormKey.currentState!.validate()) {
-                //           //   controller.login();
-                //           // }
-                //         },
-                //         child: Container(
-                //           margin: EdgeInsets.only(left: 140,right: 140),
-                //           height: 40,
-                //           decoration: BoxDecoration(
-                //               borderRadius: BorderRadius.circular(10),
-                //               gradient: LinearGradient(colors: [
-                //                 //Color(0xffec008c),
-                //                 Color(0xff1A62AE),
-                //                 //Colors.pinkAccent.shade100
-                //                 Color(0xff1A62AE)
-                //                 // Color.fromRGBO(143, 148, 251, 1),
-                //                 // Color.fromRGBO(143, 148, 251, .6),
-                //               ])),
-                //           child: Center(
-                //             child: Text(
-                //               "Submit",
-                //               style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                //             ),
-                //           ),
-                //         ),
-                //       );
-                //   }else{
-                //     return SizedBox(
-                //       height: 0.0,
-                //     );
-                //   }
-                //
-                // }),
+                Expanded(
+                    child: Obx(() => ListView.builder(
+                        padding: const EdgeInsets.all(5),
+                        //itemCount: controller.itemList.length,
+                        itemCount: controller.itemList.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+
+                              Flexible(
+                                child: Container(
+
+                                  padding: const EdgeInsets.fromLTRB(0, 7, 0, 7),
+                                  // height: 50,
+                                  //width: 160,
+                                  margin: EdgeInsets.only(top: 7),
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      // border: Border.all(
+                                      //   color: Colors.blueAccent,
+                                      // ),
+                                      //borderRadius: BorderRadius.all(Radius.circular(2))
+                                  ),
+                                  child: Center(
+                                      child: Text('${controller.itemList[index].name}',
+                                        style: TextStyle(fontSize: 12),
+                                        //textAlign: TextAlign.left,
+                                      )
+                                  ),
+                                ), flex: 6,),
+
+                              // Flexible(
+                              //   child: Container(
+                              //     padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+                              //     // height: 50,
+                              //    // width: 100,
+                              //     margin: EdgeInsets.all(5),
+                              //     // color: controller.msgCount[index]>=10? Colors.blue[400]:
+                              //     // controller.msgCount[index]>3? Colors.blue[100]: Colors.grey,
+                              //     child: Center(
+                              //         child: Text('${controller.itemList[index].availqty}',
+                              //           style: TextStyle(fontSize: 18),
+                              //         )
+                              //     ),
+                              //   ), flex: 1,),
+
+                              Flexible(
+                                child: Container(
+                                  padding: const EdgeInsets.fromLTRB(0, 7, 0,7),
+                                  margin: EdgeInsets.only(left: 1,top: 7),
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      // border: Border.all(
+                                      //   color: Colors.blueAccent,
+                                      // ),
+                                     // borderRadius: BorderRadius.all(Radius.circular(2))
+                                  ),
+                                  child: Center(
+                                      child: Text('${controller.itemList[index].qty}',
+                                        style: TextStyle(fontSize: 12,),
+                                        //textAlign: TextAlign.left,
+
+                                      )
+                                  ),
+                                ),flex: 2,),
+
+                              Flexible(
+                                child: GestureDetector(
+                                    onTap: () {
+                                      controller.itemList.removeAt(index);
+                                    },
+                                    child:Container(
+                                      padding: const EdgeInsets.fromLTRB(0, 3, 0, 3),
+                                      margin: EdgeInsets.only(left: 1,top: 7),
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          // border: Border.all(
+                                          //   color: Colors.blueAccent,
+                                          // ),
+                                          //borderRadius: BorderRadius.all(Radius.circular(2))
+                                      ),
+
+                                      child: Center(
+                                        child: Icon(Icons.cancel,color: Colors.red,
+                                          size: 25,),
+                                      ),)
+
+                                ),flex: 1,
+                              ),
+
+                            ],
+                          );
+                        }
+                    )
+                    )
+                ),
+
+                SizedBox(
+                  height: 0,
+                ),
+
+                Obx(() {
+                  if(controller.itemList.length>0){
+                    return
+                      GestureDetector(
+                        onTap: () {
+                          controller.insert_patient_serialToLocalDB();
+                          controller.itemList.clear();
+                          _showToast(context,'Added Successfully');
+                          // Get.offAllNamed(Routes.INFORMATION_FORM);
+                          //Get.offAllNamed(Routes.PROVIDED_DATA_LIST);
+
+                          //Get.offAllNamed(Routes.AFTER_LOGIN);
+
+                          // if (controller.loginFormKey.currentState!.validate()) {
+                          //   controller.login();
+                          // }
+                        },
+                       child: Stack(
+                      children: <Widget>[
+                      Align(alignment: Alignment.centerRight,
+                        child: Container(
+                          padding: EdgeInsets.all(10),
+                          margin: EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            color: Colors.teal,
+                            border:Border.all(color: Colors.blueAccent) ,
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                          ),
+                          child: Text("Submit", style: TextStyle(color: Colors.white),),
+                        ),
+                      ),
+
+                  ],
+                  )
+
+                      );
+                  }else{
+                    return SizedBox(
+                      height: 0.0,
+                    );
+                  }
+
+                }),
 
 
               ]

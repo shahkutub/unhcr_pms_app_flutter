@@ -17,6 +17,7 @@ import 'package:http/http.dart' as http;
 import '../models/AllStudentRessponse.dart';
 import '../models/Inspection_model.dart';
 import '../models/InstituteTypeModel.dart';
+import '../models/drug_list_response.dart';
 import '../routes/app_pages.dart';
 
 class InformationRepository {
@@ -359,5 +360,34 @@ class InformationRepository {
       return InstitutionDataModel.fromJson(response);
     }
   }
+
+  Future<DrugListResponse> get_drug_list() async {
+    String? token = Get.find<AuthService>().currentUser.value.data!.access_token;
+    var headers = {'Authorization': 'Bearer $token'};
+    APIManager _manager = APIManager();
+    var response;
+    try {
+      response = await _manager.get(ApiClient.drug_list,headers);
+      print('responsedruglist: ${response}');
+
+      if(response == null){
+        Get.toNamed(Routes.LOGIN);
+      }
+
+      return DrugListResponse.fromJson(response);
+      // return all_division_dis_thanan_model().fromJson(response);
+      //  if (response['IsLoggedIn'] == true) {
+      //    Get.find<AuthService>().setUser(UserModel.fromJson(response));
+      //    return all_division_dis_thanan_model.fromJson(response);
+      //  } else {
+      //    return 'Unauthorised';
+      //  }
+    } catch (e) {
+      print('error:$e');
+      Get.toNamed(Routes.LOGIN);
+      return DrugListResponse.fromJson(response);
+    }
+  }
+
 
 }
