@@ -1028,6 +1028,8 @@ class AfterLoginView extends GetView<after_login_controller> {
                             //     child:
                             GestureDetector(
                                 onTap: () {
+                                  controller.showCircle.value = true;
+                                  controller.get_drug_list();
                                   //print("Container was tapped");
                                   // Get.find<AuthService>().removeCurrentUser();
                                   // Get.toNamed(Routes.LOGIN);
@@ -1108,6 +1110,13 @@ class AfterLoginView extends GetView<after_login_controller> {
                           ],
                         ),
                       ),
+                      Obx(() =>
+                          Visibility(
+                              visible: controller.showCircle.value,
+                              child: CircularProgressIndicator(),
+                            ),
+                      ),
+
 
                       SizedBox(
                         height: 20,
@@ -1410,4 +1419,6 @@ class _BarChart extends StatelessWidget {
       showingTooltipIndicators: [0],
     ),
   ];
+
+
 }

@@ -1,7 +1,10 @@
 import 'dart:async';
 
+import 'package:brac_arna/app/database_helper/offline_database_helper.dart';
+import 'package:brac_arna/app/models/drug_list_response.dart';
 import 'package:brac_arna/app/models/user_model.dart';
 import 'package:brac_arna/app/repositories/auth_repository.dart';
+import 'package:brac_arna/app/repositories/information_repository.dart';
 import 'package:brac_arna/app/routes/app_pages.dart';
 import 'package:brac_arna/common/ui.dart';
 import 'package:flutter/material.dart';
@@ -29,14 +32,17 @@ class after_login_controller extends GetxController {
 
   var userNAme = ''.obs;
   var userRole = ''.obs;
-
+  var showCircle = false.obs;
+  final dbHelper = DatabaseHelper.instance;
+  final druglistResonse = DrugListResponse().obs;
   @override
   void onInit() {
 
     userNAme.value = Get.find<AuthService>().currentUser.value.data!.users!.username!.toString();
     userRole.value = Get.find<AuthService>().currentUser.value.data!.roles![0].role_name!;
 
-    getLocationPermission();
+    //get_drug_list();
+    //getLocationPermission();
     //AuthRepository().allProd();
     super.onInit();
   }
@@ -120,5 +126,21 @@ class after_login_controller extends GetxController {
       return Future.error('Location services are disabled.');
     }
 
+  }
+
+  get_drug_list() async {
+    //Get.focusScope!.unfocus();
+
+    //Ui.customLoaderDialogWithMessage();
+    InformationRepository().get_drug_list().then((resp) {
+      druglistResonse.value = resp;
+      if(druglistResonse.value != null){
+        showCircle.value = false;
+        print(druglistResonse.value);
+        // Get.toNamed(Routes.LOGIN);
+      }
+
+
+    });
   }
 }

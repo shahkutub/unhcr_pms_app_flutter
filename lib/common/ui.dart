@@ -300,6 +300,7 @@ class Ui {
 
   static customLoaderDialogWithMessage() {
     return Get.defaultDialog(
+      barrierDismissible: true,
         title: '',
         radius: 8,
         content: Padding(
@@ -339,6 +340,8 @@ class Ui {
           ),
         ));
   }
+
+
 
   static customLoaderDialogWithMEssage() {
     return Padding(

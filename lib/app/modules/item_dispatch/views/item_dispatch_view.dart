@@ -309,7 +309,7 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
                             )
                                 .toList();
                           },
-                          displayStringForOption: (DrugInfo option) => option.name!+" (generic name"+option.generic_name.toString()+")",
+                          displayStringForOption: (DrugInfo option) => option.name!+" ("+option.generic_name.toString()+")",
                           fieldViewBuilder: (
                               BuildContext context,
                               TextEditingController fieldTextEditingController,
@@ -545,7 +545,7 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
                           },
 
                           onSelected: (DrugInfo selection) {
-                            controller.itemName.value = selection.name!+" (generic name"+selection.generic_name.toString()+")";
+                            controller.itemName.value = selection.name!+" ("+selection.generic_name.toString()+")";
                             FocusManager.instance.primaryFocus?.unfocus();
                             print('Selected: ${selection.name}');
                           },

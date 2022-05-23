@@ -23,6 +23,15 @@ class DatabaseHelper {
   static final medicine_name = 'medicine_name';
 
 
+  // table_drugs
+  static final table_drugs = 'table_drugs';
+  static final drug_name = 'drug_name';
+  static final drug_id = 'drug_id';
+  static final drug_generic_name = 'drug_generic_name';
+  static final drug_generic_id = 'drug_generic_id';
+  static final drug_pstrength_name = 'drug_pstrength_name';
+  static final drug_pstrength_id = 'drug_pstrength_id';
+
 
   // make this a singleton class
   DatabaseHelper._privateConstructor();
@@ -66,11 +75,29 @@ class DatabaseHelper {
           CREATE TABLE $table_item_dispatch (
             $columnId INTEGER PRIMARY KEY,
             $serial INT NOT NULL,
-            $date INT NOT NULL,
-            $medicine_name INT NOT NULL,
+            $date TEXT NOT NULL,
+            $medicine_name TEXT NOT NULL,
             $quantity INT NOT NULL
           )
           ''');
+
+    await db.execute('''
+          CREATE TABLE $table_drugs (
+            $columnId INTEGER PRIMARY KEY,
+            $drug_id INT NOT NULL,
+            $drug_name TEXT NOT NULL,
+            $drug_generic_name TEXT NOT NULL,
+            $drug_generic_id INT NOT NULL,
+            $drug_pstrength_name TEXT NOT NULL,
+            $drug_pstrength_id INT NOT NULL
+          )
+          ''');
+  }
+
+  // insert drug
+  Future<int> insert_drug(Map<String, dynamic> row) async {
+    Database db = await instance.database;
+    return await db.insert(table_drugs, row);
   }
 
   // Helper methods
