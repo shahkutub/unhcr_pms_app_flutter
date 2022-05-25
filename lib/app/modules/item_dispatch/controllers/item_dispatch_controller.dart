@@ -58,6 +58,7 @@ class ItemDispatchController extends GetxController{
   final List<int> msgCount = <int>[2, 0, 10, 6, 52, 4, 0, 2].obs;
   final List<ItemDispatchModel> itemList = <ItemDispatchModel>[].obs;
   final List<ItemDispatchModel> searchItemList = <ItemDispatchModel>[].obs;
+  final List<DrugInfo> drugList = <DrugInfo>[].obs;
 
   var controllerQty = TextEditingController().obs;
   var controllerItemName = TextEditingController().obs;
@@ -74,7 +75,7 @@ class ItemDispatchController extends GetxController{
   var pSerialN0 = '0'.obs;
   var itemSize = 0.obs;
   final dbHelper = DatabaseHelper.instance;
-  final druglistResonse = DrugListResponse().obs;
+  //final druglistResonse = DrugListResponse().obs;
   @override
   void onInit() {
     // TODO: implement onInit
@@ -158,14 +159,7 @@ class ItemDispatchController extends GetxController{
     // var localdataSize2 = await dbHelper.getAllPatientSerial();
     // print('localdataSize: ${localdataSize2.length}');
 
-    // var localdataSize = await dbHelper.queryAllRecords();
-    // print('localdataSize: ${localdataSize.length}');
-    // for (var i = 0; i < localdataSize.length; i++) {
-    //   Map<String, dynamic> map = localdataSize[i];
-    //   var name = map['name'];
-    //   print("name: "+name);
-    //   // var id = map['id'];
-    // }
+
 
 
   }
@@ -183,15 +177,20 @@ class ItemDispatchController extends GetxController{
 
 
   get_drug_list() async {
-    InformationRepository().get_drug_list().then((resp) {
-      druglistResonse.value = resp;
-      if(druglistResonse.value == null){
-        print(druglistResonse.value);
-       // Get.toNamed(Routes.LOGIN);
-      }
-
-
-    });
+    var localdataSize2 = await dbHelper.queryAllDrugRows();
+    print('localdataDrugSize: ${localdataSize2.length}');
+    for (var i = 0; i < localdataSize2.length; i++) {
+      Map<String, dynamic> map = localdataSize2[i];
+      var drug_info = DrugInfo();
+      drug_info.name = map[DatabaseHelper.drug_name];
+      drug_info.id = map[DatabaseHelper.drug_id];
+      drug_info.generic_id = map[DatabaseHelper.drug_generic_id];
+      drug_info.generic_name = map[DatabaseHelper.drug_generic_name];
+      //drug_info.pstrength_name = map[DatabaseHelper.drug_pstrength_name];
+      drug_info.pstrength_id = map[DatabaseHelper.drug_pstrength_id];
+      drugList.add(drug_info);
+    }
+    print("drugList: "+drugList.length.toString());
   }
 
   @override

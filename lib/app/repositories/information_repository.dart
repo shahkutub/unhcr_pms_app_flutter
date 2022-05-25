@@ -362,8 +362,10 @@ class InformationRepository {
   }
 
   Future<DrugListResponse> get_drug_list() async {
+
     String? token = Get.find<AuthService>().currentUser.value.data!.access_token;
     var headers = {'Authorization': 'Bearer $token'};
+    //var headers = {'Authorization': 'Bearer '};
     APIManager _manager = APIManager();
     var response;
     try {
@@ -371,7 +373,7 @@ class InformationRepository {
       print('responsedruglist: ${response}');
 
       if(response == null){
-        Get.toNamed(Routes.LOGIN);
+       // Get.toNamed(Routes.LOGIN);
       }
 
       return DrugListResponse.fromJson(response);

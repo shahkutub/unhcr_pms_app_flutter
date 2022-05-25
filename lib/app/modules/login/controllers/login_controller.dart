@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:brac_arna/app/models/user_model.dart';
 import 'package:brac_arna/app/repositories/auth_repository.dart';
 import 'package:brac_arna/app/routes/app_pages.dart';
+import 'package:brac_arna/app/utils.dart';
 import 'package:brac_arna/common/ui.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -26,6 +27,7 @@ class LoginController extends GetxController {
   late GlobalKey<FormState> loginFormKey;
 
   final dbHelper = DatabaseHelper.instance;
+  var isNetConnected = false.obs;
 
   @override
   void onInit() {
@@ -43,31 +45,40 @@ class LoginController extends GetxController {
   }
 
   void login() async {
-    // userData.value.fullName = userNameController.value.text;
-    // userData.value.password = passwordController.value.text;
-    Get.focusScope!.unfocus();
 
-    Ui.customLoaderDialogWithMessage();
-    AuthRepository().userLogin(userData.value).then((response) {
-      print(response);
+    //isNetConnected.value = Utils.checkConnection();
 
-      if(response != null){
-        //String? loginData = Get.find<AuthService>().currentUser.value.api_info!.original!.access_token;
-        Get.offAllNamed(Routes.AFTER_LOGIN);
-        //Get.offAllNamed(Routes.HOME);
-        // Get.find<RootController>().changePageOutRoot(0);
-        Get.showSnackbar(Ui.SuccessSnackBar(message: 'Successfully logged in'.tr, title: 'Success'.tr));
-      }
-      // if (response == 'Unauthorised') {
-      //   Get.back();
-      //   Get.showSnackbar(Ui.ErrorSnackBar(message: "Credentials doesn't match".tr, title: "Error".tr));
-      // } else {
-      //   Get.offAllNamed(Routes.INFORMATION_FORM);
-      //   //Get.offAllNamed(Routes.HOME);
-      //   // Get.find<RootController>().changePageOutRoot(0);
-      //   Get.showSnackbar(Ui.SuccessSnackBar(message: 'Successfully logged in'.tr, title: 'Success'.tr));
-      // }
-    });
+    if(!await (Utils.checkConnection() as Future<bool>)){
+      debugPrint('No internet connection');
+      Get.showSnackbar(Ui.internetCheckSnackBar(message: 'No internet connection'));
+    }else{
+      // userData.value.fullName = userNameController.value.text;
+      // userData.value.password = passwordController.value.text;
+      Get.focusScope!.unfocus();
+
+      Ui.customLoaderDialogWithMessage();
+      AuthRepository().userLogin(userData.value).then((response) {
+        print(response);
+
+        if(response != null){
+          //String? loginData = Get.find<AuthService>().currentUser.value.api_info!.original!.access_token;
+          Get.offAllNamed(Routes.AFTER_LOGIN);
+          //Get.offAllNamed(Routes.HOME);
+          // Get.find<RootController>().changePageOutRoot(0);
+          Get.showSnackbar(Ui.SuccessSnackBar(message: 'Successfully logged in'.tr, title: 'Success'.tr));
+        }
+        // if (response == 'Unauthorised') {
+        //   Get.back();
+        //   Get.showSnackbar(Ui.ErrorSnackBar(message: "Credentials doesn't match".tr, title: "Error".tr));
+        // } else {
+        //   Get.offAllNamed(Routes.INFORMATION_FORM);
+        //   //Get.offAllNamed(Routes.HOME);
+        //   // Get.find<RootController>().changePageOutRoot(0);
+        //   Get.showSnackbar(Ui.SuccessSnackBar(message: 'Successfully logged in'.tr, title: 'Success'.tr));
+        // }
+      });
+    }
+
   }
 
   getLocation() async {

@@ -40,10 +40,11 @@ class DrugInfo {
     int? manufacturer_id;
     String? name;
     int? pstrength_id;
+    int? pstrength_name;
     int? ptype_id;
     int? status;
 
-    DrugInfo({this.category_id, this.category_name, this.code_no, this.drug_category, this.generic, this.generic_id, this.generic_name, this.group, this.group_id, this.group_name, this.id, this.manufacturer_id, this.name, this.pstrength_id, this.ptype_id, this.status});
+    DrugInfo({this.category_id, this.category_name, this.code_no, this.drug_category, this.generic, this.generic_id, this.generic_name, this.group, this.group_id, this.group_name, this.id, this.manufacturer_id, this.name, this.pstrength_id,this.pstrength_name, this.ptype_id, this.status});
 
     factory DrugInfo.fromJson(Map<String, dynamic> json) {
         return DrugInfo(

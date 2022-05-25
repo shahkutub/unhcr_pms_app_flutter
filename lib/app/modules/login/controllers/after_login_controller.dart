@@ -6,6 +6,7 @@ import 'package:brac_arna/app/models/user_model.dart';
 import 'package:brac_arna/app/repositories/auth_repository.dart';
 import 'package:brac_arna/app/repositories/information_repository.dart';
 import 'package:brac_arna/app/routes/app_pages.dart';
+import 'package:brac_arna/app/utils.dart';
 import 'package:brac_arna/common/ui.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -35,9 +36,12 @@ class after_login_controller extends GetxController {
   var showCircle = false.obs;
   final dbHelper = DatabaseHelper.instance;
   final druglistResonse = DrugListResponse().obs;
+
+  final navigatorKey = GlobalKey<NavigatorState>();
+
   @override
   void onInit() {
-
+    navigatorKey: navigatorKey;
     userNAme.value = Get.find<AuthService>().currentUser.value.data!.users!.username!.toString();
     userRole.value = Get.find<AuthService>().currentUser.value.data!.roles![0].role_name!;
 
@@ -128,19 +132,70 @@ class after_login_controller extends GetxController {
 
   }
 
-  get_drug_list() async {
+  get_drug_list(BuildContext context) async {
     //Get.focusScope!.unfocus();
 
     //Ui.customLoaderDialogWithMessage();
-    InformationRepository().get_drug_list().then((resp) {
-      druglistResonse.value = resp;
-      if(druglistResonse.value != null){
-        showCircle.value = false;
-        print(druglistResonse.value);
-        // Get.toNamed(Routes.LOGIN);
-      }
+    if(!await (Utils.checkConnection() as Future<bool>)){
+      debugPrint('No internet connection');
+      Get.showSnackbar(Ui.internetCheckSnackBar(message: 'No internet connection'));
+    }else{
+      showCircle.value = true;
+      Ui.showLoaderDialog(context);
+      // showDialog(
+      //   context: context,
+      //   barrierDismissible: false,
+      //   builder: (_) => WillPopScope(
+      //     onWillPop: () async => false,
+      //     child: Center(
+      //       child: SizedBox(
+      //         width: 60,
+      //         height: 60,
+      //         child: CircularProgressIndicator(
+      //           strokeWidth: 5,
+      //         ),
+      //       ),
+      //     ),
+      //   ),
+      // );
+
+      //await Future.delayed(Duration(seconds: 3));
+      // Dismiss CircularProgressIndicator
+
+      InformationRepository().get_drug_list().then((resp) async {
+        druglistResonse.value = resp;
+        if(druglistResonse.value != null){
+          showCircle.value = false;
+          print(druglistResonse.value.drug_info);
+          // Get.toNamed(Routes.LOGIN);
+          await dbHelper.deleteALlDrugs();
+          druglistResonse.value.drug_info!.forEach((element) async {
+            Map<String, dynamic> row = {
+              DatabaseHelper.drug_name: ''+element.name.toString(),
+              DatabaseHelper.drug_id: element.id,
+              DatabaseHelper.drug_pstrength_name: ''+element.pstrength_name.toString(),
+              DatabaseHelper.drug_pstrength_id: element.pstrength_id,
+              DatabaseHelper.drug_generic_name: ''+element.generic_name.toString(),
+              DatabaseHelper.drug_generic_id: element.generic_id,
+              //DatabaseHelper.drug_stock: element.generic_id,
+            };
+
+            await dbHelper.insert_drug(row);
+          });
+
+          var localdataSize = await dbHelper.queryAllDrugRows();
+          print('localdataDrugSize: ${localdataSize.length}');
+
+          showCircle.value = false;
+
+          Navigator.of(context).pop();
+        }else{
+          Navigator.of(context).pop();
+          Get.toNamed(Routes.LOGIN);
+        }
+      });
+    }
 
 
-    });
   }
 }

@@ -22,6 +22,38 @@ class Ui {
     );
   }
 
+  static showLoaderDialog(BuildContext context){
+    AlertDialog alert=AlertDialog(
+      content: new Row(
+        children: [
+          CircularProgressIndicator(),
+          Container(margin: EdgeInsets.only(left: 7),child:Text("Loading..." )),
+        ],),
+    );
+    showDialog(barrierDismissible: false,
+      context:context,
+      builder:(BuildContext context){
+        return alert;
+      },
+    );
+  }
+
+
+  static GetSnackBar internetCheckSnackBar({ required String message}) {
+    //Get.log("[$title] $message", isError: true);
+    return GetSnackBar(
+      //titleText: Text(title.tr, style: Get.textTheme.headline6!.merge(TextStyle(color: Colors.white))),
+      messageText: Text(message.tr, style: Get.textTheme.caption!.merge(TextStyle(color: Colors.white))),
+      snackPosition: SnackPosition.BOTTOM,
+      margin: EdgeInsets.all(20),
+      backgroundColor: Colors.redAccent,
+      icon: Icon(Icons.network_check, size: 32, color: Colors.white),
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+      borderRadius: 8,
+      duration: Duration(seconds: 2),
+    );
+  }
+
   static GetSnackBar ErrorSnackBar({String title = 'Something went wrong!', required String message}) {
     Get.log("[$title] $message", isError: true);
     return GetSnackBar(

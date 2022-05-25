@@ -31,6 +31,7 @@ class DatabaseHelper {
   static final drug_generic_id = 'drug_generic_id';
   static final drug_pstrength_name = 'drug_pstrength_name';
   static final drug_pstrength_id = 'drug_pstrength_id';
+  static final drug_stock = 'drug_stock';
 
 
   // make this a singleton class
@@ -90,6 +91,7 @@ class DatabaseHelper {
             $drug_generic_id INT NOT NULL,
             $drug_pstrength_name TEXT NOT NULL,
             $drug_pstrength_id INT NOT NULL
+            
           )
           ''');
   }
@@ -97,7 +99,19 @@ class DatabaseHelper {
   // insert drug
   Future<int> insert_drug(Map<String, dynamic> row) async {
     Database db = await instance.database;
-    return await db.insert(table_drugs, row);
+
+    return await db.insert(table_drugs, row, conflictAlgorithm: ConflictAlgorithm.replace);
+  }
+
+  Future<int> deleteALlDrugs() async {
+    Database db = await instance.database;
+    return await db.delete(table_drugs);
+  }
+
+
+  Future<List<Map<String, dynamic>>> queryAllDrugRows() async {
+    Database db = await instance.database;
+    return await db.query(table_drugs);
   }
 
   // Helper methods

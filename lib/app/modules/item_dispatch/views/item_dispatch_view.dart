@@ -303,7 +303,7 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
                         alignment: Alignment.centerLeft,
                         child: Autocomplete<DrugInfo>(
                           optionsBuilder: (TextEditingValue textEditingValue) {
-                            return controller.druglistResonse.value.drug_info!
+                            return controller.drugList
                                 .where((DrugInfo county) => county.name!.toLowerCase()
                                 .startsWith(textEditingValue.text.toLowerCase())
                             )

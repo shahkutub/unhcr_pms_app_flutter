@@ -1028,8 +1028,8 @@ class AfterLoginView extends GetView<after_login_controller> {
                             //     child:
                             GestureDetector(
                                 onTap: () {
-                                  controller.showCircle.value = true;
-                                  controller.get_drug_list();
+                                  //Ui.showLoaderDialog(context);
+                                  controller.get_drug_list(context);
                                   //print("Container was tapped");
                                   // Get.find<AuthService>().removeCurrentUser();
                                   // Get.toNamed(Routes.LOGIN);
@@ -1110,12 +1110,12 @@ class AfterLoginView extends GetView<after_login_controller> {
                           ],
                         ),
                       ),
-                      Obx(() =>
-                          Visibility(
-                              visible: controller.showCircle.value,
-                              child: CircularProgressIndicator(),
-                            ),
-                      ),
+                      // Obx(() =>
+                      //     Visibility(
+                      //         visible: controller.showCircle.value,
+                      //         child: CircularProgressIndicator(),
+                      //       ),
+                      // ),
 
 
                       SizedBox(
