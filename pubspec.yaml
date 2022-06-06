@@ -61,3 +61,8 @@ flutter:
     - assets/locales/
     - assets/place/
 
+
+  fonts:
+    - family: SolaimanLipi
+      fonts:
+        - asset: fonts/SolaimanLipi.ttf

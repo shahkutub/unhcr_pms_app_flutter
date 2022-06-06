@@ -453,7 +453,7 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
                                                             ),
                                                             onTap: () {
                                                               int currentValue = int.parse(controller.controllerQty.value.text);
-                                                              controller.itemQty.value = currentValue.toString();
+                                                              controller.itemQty.value = currentValue;
                                                               //setState(() {
                                                               currentValue++;
                                                               controller.controllerQty.value.text = (currentValue)
@@ -469,7 +469,7 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
                                                           ),
                                                           onTap: () {
                                                             int currentValue = int.parse(controller.controllerQty.value.text);
-                                                            controller.itemQty.value = currentValue.toString();
+                                                            controller.itemQty.value = currentValue;
                                                             //setState(() {
                                                             print("Setting state");
                                                             currentValue--;
@@ -504,7 +504,7 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
                                             child: Text('Add',style: TextStyle(color: Colors.white),),
                                             onPressed: () {
                                               FocusManager.instance.primaryFocus?.unfocus();
-                                              controller.itemQty.value = controller.controllerQty.value.text;
+                                              controller.itemQty.value =int.parse(controller.controllerQty.value.text);
 
                                               if (controller.itemName.value.isEmpty) {
                                                 //_showDialog(context,"Enter medicine name!");
@@ -515,7 +515,7 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
                                                 _showToast(context,'Enter medicine quantity!');
                                               }else{
                                                 controller.addItemToList();
-                                                controller.insert_item_dispatch_ToLocalDB();
+                                                //controller.insert_item_dispatch_ToLocalDB();
                                                 controller.controllerQty.value.text = "0";
                                                 controller.itemName.value = "";
                                                 fieldTextEditingController.clear();
@@ -545,6 +545,7 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
                           },
 
                           onSelected: (DrugInfo selection) {
+                            controller.drugData.value = selection;
                             controller.itemName.value = selection.name!+" ("+selection.generic_name.toString()+")";
                             FocusManager.instance.primaryFocus?.unfocus();
                             print('Selected: ${selection.name}');
@@ -997,7 +998,7 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
                                       //borderRadius: BorderRadius.all(Radius.circular(2))
                                   ),
                                   child: Center(
-                                      child: Text('${controller.itemList[index].name}',
+                                      child: Text('${controller.itemList[index].medicine_name}'+'${controller.itemList[index].medicine_generic_name}',
                                         style: TextStyle(fontSize: 12),
                                         //textAlign: TextAlign.left,
                                       )
@@ -1031,7 +1032,7 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
                                      // borderRadius: BorderRadius.all(Radius.circular(2))
                                   ),
                                   child: Center(
-                                      child: Text('${controller.itemList[index].qty}',
+                                      child: Text('${controller.itemList[index].medicine_qty}',
                                         style: TextStyle(fontSize: 12,),
                                         //textAlign: TextAlign.left,
 
@@ -1079,17 +1080,16 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
                     return
                       GestureDetector(
                         onTap: () {
+
+                          controller.submit_dispatch(context);
+
+                          controller.itemList.forEach((element) {
+                            controller.insert_item_dispatch_ToLocalDB(element);
+                          });
                           controller.insert_patient_serialToLocalDB();
                           controller.itemList.clear();
-                          _showToast(context,'Added Successfully');
-                          // Get.offAllNamed(Routes.INFORMATION_FORM);
-                          //Get.offAllNamed(Routes.PROVIDED_DATA_LIST);
+                          _showToast(context,'Item dispatch stored Successfully');
 
-                          //Get.offAllNamed(Routes.AFTER_LOGIN);
-
-                          // if (controller.loginFormKey.currentState!.validate()) {
-                          //   controller.login();
-                          // }
                         },
                        child: Stack(
                       children: <Widget>[

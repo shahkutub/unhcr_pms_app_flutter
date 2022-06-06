@@ -14,4 +14,5 @@ class ApiClient {
   static String postInspectionUrl = '${baseUrl}api/save-inspection';
   static String inspectionList = '${baseUrl}api/inspection_list';
   static String sendInfo = '${baseUrl}api/FirstResponder';
+  static String submit_dispatch = '${baseUrl}api/dispatch/savedata';
 }

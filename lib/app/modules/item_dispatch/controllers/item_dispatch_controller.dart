@@ -1,5 +1,12 @@
 
 
+import 'dart:convert';
+
+import 'package:brac_arna/app/api_providers/api_manager.dart';
+import 'package:brac_arna/app/api_providers/api_url.dart';
+import 'package:brac_arna/app/modules/item_dispatch/DispatchSubmitRspopnse.dart';
+import 'package:brac_arna/app/utils.dart';
+import 'package:brac_arna/common/ui.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -9,56 +16,15 @@ import '../../../models/drug_list_response.dart';
 import '../../../repositories/information_repository.dart';
 import '../../../routes/app_pages.dart';
 import '../../../services/auth_service.dart';
+import 'package:http/http.dart' as http;
 
 class ItemDispatchController extends GetxController{
 
   static ItemDispatchController get i => Get.find();
-  //final GlobalKey<FormFieldBuilder> key = GlobalKey<FormBuilderState>();
 
-  // final List<String> _suggestions = <String>[
-  //   'Alligator',
-  //   'Buffalo',
-  //   'Chicken',
-  //   'Dog',
-  //   'Eagle',
-  //   'Frog'
-  // ].obs;
-   List<Country> countryOptions = <Country>[
-    Country(name: 'Allopurinol (Tablet 250)', size: 30370000),
-    Country(name: 'BCG (vaccine) ', size: 44579000),
-    Country(name: 'Chlorambucil (Tablet 250)', size: 8600000),
-    Country(name: 'Doxycycline (Tablet 250)', size: 110879),
-    Country(name: 'Doxycycline (Tablet 250)', size: 9984670),
-    Country(name: 'Folic acid (Tablet 250)', size: 42916),
-    Country(name: 'Gliclazide (Tablet 250)', size: 10180000),
-    Country(name: 'Glyceryl trinitrate (Tablet 250)', size: 3287263),
-    Country(name: 'North America', size: 24709000),
-    Country(name: 'South America', size: 17840000),
-  ].obs;
-
-  final List areaList = [
-    {"name": "Block 1", "id": "124612615"},
-    {"name": "Block 2", "id": "124612615"},
-    {"name": "Block 3", "id": "124612615"},
-    {"name": "PECHS block 1", "id": "124612615"},
-    {"name": "PECHS block 2", "id": "124612615"},
-    {"name": "PECHS block 3", "id": "124612615"},
-    {"name": "PECHS block 4", "id": "124612615"},
-    {"name": "PECHS block 5", "id": "124612615"},
-    {"name": "PECHS block 6", "id": "124612615"},
-    {"name": "PECHS block 7", "id": "12461265"},
-    {"name": "PECHS block 8", "id": "12461215"},
-    {"name": "PECHS block 9", "id": "12461615"},
-    {"name": "PECHS block 0", "id": "12462615"},
-    {"name": "PECHS block 89", "id": "12612615"},
-    {"name": "PECHS block 88", "id": "1261265"},
-    {"name": "PECHS block 87", "id": "14612615"},
-  ];
-  final List<String> names = <String>['Allopurinol (Tablet 250)', 'BCG (vaccine) ', 'Chlorambucil (Tablet 250)', 'Doxycycline (Tablet 250)', 'Ergometrine (Injection)', 'Folic acid (Tablet 250)', 'Gliclazide (Tablet 250)', 'Glyceryl trinitrate (Tablet 250)'].obs;
-  final List<int> msgCount = <int>[2, 0, 10, 6, 52, 4, 0, 2].obs;
   final List<ItemDispatchModel> itemList = <ItemDispatchModel>[].obs;
-  final List<ItemDispatchModel> searchItemList = <ItemDispatchModel>[].obs;
   final List<DrugInfo> drugList = <DrugInfo>[].obs;
+  final drugData = DrugInfo().obs;
 
   var controllerQty = TextEditingController().obs;
   var controllerItemName = TextEditingController().obs;
@@ -66,8 +32,9 @@ class ItemDispatchController extends GetxController{
 
   var nameInput = ''.obs;
   var itemName = ''.obs;
+  var itemId = ''.obs;
   var itemAvQty = '0'.obs;
-  var itemQty = ''.obs;
+  var itemQty = 0.obs;
 
   var userNAme = ''.obs;
   var userRole = ''.obs;
@@ -85,9 +52,11 @@ class ItemDispatchController extends GetxController{
     userRole.value = Get.find<AuthService>().currentUser.value.data!.roles![0].role_name!;
     //insert_patient_serialToLocalDB();
 
-     getPSerialNo();
+    //Utils.replaceEngMonthNameBangla();
+    //Utils.currentDateBengali();
+    getPSerialNo();
     get_drug_list();
-
+    //submit_dispatch();
 
   }
 
@@ -136,43 +105,43 @@ class ItemDispatchController extends GetxController{
 
   }
 
-  // insert serial
-  Future<void> insert_item_dispatch_ToLocalDB() async {
+  // insert item_dispatch
+  Future<void> insert_item_dispatch_ToLocalDB(ItemDispatchModel data) async {
     var now = new DateTime.now();
     var formatter = new DateFormat('dd-MM-yyyy');
     String formattedDate = formatter.format(now);
     print(formattedDate);
 
     Map<String, dynamic> row = {
-      DatabaseHelper.date: formattedDate,
-      DatabaseHelper.serial: pSerialN0.value,
-      DatabaseHelper.medicine_name: itemName.value,
-      DatabaseHelper.quantity: itemAvQty.value
+      DatabaseHelper.date: data.date,
+      DatabaseHelper.item_dispatch_serial: data.serial_no,
+      DatabaseHelper.item_dispatch_medicine_name: data.medicine_name,
+      DatabaseHelper.item_dispatch_medicine_id: data.medicine_id,
+      DatabaseHelper.item_dispatch_quantity: data.medicine_qty
     };
     await dbHelper.insert_item_dispatch(row);
     var localdataSize = await dbHelper.get_tem_dispatch();
     print('localdataitemSize: ${localdataSize.length}');
-    //getPSerialNo();
-    //await dbHelper.deleteSerial(formattedDate);
 
-    //await dbHelper.insert_patient_serial(row);
-    // var localdataSize2 = await dbHelper.getAllPatientSerial();
-    // print('localdataSize: ${localdataSize2.length}');
-
-
+    for (var i = 0; i < localdataSize.length; i++) {
+      Map<String, dynamic> map = localdataSize[i];
+      var item_dispatch_serial = map[DatabaseHelper.item_dispatch_serial];
+      print("item_dispatch_serial: "+item_dispatch_serial.toString());
+      // var id = map['id'];
+    }
 
 
   }
 
   void addItemToList(){
-
-    var item = ItemDispatchModel('','',itemName.value, itemAvQty.value, itemQty.value);
+    var now = new DateTime.now();
+    var formatter = new DateFormat('dd-MM-yyyy');
+    String formattedDate = formatter.format(now);
+    print(formattedDate);
+    var item = ItemDispatchModel(pSerialN0.value,"",formattedDate,drugData.value.name.toString(),drugData.value.id!,drugData.value.generic_name.toString(),drugData.value.generic_name.toString(),itemQty.value);
     itemList.insert(0, item);
-    print("itemList: "+itemList[0].name);
+    //print("itemList: "+itemList[0].name);
 
-    names.insert(0,nameInput.value);
-    msgCount.insert(0, 0);
-    //itemAvQty.value = "";
   }
 
 
@@ -193,37 +162,78 @@ class ItemDispatchController extends GetxController{
     print("drugList: "+drugList.length.toString());
   }
 
+  submit_dispatch(BuildContext context){
+    var now = new DateTime.now();
+    var formatter = new DateFormat('yyyy-MM-dd');
+    String formattedDate = formatter.format(now);
+    print(formattedDate);
+
+
+    List<MedicineModel> medicineDetails = [];
+
+    itemList.forEach((element) {
+      MedicineModel medicineModel = MedicineModel(element.medicine_id,element.medicine_qty);
+      medicineDetails.add(medicineModel);
+    });
+
+    //MedicineModel medicineModel = MedicineModel(1,15);
+    //List<MedicineModel> medicineDetails = [MedicineModel(1,15),MedicineModel(1,15),MedicineModel(1,15)];
+    String jsonTags = jsonEncode(medicineDetails);
+    print(jsonTags);
+
+    //SubmitDispatchModel submitDispatchModel = SubmitDispatchModel("1", "1", "1", "2022-05-06", medicineDetails);
+    SubmitDispatchModel submitDispatchModel = SubmitDispatchModel("1", "1", "1", formattedDate, jsonTags);
+    String jsonTutorial = jsonEncode(submitDispatchModel);
+    print(jsonTutorial.toString());
+    postRequestDispatch(jsonTutorial,context);
+    //return jsonTutorial;
+  }
+
+  Future<dynamic> postRequestDispatch (String data,BuildContext context) async {
+
+    Ui.showLoaderDialog(context);
+    String? token = Get.find<AuthService>().currentUser.value.data!.access_token;
+
+    var response = await http.post(Uri.parse(ApiClient.submit_dispatch),
+        headers: {"Content-Type": "application/json",'Authorization': 'Bearer $token'},
+        body: data
+    );
+    print("${response.statusCode}");
+    print("${response.body}");
+
+    Navigator.of(context).pop();
+
+    return response;
+  }
+
   @override
   void onReady() {
     // TODO: implement onReady
     super.onReady();
   }
-  onSearchTextChanged(String text) async {
-    searchItemList.clear();
-    if (text.isEmpty) {
-     // setState(() {});
-      return;
-    }
 
-    searchItemList.forEach((appointmentData) {
-      if (appointmentData.name!.toLowerCase().contains(text.toLowerCase()))
-        searchItemList.add(appointmentData);
-    });
-
-
-  }
 
 }
 
 class ItemDispatchModel {
   var serial_no = "";
+  var patient_name = "";
   var date = "";
-  var name = "";
-  var availqty = "";
-  var qty = "";
+  var medicine_name = "";
+  var medicine_id = 0;
+  var medicine_generic_name = "";
+  var medicine_generic_id = "";
+  var medicine_qty = 0;
 
   ItemDispatchModel(
-      this.serial_no, this.date, this.name, this.availqty, this.qty);
+      this.serial_no,
+      this.patient_name,
+      this.date,
+      this.medicine_name,
+      this.medicine_id,
+      this.medicine_generic_name,
+      this.medicine_generic_id,
+      this.medicine_qty);
 }
 
 class Country {
@@ -240,4 +250,46 @@ class Country {
   String toString() {
     return '$name ($size)';
   }
+}
+
+class SubmitDispatchModel{
+  var partner_id = "";
+  var facility_id = "";
+  var dispensary_id = "";
+  var dispatch_date = "";
+  var medicineDetails = "";
+  //List<MedicineModel> medicineDetails = [];
+
+  SubmitDispatchModel(this.partner_id, this.facility_id, this.dispensary_id,
+      this.dispatch_date, this.medicineDetails);
+
+  Map toJson() => {
+    'partner_id': partner_id,
+    'facility_id': facility_id,
+    'dispensary_id': dispensary_id,
+    'dispatch_date': dispatch_date,
+    'medicineDetails': medicineDetails,
+
+  };
+
+}
+
+class MedicineModel{
+  var id = 0;
+  var dispatch_qty = 0;
+  MedicineModel(this.id, this.dispatch_qty);
+  Map toJson() => {
+    'id': id,
+    'dispatch_qty': dispatch_qty,
+  };
+}
+
+class User {
+  String name;
+  int age;
+  User(this.name, this.age);
+  Map toJson() => {
+    'name': name,
+    'age': age,
+  };
 }

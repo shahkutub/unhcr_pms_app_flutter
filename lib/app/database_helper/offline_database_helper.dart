@@ -18,9 +18,10 @@ class DatabaseHelper {
   static final table_patient_serial = 'table_patient_serial';
 
   static final table_item_dispatch = 'table_item_dispatch';
-  static final quantity = 'quantity';
-  static final serial = 'serial';
-  static final medicine_name = 'medicine_name';
+  static final item_dispatch_quantity = 'item_dispatch_quantity';
+  static final item_dispatch_serial = 'item_dispatch_serial';
+  static final item_dispatch_medicine_name = 'item_dispatch_medicine_name';
+  static final item_dispatch_medicine_id = 'item_dispatch_medicine_id';
 
 
   // table_drugs
@@ -75,10 +76,11 @@ class DatabaseHelper {
     await db.execute('''
           CREATE TABLE $table_item_dispatch (
             $columnId INTEGER PRIMARY KEY,
-            $serial INT NOT NULL,
+            $item_dispatch_serial INT NOT NULL,
             $date TEXT NOT NULL,
-            $medicine_name TEXT NOT NULL,
-            $quantity INT NOT NULL
+            $item_dispatch_medicine_name TEXT NOT NULL,
+            $item_dispatch_medicine_id INT NOT NULL,
+            $item_dispatch_quantity INT NOT NULL
           )
           ''');
 

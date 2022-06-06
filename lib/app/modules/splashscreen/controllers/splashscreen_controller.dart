@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:brac_arna/app/routes/app_pages.dart';
 import 'package:brac_arna/app/services/auth_service.dart';
@@ -25,4 +26,7 @@ class SplashscreenController extends GetxController {
     });
     super.onInit();
   }
+
+
+
 }

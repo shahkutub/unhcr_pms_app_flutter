@@ -42,8 +42,9 @@ void main() async {
       fallbackLocale: Get.find<TranslationService>().fallbackLocale,
       defaultTransition: Transition.cupertino,
       themeMode: Get.find<SettingsService>().getThemeMode(),
-      theme: Get.find<SettingsService>().getLightTheme(),
-      darkTheme: Get.find<SettingsService>().getDarkTheme(),
+      //theme: ThemeData(fontFamily: 'SolaimanLipi'),
+      //theme: Get.find<SettingsService>().getLightTheme(),
+      //darkTheme: Get.find<SettingsService>().getDarkTheme(),
     ),
   );
 }
