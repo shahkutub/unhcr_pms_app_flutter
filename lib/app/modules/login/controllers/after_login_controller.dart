@@ -38,7 +38,7 @@ class after_login_controller extends GetxController {
   final druglistResonse = DrugListResponse().obs;
 
   final navigatorKey = GlobalKey<NavigatorState>();
-
+  final List<DrugInfo> drugList = <DrugInfo>[].obs;
   @override
   void onInit() {
     navigatorKey: navigatorKey;
@@ -48,6 +48,7 @@ class after_login_controller extends GetxController {
     //get_drug_list();
     //getLocationPermission();
     //AuthRepository().allProd();
+    get_drug_listFromLocalDb();
     super.onInit();
   }
 
@@ -56,6 +57,8 @@ class after_login_controller extends GetxController {
     // TODO: implement onReady
     super.onReady();
   }
+
+
 
   void login() async {
     // userData.value.fullName = userNameController.value.text;
@@ -130,6 +133,23 @@ class after_login_controller extends GetxController {
       return Future.error('Location services are disabled.');
     }
 
+  }
+
+  get_drug_listFromLocalDb() async {
+    var localdataSize2 = await dbHelper.queryAllDrugRows();
+    print('localdataDrugSize: ${localdataSize2.length}');
+    for (var i = 0; i < localdataSize2.length; i++) {
+      Map<String, dynamic> map = localdataSize2[i];
+      var drug_info = DrugInfo();
+      drug_info.name = map[DatabaseHelper.drug_name];
+      drug_info.id = map[DatabaseHelper.drug_id];
+      drug_info.generic_id = map[DatabaseHelper.drug_generic_id];
+      drug_info.generic_name = map[DatabaseHelper.drug_generic_name];
+      //drug_info.pstrength_name = map[DatabaseHelper.drug_pstrength_name];
+      drug_info.pstrength_id = map[DatabaseHelper.drug_pstrength_id];
+      drugList.add(drug_info);
+    }
+    print("drugList: "+drugList.length.toString());
   }
 
   get_drug_list(BuildContext context) async {

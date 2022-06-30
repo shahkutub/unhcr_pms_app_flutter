@@ -510,7 +510,7 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
                                                 //_showDialog(context,"Enter medicine name!");
                                                 _showToast(context,'Enter medicine name!');
 
-                                              }else if(controller.itemQty.value == "0"){
+                                              }else if(controller.itemQty.value == 0){
                                                 //_showDialog(context,"Enter medicine quantity!");
                                                 _showToast(context,'Enter medicine quantity!');
                                               }else{

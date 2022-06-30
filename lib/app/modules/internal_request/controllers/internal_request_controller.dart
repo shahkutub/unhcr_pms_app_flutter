@@ -1,5 +1,6 @@
 
 
+import 'package:brac_arna/app/models/drug_list_response.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -42,7 +43,7 @@ class InternalRequestController extends GetxController{
   final List<int> msgCount = <int>[2, 0, 10, 6, 52, 4, 0, 2].obs;
   final List<ItemDispatchModel> itemList = <ItemDispatchModel>[].obs;
   final List<ItemDispatchModel> searchItemList = <ItemDispatchModel>[].obs;
-
+  final List<DrugInfo> drugList = <DrugInfo>[].obs;
   var controllerQty = TextEditingController().obs;
   var controllerItemName = TextEditingController().obs;
 
@@ -122,6 +123,23 @@ class InternalRequestController extends GetxController{
     names.insert(0,nameInput.value);
     msgCount.insert(0, 0);
     //itemAvQty.value = "";
+  }
+
+  get_drug_list() async {
+    var localdataSize2 = await dbHelper.queryAllDrugRows();
+    print('localdataDrugSize: ${localdataSize2.length}');
+    for (var i = 0; i < localdataSize2.length; i++) {
+      Map<String, dynamic> map = localdataSize2[i];
+      var drug_info = DrugInfo();
+      drug_info.name = map[DatabaseHelper.drug_name];
+      drug_info.id = map[DatabaseHelper.drug_id];
+      drug_info.generic_id = map[DatabaseHelper.drug_generic_id];
+      drug_info.generic_name = map[DatabaseHelper.drug_generic_name];
+      //drug_info.pstrength_name = map[DatabaseHelper.drug_pstrength_name];
+      drug_info.pstrength_id = map[DatabaseHelper.drug_pstrength_id];
+      drugList.add(drug_info);
+    }
+    print("drugList: "+drugList.length.toString());
   }
 
 
