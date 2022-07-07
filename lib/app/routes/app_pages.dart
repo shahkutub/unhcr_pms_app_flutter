@@ -3,12 +3,11 @@ import 'package:brac_arna/app/modules/consumption_tally/views/consumption_tally_
 import 'package:brac_arna/app/modules/internal_request/controllers/internal_request_controller.dart';
 import 'package:brac_arna/app/modules/item_dispatch/bindings/item_dispatch_binding.dart';
 import 'package:brac_arna/app/modules/item_dispatch/views/item_dispatch_view.dart';
+import 'package:brac_arna/app/modules/login/views/after_login_home_view.dart';
 import 'package:brac_arna/app/modules/login/views/after_login_view.dart';
 
 import 'package:get/get.dart';
 
-import 'package:brac_arna/app/modules/home/bindings/home_binding.dart';
-import 'package:brac_arna/app/modules/home/views/home_view.dart';
 import 'package:brac_arna/app/modules/login/bindings/login_binding.dart';
 import 'package:brac_arna/app/modules/login/views/login_view.dart';
 
@@ -27,11 +26,7 @@ class AppPages {
   static const INITIAL = Routes.SPLASHSCREEN;
 
   static final routes = [
-    GetPage(
-      name: _Paths.HOME,
-      page: () => HomeView(),
-      binding: HomeBinding(),
-    ),
+
     GetPage(
       name: _Paths.SPLASHSCREEN,
       page: () => SplashscreenView(),
@@ -44,7 +39,8 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.AFTER_LOGIN,
-      page: () => AfterLoginView(),
+     // page: () => AfterLoginView(),
+      page: () => AfterLoginHomeView(),
       binding: AfterLoginBinding(),
     ),
 

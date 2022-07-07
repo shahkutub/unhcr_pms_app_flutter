@@ -484,6 +484,8 @@ class AfterLoginView extends GetView<after_login_controller> {
               ),
             ),
           ),
+
+
           body:Scaffold(
             body:Center(
               child: SingleChildScrollView(
