@@ -32,6 +32,19 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
     //   'Eagle',
     //   'Frog'
     // ];
+
+    // Initial Selected Value
+    String dropdownvalue = 'Item 1';
+
+    // List of items in our dropdown menu
+    var items = [
+      'Item 1',
+      'Item 2',
+      'Item 3',
+      'Item 4',
+      'Item 5',
+    ];
+
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: PreferredSize(
@@ -137,12 +150,13 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
 
                             ),
                             Align(alignment: Alignment.centerRight,
-                                child: Obx(() =>
+                                child:
+                                //Obx(() =>
                                     Text(
                                       "DATE: "+Utils.getCurrentDate(),
                                       style: TextStyle(color: Colors.black, fontWeight: FontWeight.normal,fontSize: 12),
                                     ),
-                                ),
+                                //),
 
                             ),
 
@@ -593,6 +607,12 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
                         //
                         // ),
                       ),
+
+
+
+
+
+
                       // GestureDetector(
                       //   onTap: (){
                       //     //controller.controllerItemName.value.clear();
@@ -610,7 +630,42 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
                   ),
                 ),
 
+                Container(
+                  padding: EdgeInsets.only(right: 10,left: 10),
+                  alignment: Alignment.centerRight,
+                  width: Get.width,
+                  child: DropdownButton(
+                    underline: SizedBox(),
+                    isExpanded: true,
+                    // Initial Value
+                    value: dropdownvalue,
 
+                    // Down Arrow Icon
+                    icon: const Icon(Icons.keyboard_arrow_down),
+
+                    // Array list of items
+                    items: items.map((String items) {
+                      return DropdownMenuItem(
+                        value: items,
+                        child: Text(items),
+                      );
+                    }).toList(),
+                    // After selecting the desired option,it will
+                    // change button value to selected value
+                    onChanged: (String? newValue) {
+                      // setState(() {
+                      //   dropdownvalue = newValue!;
+                      // });
+                    },
+                  ),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Color(0xff03B0F5)),
+                    borderRadius: BorderRadius.all(
+                        Radius.circular(10.0) //                 <--- border radius here
+                    ),
+
+                  ),
+                ),
 
                 //  Container(
                 //    margin: EdgeInsets.only(
