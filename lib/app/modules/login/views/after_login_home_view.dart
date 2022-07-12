@@ -1,14 +1,12 @@
+
 import 'package:brac_arna/app/routes/app_pages.dart';
 import 'package:brac_arna/common/ui.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:hive_flutter/adapters.dart';
 
-import '../../../services/auth_service.dart';
 import '../controllers/after_login_controller.dart';
-import '../controllers/login_controller.dart';
 
 class AfterLoginHomeView extends GetView<after_login_controller> {
 
@@ -16,50 +14,74 @@ class AfterLoginHomeView extends GetView<after_login_controller> {
   Widget build(BuildContext context) {
     return Scaffold( //first scaffold
           appBar: AppBar(
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.start, //Center Row contents horizontally,
-              crossAxisAlignment: CrossAxisAlignment.center, //Center Row contents vertically,
-              children: [
-                Container(
-                  //margin: EdgeInsets.only(left:20,top: 20),
-                  height: 50,
-                  width: 50,
-                  child:CircleAvatar(
-                    radius: 48, // Image radius
-                    backgroundImage: NetworkImage('imageUrl'),
-                  ) ,
-                ),
-
-                SizedBox(
-                  width: 10,
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-
-                    Obx(
-                          () => Text(""+controller.userNAme.value,
-                              style: TextStyle(color: Colors.white,fontSize: 12),
-                              textAlign:TextAlign.center,
-                            ),
+            title: Container(
+              height: 40,
+              //padding: EdgeInsets.,
+              child: Stack(
+                children: <Widget>[
+                  Align(alignment: Alignment.centerLeft,
+                    child: Image(
+                      height: 40,
+                      width: 40,
+                      image: AssetImage(
+                        'assets/images/logo.png',
+                        //'assets/images/logounhcr.png',
+                      ),
                     ),
+                  ),
+                  Align(alignment: Alignment.centerRight,
+                      child: Icon(Icons.account_circle_sharp)
+                  ),
 
-                    Obx(
-                          () => Text(""+controller.userRole.value,
-                            style: TextStyle(color: Colors.white,fontSize: 12),
-                            textAlign:TextAlign.center,
-                          ),
-                    ),
-
-
-                  ],
-                ),
-
-
-
-              ],
+                ],
+              ),
+              alignment: Alignment.center,
             ),
+
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.start, //Center Row contents horizontally,
+            //   crossAxisAlignment: CrossAxisAlignment.center, //Center Row contents vertically,
+            //   children: [
+            //     Container(
+            //       //margin: EdgeInsets.only(left:20,top: 20),
+            //       height: 50,
+            //       width: 50,
+            //       child:CircleAvatar(
+            //         radius: 48, // Image radius
+            //         backgroundImage: NetworkImage('imageUrl'),
+            //       ) ,
+            //     ),
+            //
+            //     SizedBox(
+            //       width: 10,
+            //     ),
+            //     Column(
+            //       mainAxisAlignment: MainAxisAlignment.center,
+            //       crossAxisAlignment: CrossAxisAlignment.center,
+            //       children: [
+            //
+            //         Obx(
+            //               () => Text(""+controller.userNAme.value,
+            //                   style: TextStyle(color: Colors.white,fontSize: 12),
+            //                   textAlign:TextAlign.center,
+            //                 ),
+            //         ),
+            //
+            //         Obx(
+            //               () => Text(""+controller.userRole.value,
+            //                 style: TextStyle(color: Colors.white,fontSize: 12),
+            //                 textAlign:TextAlign.center,
+            //               ),
+            //         ),
+            //
+            //
+            //       ],
+            //     ),
+            //
+            //
+            //
+            //   ],
+            // ),
             backgroundColor: Color(0xff03A1E0),
 
           ),
@@ -68,7 +90,7 @@ class AfterLoginHomeView extends GetView<after_login_controller> {
           backgroundColor: Color(0xff03A1E0),
           type: BottomNavigationBarType.fixed,
           //currentIndex: _currentIndex,
-          currentIndex: 1,
+          currentIndex: 0,
           //onTap: _updateIndex,
           selectedItemColor: Colors.white,
           selectedFontSize: 12,
@@ -174,7 +196,13 @@ class AfterLoginHomeView extends GetView<after_login_controller> {
                             //   child:
                               GestureDetector(
                                 onTap: () {
-                                  Get.toNamed(Routes.CONSUMPTION_TALLY);
+                                  Get.toNamed(Routes.ITEM_DISPATCH);
+                                  // if(controller.drugList.length == 0){
+                                  //   //controller.get_drug_list(context);
+                                  //   Ui.defaultSnackBar(message: 'Medicine data empty,please Sync');
+                                  // }else{
+                                  //   Get.toNamed(Routes.ITEM_DISPATCH);
+                                  // }
                                 },
                                   child: Card(
                                     elevation: 5,
@@ -279,12 +307,12 @@ class AfterLoginHomeView extends GetView<after_login_controller> {
                             //   child:
                             GestureDetector(
                                 onTap: () {
-                                  if(controller.drugList.length == 0){
-                                    //controller.get_drug_list(context);
-                                    Ui.defaultSnackBar(message: 'Medicine data empty,please Sync');
-                                  }else{
-                                    Get.toNamed(Routes.ITEM_DISPATCH);
-                                  }
+                                  // if(controller.drugList.length == 0){
+                                  //   //controller.get_drug_list(context);
+                                  //   Ui.defaultSnackBar(message: 'Medicine data empty,please Sync');
+                                  // }else{
+                                  //   Get.toNamed(Routes.ITEM_DISPATCH);
+                                  // }
 
                                 },
                                 child: Card(
@@ -565,107 +593,217 @@ class AfterLoginHomeView extends GetView<after_login_controller> {
                       ),
 
                       SizedBox(
-                        height: 20,
-                      ),
-
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Card(
-                              margin: EdgeInsets.only(top: 5),
-                              elevation: 5,
-                              child:Container(
-                                height: 100,
-                                width: 180,
-                                //padding: EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                  color: Colors.green,
-                                  border: Border.all(color: Colors.green),
-                                  borderRadius: BorderRadius.all(
-                                      Radius.circular(8.0) //                 <--- border radius here
-                                  ),
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-
-                                    Text("200",
-                                      style: TextStyle(color: Colors.white,fontSize: 25),
-                                      textAlign:TextAlign.center,
-                                    ),
-                                    SizedBox(
-                                      height: 15,
-                                    ),
-                                    Text("Today Serve",
-                                      style: TextStyle(color: Colors.white,fontSize: 17),
-                                      textAlign:TextAlign.center,
-                                    ),
-                                  ],
-                                ),
-                              )
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Card(
-                              margin: EdgeInsets.only(top: 5),
-                              elevation: 5,
-                              child:Container(
-                                height: 100,
-                                width: 180,
-                                //padding: EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                  color: Colors.red,
-                                  border: Border.all(color: Colors.red),
-                                  borderRadius: BorderRadius.all(
-                                      Radius.circular(8.0) //                 <--- border radius here
-                                  ),
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-
-                                    Text("20",
-                                      style: TextStyle(color: Colors.white,fontSize: 25),
-                                      textAlign:TextAlign.center,
-                                    ),
-
-                                    SizedBox(
-                                      height: 15,
-                                    ),
-
-                                    Text("Expiry Medicine",
-                                      style: TextStyle(color: Colors.white,fontSize: 17),
-                                      textAlign:TextAlign.center,
-                                    ),
-
-                                  ],
-                                ),
-                              )
-                          ),
-                        ],
-                      ),
-
-                      SizedBox(
                         height: 10,
                       ),
 
-                      AspectRatio(
-                        aspectRatio: 1.7,
-                        child: Card(
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-                          color: const Color(0xff2c4260),
-                          child: const _BarChart(),
-                        ),
+                      Container(
+                          decoration: BoxDecoration(
+                              color: Color(0xffB4E3F6),
+                              border: Border.all(
+                                color: Color(0xffB4E3F6),
+                              ),
+                              borderRadius: BorderRadius.all(Radius.circular(10))
+                          ),
+
+                        margin: EdgeInsets.only(left: 12,right: 12),
+                        padding: EdgeInsets.only(top: 20,bottom: 20),
+                          child: Column(
+                            children: [
+
+                              // Container(
+                              //
+                              //   child: Icon(Icons.mail,color: Color(0xff3699FF),),
+                              //   alignment: Alignment.topLeft,
+                              // ),
+
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(right: 20),
+                                    // height: 100,
+                                    // width: 180,
+                                    //padding: EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                      color: Color(0xffB4E3F6),
+                                      border: Border.all(color: Color(0xffB4E3F6)),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(8.0) //                 <--- border radius here
+                                      ),
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+
+
+                                        Text("200",
+                                          style: TextStyle(color: Colors.black,fontSize: 25),
+                                          textAlign:TextAlign.center,
+                                        ),
+                                        SizedBox(
+                                          height: 15,
+                                        ),
+                                        Text("No of Patient",
+                                          style: TextStyle(color: Colors.white,fontSize: 12),
+                                          textAlign:TextAlign.center,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+
+                                  Container(
+                                    color: Colors.white,
+                                    width: 2,
+                                    height: 60,
+                                  ),
+
+                                  Container(
+                                    margin: EdgeInsets.only(left: 20),
+                                    //padding: EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                      color: Color(0xffB4E3F6),
+                                      border: Border.all(color: Color(0xffB4E3F6)),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(8.0) //                 <--- border radius here
+                                      ),
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+
+                                        Text("20",
+                                          style: TextStyle(color: Colors.black,fontSize: 25),
+                                          textAlign:TextAlign.center,
+                                        ),
+
+                                        SizedBox(
+                                          height: 15,
+                                        ),
+
+                                        Text("Total Distributed Drug",
+                                          style: TextStyle(color: Colors.white,fontSize: 12),
+                                          textAlign:TextAlign.center,
+                                        ),
+
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ],
+                          )
                       ),
 
-                      Text("Weekly Consumption",
-                        style: TextStyle(color: Colors.black,fontSize: 12),
-                        textAlign:TextAlign.center,
+
+
+                      
+                      //chart
+                      // AspectRatio(
+                      //   aspectRatio: 1.7,
+                      //   child: Card(
+                      //     elevation: 0,
+                      //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+                      //     color: const Color(0xff2c4260),
+                      //     child: const _BarChart(),
+                      //   ),
+                      // ),
+                      //
+                      // Text("Weekly Consumption",
+                      //   style: TextStyle(color: Colors.black,fontSize: 12),
+                      //   textAlign:TextAlign.center,
+                      // ),
+
+                      Container(
+                        //height: 200,
+                        width: Get.width-24,
+                        padding: EdgeInsets.all(12),
+                        margin: EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: Color(0xffFFF4DE),
+                            borderRadius: BorderRadius.all(Radius.circular(10))
+                        ),
+
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Top 10 Consumed Medicine'),
+                            SizedBox( height:10),
+                            Row(
+                              children: <Widget>[
+                                Expanded(child:  Text("SL",style: TextStyle(color: Colors.grey,fontSize: 12),), flex: 1,),
+                                Expanded(child:  Text("ITEM",style: TextStyle(color: Colors.grey,fontSize: 12),), flex: 5,),
+                                Expanded(child:  Text("QTY",style: TextStyle(color: Colors.grey,fontSize: 12),), flex: 2,),
+                              ],
+                            ),
+                            //
+                            // SizedBox( height:10),
+                            // Row(
+                            //   children: <Widget>[
+                            //     Expanded(child:  Text("1",style: TextStyle(color: Colors.grey,fontSize: 12),), flex: 1,),
+                            //     Expanded(child:  Text("Montilucast 10mg ",style: TextStyle(color: Colors.grey,fontSize: 12),), flex: 5,),
+                            //     Expanded(child:  Text("300",style: TextStyle(color: Colors.black,fontSize: 12),), flex: 2,),
+                            //   ],
+                            // ),
+                            //
+                            // SizedBox( height:10),
+                            // Row(
+                            //   children: <Widget>[
+                            //     Expanded(child:  Text("1",style: TextStyle(color: Colors.grey,fontSize: 12),), flex: 1,),
+                            //     Expanded(child:  Text("Montilucast 10mg ",style: TextStyle(color: Colors.grey,fontSize: 12),), flex: 5,),
+                            //     Expanded(child:  Text("300",style: TextStyle(color: Colors.black,fontSize: 12),), flex: 2,),
+                            //   ],
+                            // ),
+                            //
+                            // SizedBox( height:10),
+                            // Row(
+                            //   children: <Widget>[
+                            //     Expanded(child:  Text("1",style: TextStyle(color: Colors.grey,fontSize: 12),), flex: 1,),
+                            //     Expanded(child:  Text("Montilucast 10mg ",style: TextStyle(color: Colors.grey,fontSize: 12),), flex: 5,),
+                            //     Expanded(child:  Text("300",style: TextStyle(color: Colors.black,fontSize: 12),), flex: 2,),
+                            //   ],
+                            // ),
+                            //
+                            // SizedBox( height:10),
+                            // Row(
+                            //   children: <Widget>[
+                            //     Expanded(child:  Text("1",style: TextStyle(color: Colors.grey,fontSize: 12),), flex: 1,),
+                            //     Expanded(child:  Text("Montilucast 10mg ",style: TextStyle(color: Colors.grey,fontSize: 12),), flex: 5,),
+                            //     Expanded(child:  Text("300",style: TextStyle(color: Colors.black,fontSize: 12),), flex: 2,),
+                            //   ],
+                            // ),
+
+
+                            Container(
+                              height: Get.height/7,
+                              child: ListView.builder(
+                                itemCount: 10,
+                                //primary: false,
+                                shrinkWrap: true,
+                                itemBuilder: (BuildContext context, int index) {
+                                  var sl = index+1;
+                                  return Column(
+                                    children: [
+                                      SizedBox( height:10),
+                                      Row(
+                                        children: <Widget>[
+                                          Expanded(child:  Text(""+sl.toString(),style: TextStyle(color: Colors.grey,fontSize: 12),), flex: 1,),
+                                          Expanded(child:  Text("Montilucast  ",style: TextStyle(color: Colors.grey,fontSize: 12),), flex: 5,),
+                                          Expanded(child:  Text("300",style: TextStyle(color: Colors.black,fontSize: 12),), flex: 2,),
+                                        ],
+                                      ),
+                                    ],
+
+                                  );
+                                }),),
+
+
+                          ],
+                        ),
+                        
                       ),
 
                     ],

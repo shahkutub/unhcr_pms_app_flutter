@@ -1,6 +1,7 @@
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
 
 class Utils {
 
@@ -67,6 +68,12 @@ class Utils {
     return input;
   }
 
+  static String getCurrentDate(){
+    var now = new DateTime.now();
+    var formatter = new DateFormat('dd-MM-yyyy');
+    String formattedDate = formatter.format(now);
+    return formattedDate;
+  }
 
   static String currentDateBengali(){
 

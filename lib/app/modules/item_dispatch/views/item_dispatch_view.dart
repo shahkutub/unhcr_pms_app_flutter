@@ -1,6 +1,7 @@
 
 
 import 'package:brac_arna/app/modules/item_dispatch/controllers/item_dispatch_controller.dart';
+import 'package:brac_arna/app/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
@@ -36,7 +37,7 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
         appBar: PreferredSize(
           preferredSize: Size(60,55),
           child:  AppBar(
-              backgroundColor: Colors.blueAccent,
+            backgroundColor: Color(0xff03A1E0),
               elevation: 0,
               centerTitle: true,
               //title: Text('Item Dispatch')
@@ -45,30 +46,10 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
               children: <Widget>[
                 Container(
                   alignment: Alignment.centerLeft,
-                  child: Text('N-PMS'),),
+                  child: Text('Dispatch'),),
                 Container(
                   alignment: Alignment.centerRight,
-                  child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-
-                              Obx(() => Text(""+controller.userNAme.value,
-                                  style: TextStyle(color: Colors.white,fontSize: 12),
-                                  textAlign:TextAlign.center,
-                                ),
-                              ),
-
-                              Obx(
-                                    () => Text(""+controller.userRole.value,
-                                  style: TextStyle(color: Colors.white,fontSize: 12),
-                                  textAlign:TextAlign.center,
-                                ),
-                              ),
-
-
-                            ],
-                          ),
+                  child: Icon(Icons.account_circle_sharp),
                 )
               ],
             ),
@@ -132,10 +113,7 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
                 SizedBox(
                   height: 5,
                 ),
-                Text(
-                  "Item Dispatch",
-                  style: TextStyle(color: Colors.teal, fontWeight: FontWeight.bold,fontSize: 15),
-                ),
+
                 Stack(
                   children: <Widget>[
                     Align(alignment: Alignment.centerRight,
@@ -147,24 +125,31 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
                         //   borderRadius: BorderRadius.all(Radius.circular(20)),
                         // ),
 
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Serial no: ",
-                              style: TextStyle(color: Colors.black, fontWeight: FontWeight.normal,fontSize: 13),
+                        child: Stack(
+                          children: <Widget>[
+                            Align(alignment: Alignment.centerLeft,
+                              child:  Obx(() =>
+                                  Text(
+                                    "PATIENT SL NO: "+controller.pSerialN0.value,
+                                    style: TextStyle(color: Colors.black, fontWeight: FontWeight.normal,fontSize: 12),
+                                  ),
+                              ),
+
                             ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Obx(() =>
-                                Text(
-                                  controller.pSerialN0.value,
-                                  style: TextStyle(color: Colors.red, fontWeight: FontWeight.normal,fontSize: 17),
+                            Align(alignment: Alignment.centerRight,
+                                child: Obx(() =>
+                                    Text(
+                                      "DATE: "+Utils.getCurrentDate(),
+                                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.normal,fontSize: 12),
+                                    ),
                                 ),
+
                             ),
+
                           ],
                         ),
+
+
 
 
                       ),
