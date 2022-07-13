@@ -145,12 +145,13 @@ class AfterLoginHomeView extends GetView<after_login_controller> {
                             //   child:
                               GestureDetector(
                                   onTap: () {
-                                    if(controller.drugList.length == 0){
-                                      //controller.get_drug_list(context);
-                                      Ui.defaultSnackBar(message: 'Medicine data empty,please Sync');
-                                    }else{
-                                      Get.toNamed(Routes.ITEM_DISPATCH);
-                                    }
+                                    controller.get_drug_list(context);
+                                    // if(controller.drugList.length == 0){
+                                    //   //controller.get_drug_list(context);
+                                    //   Ui.defaultSnackBar(message: 'Medicine data empty,please Sync');
+                                    // }else{
+                                    //   Get.toNamed(Routes.ITEM_DISPATCH);
+                                    // }
 
                                   },
                                   child: Card(

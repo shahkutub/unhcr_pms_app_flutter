@@ -22,11 +22,26 @@ class ItemDispatchController extends GetxController{
 
   static ItemDispatchController get i => Get.find();
 
+  var itemlist = [
+    "Medicine 1",
+    "Medicine 2",
+    "Medicine 3",
+    "Medicine 4",
+    "Medicine 5",
+    "Medicine 6",
+    "Medicine 7",
+    "Medicine 7",
+    "Medicine 8",
+    "Medicine 9",
+    "Medicine 10"
+  ];
+
   final List<ItemDispatchModel> itemList = <ItemDispatchModel>[].obs;
   final List<DrugInfo> drugList = <DrugInfo>[].obs;
   final drugData = DrugInfo().obs;
 
-  var controllerQty = TextEditingController().obs;
+  var controllerAvailableQty = TextEditingController().obs;
+  var dispatchQtyController = TextEditingController().obs;
   var controllerItemName = TextEditingController().obs;
 
 
@@ -47,7 +62,7 @@ class ItemDispatchController extends GetxController{
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    controllerQty.value.text = "0";
+    dispatchQtyController.value.text = "0";
     userNAme.value = Get.find<AuthService>().currentUser.value.data!.users!.username!.toString();
     userRole.value = Get.find<AuthService>().currentUser.value.data!.roles![0].role_name!;
     //insert_patient_serialToLocalDB();
@@ -138,7 +153,8 @@ class ItemDispatchController extends GetxController{
     var formatter = new DateFormat('dd-MM-yyyy');
     String formattedDate = formatter.format(now);
     print(formattedDate);
-    var item = ItemDispatchModel(pSerialN0.value,"",formattedDate,drugData.value.name.toString(),drugData.value.id!,drugData.value.generic_name.toString(),drugData.value.generic_name.toString(),itemQty.value);
+    //var item = ItemDispatchModel(pSerialN0.value,"",formattedDate,drugData.value.name.toString(),drugData.value.id!,drugData.value.generic_name.toString(),drugData.value.generic_name.toString(),itemQty.value);
+    var item = ItemDispatchModel(pSerialN0.value,"",formattedDate,itemName.value.toString(),10,'','',itemQty.value);
     itemList.insert(0, item);
     //print("itemList: "+itemList[0].name);
 

@@ -41,6 +41,9 @@ class after_login_controller extends GetxController {
   final List<DrugInfo> drugList = <DrugInfo>[].obs;
   @override
   void onInit() {
+    print('after login home vie');
+    get_drug_listFirst();
+    get_drug_listFromLocalDb();
     navigatorKey: navigatorKey;
     userNAme.value = Get.find<AuthService>().currentUser.value.data!.users!.username!.toString();
     userRole.value = Get.find<AuthService>().currentUser.value.data!.roles![0].role_name!;
@@ -48,7 +51,7 @@ class after_login_controller extends GetxController {
     //get_drug_list();
     //getLocationPermission();
     //AuthRepository().allProd();
-    get_drug_listFromLocalDb();
+
     super.onInit();
   }
 
@@ -184,6 +187,7 @@ class after_login_controller extends GetxController {
 
       InformationRepository().get_drug_list().then((resp) async {
         druglistResonse.value = resp;
+        print(druglistResonse.value);
         if(druglistResonse.value != null){
           showCircle.value = false;
           print(druglistResonse.value.drug_info);
@@ -211,6 +215,53 @@ class after_login_controller extends GetxController {
           Navigator.of(context).pop();
         }else{
           Navigator.of(context).pop();
+          Get.toNamed(Routes.LOGIN);
+        }
+      });
+    }
+
+
+  }
+
+  get_drug_listFirst() async {
+    //Get.focusScope!.unfocus();
+
+    //Ui.customLoaderDialogWithMessage();
+    if(!await (Utils.checkConnection() as Future<bool>)){
+      debugPrint('No internet connection');
+      Get.showSnackbar(Ui.internetCheckSnackBar(message: 'No internet connection'));
+    }else{
+      showCircle.value = true;
+
+      InformationRepository().get_drug_list().then((resp) async {
+        druglistResonse.value = resp;
+        if(druglistResonse.value != null){
+          showCircle.value = false;
+          print(druglistResonse.value.drug_info);
+          // Get.toNamed(Routes.LOGIN);
+          await dbHelper.deleteALlDrugs();
+          druglistResonse.value.drug_info!.forEach((element) async {
+            Map<String, dynamic> row = {
+              DatabaseHelper.drug_name: ''+element.name.toString(),
+              DatabaseHelper.drug_id: element.id,
+              DatabaseHelper.drug_pstrength_name: ''+element.pstrength_name.toString(),
+              DatabaseHelper.drug_pstrength_id: element.pstrength_id,
+              DatabaseHelper.drug_generic_name: ''+element.generic_name.toString(),
+              DatabaseHelper.drug_generic_id: element.generic_id,
+              //DatabaseHelper.drug_stock: element.generic_id,
+            };
+
+            await dbHelper.insert_drug(row);
+          });
+
+          var localdataSize = await dbHelper.queryAllDrugRows();
+          print('localdataDrugSize: ${localdataSize.length}');
+
+          showCircle.value = false;
+
+          //Navigator.of(context).pop();
+        }else{
+          //Navigator.of(context).pop();
           Get.toNamed(Routes.LOGIN);
         }
       });
