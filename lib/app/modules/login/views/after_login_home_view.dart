@@ -21,10 +21,10 @@ class AfterLoginHomeView extends GetView<after_login_controller> {
                 children: <Widget>[
                   Align(alignment: Alignment.centerLeft,
                     child: Image(
-                      height: 40,
-                      width: 40,
+                      //height: 40,
+                      //width: 40,
                       image: AssetImage(
-                        'assets/images/logo.png',
+                        'assets/images/unhcr_logo_top.png',
                         //'assets/images/logounhcr.png',
                       ),
                     ),

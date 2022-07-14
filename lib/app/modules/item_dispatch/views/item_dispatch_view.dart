@@ -2,6 +2,7 @@
 
 import 'package:brac_arna/app/modules/item_dispatch/controllers/item_dispatch_controller.dart';
 import 'package:brac_arna/app/utils.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
@@ -533,7 +534,22 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
       builder: (BuildContext context) {
         return AlertDialog(
           title: new Text("Submit Medicine",style: TextStyle(color: Color(0xff03A1E0)),),
-          content: new Text("Are you sure you want to dispatch your medicine?"),
+          content: Container(
+            alignment: Alignment.center,
+            height: Get.width/2.5,
+            child: Column(
+
+              children: [
+                Container(
+                  color: Colors.grey,
+                  height: 1.0,
+                ),
+                SizedBox(height: 50,),
+                Text("Are you sure you want to dispatch your medicine?"),
+              ],
+            ),
+          ),
+
           actions: <Widget>[
             new FlatButton(
               child: new Text("Cancel",style: TextStyle(color: Color(0xff03A1E0)),),
