@@ -480,15 +480,15 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
                       GestureDetector(
                         onTap: () {
 
-                          controller.submit_dispatch(context);
-
-                          controller.itemList.forEach((element) {
-                            controller.insert_item_dispatch_ToLocalDB(element);
-                          });
-                          controller.insert_patient_serialToLocalDB();
-                          controller.itemList.clear();
-                          _showToast(context,'Item dispatch stored Successfully');
-
+                          // controller.submit_dispatch(context);
+                          //
+                          // controller.itemList.forEach((element) {
+                          //   controller.insert_item_dispatch_ToLocalDB(element);
+                          // });
+                          // controller.insert_patient_serialToLocalDB();
+                          // controller.itemList.clear();
+                          // _showToast(context,'Item dispatch stored Successfully');
+                          _showDialog(context);
                         },
                        child: Stack(
                       children: <Widget>[
@@ -527,18 +527,33 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
         
     );
   }
-  void _showDialog(BuildContext context, String s) {
+  void _showDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: new Text("Alert!!"),
-          content: new Text(s),
+          title: new Text("Submit Medicine",style: TextStyle(color: Color(0xff03A1E0)),),
+          content: new Text("Are you sure you want to dispatch your medicine?"),
           actions: <Widget>[
             new FlatButton(
-              child: new Text("OK"),
+              child: new Text("Cancel",style: TextStyle(color: Color(0xff03A1E0)),),
               onPressed: () {
                 Navigator.of(context).pop();
+              },
+            ),
+            new FlatButton(
+              color: Color(0xff03A1E0),
+              child: new Text("Yes,Submit",style: TextStyle(color: Colors.white),),
+              onPressed: () {
+                Navigator.of(context).pop();
+                controller.submit_dispatch(context);
+
+                controller.itemList.forEach((element) {
+                  controller.insert_item_dispatch_ToLocalDB(element);
+                });
+                controller.insert_patient_serialToLocalDB();
+                controller.itemList.clear();
+               // _showToast(context,'Item dispatch stored Successfully');
               },
             ),
           ],
@@ -555,5 +570,43 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
       ),
     );
   }
+
+  void showSubmitDialoge(BuildContext context){
+    showGeneralDialog(
+        context: context,
+        barrierDismissible: true,
+        barrierLabel: MaterialLocalizations.of(context)
+            .modalBarrierDismissLabel,
+        barrierColor: Colors.black45,
+        transitionDuration: const Duration(milliseconds: 200),
+        pageBuilder: (BuildContext buildContext,
+            Animation animation,
+            Animation secondaryAnimation) {
+          return Center(
+            child: Container(
+              width: MediaQuery.of(context).size.width - 10,
+              height: MediaQuery.of(context).size.height -  80,
+              padding: EdgeInsets.all(20),
+              color: Colors.white,
+              child: Column(
+                children: [
+                  RaisedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text(
+                      "Save",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    color: const Color(0xFF1BC0C5),
+                  )
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
+
 }
 
