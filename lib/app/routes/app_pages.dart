@@ -1,5 +1,7 @@
 import 'package:brac_arna/app/modules/consumption_tally/bindings/consumption_tally_binding.dart';
 import 'package:brac_arna/app/modules/consumption_tally/views/consumption_tally_view.dart';
+import 'package:brac_arna/app/modules/current_stock/current_stock_binding.dart';
+import 'package:brac_arna/app/modules/current_stock/current_stock_view.dart';
 import 'package:brac_arna/app/modules/internal_request/controllers/internal_request_controller.dart';
 import 'package:brac_arna/app/modules/item_dispatch/bindings/item_dispatch_binding.dart';
 import 'package:brac_arna/app/modules/item_dispatch/views/item_dispatch_view.dart';
@@ -67,6 +69,12 @@ class AppPages {
       page: () => InternalRequestView(),
       binding: InternalRequestBinding(),
     ),
+    GetPage(
+      name: _Paths.Current_STOCK,
+      page: () => CurrentStockView(),
+      binding: CurrentStockBinding(),
+    ),
+
 
 
   ];

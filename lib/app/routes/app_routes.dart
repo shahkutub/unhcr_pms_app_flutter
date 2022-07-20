@@ -18,6 +18,7 @@ abstract class Routes {
   static const ITEM_DISPATCH = _Paths.ITEM_DISPATCH;
   static const CONSUMPTION_TALLY = _Paths.CONSUMPTION_TALLY;
   static const INTERNAL_REQUEST = _Paths.INTERNAL_REQUEST;
+  static const Current_STOCK = _Paths.Current_STOCK;
 
 }
 
@@ -36,4 +37,5 @@ abstract class _Paths {
   static const ITEM_DISPATCH = '/item_dispatch';
   static const CONSUMPTION_TALLY = '/consumption_tally';
   static const INTERNAL_REQUEST = '/internal_request';
+  static const Current_STOCK = '/current_stock';
 }
