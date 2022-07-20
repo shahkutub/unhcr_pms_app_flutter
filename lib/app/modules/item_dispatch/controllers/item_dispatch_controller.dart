@@ -44,8 +44,9 @@ class ItemDispatchController extends GetxController{
   var dispatchQtyController = TextEditingController().obs;
   var controllerItemName = TextEditingController().obs;
 
-
+  var etSkillScore1Key = GlobalKey<FormState>().obs;
   var nameInput = ''.obs;
+  var selected_spinner_item = 'Select Item'.obs;
   var itemName = ''.obs;
   var itemId = ''.obs;
   var itemAvQty = '0'.obs;

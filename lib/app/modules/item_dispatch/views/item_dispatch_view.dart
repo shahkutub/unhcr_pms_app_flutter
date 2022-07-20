@@ -126,88 +126,102 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
                 SizedBox(
                   height: 15,
                 ),
+                Form(
+                  key: controller.etSkillScore1Key.value,
+                  child: Column(
+                    children: <Widget>[
+                      DropdownSearch<String>(
+                        key: controller.etSkillScore1Key.value,
+                        //mode of dropdown
+                        mode: Mode.DIALOG,
+                        //to show search box
+                        showSearchBox: true,
+                        //selectedItem: true,
+                        //list of dropdown items
+                        items: controller.itemlist,
+                        label: "Item name",
+                        onChanged: (value) {
+                          controller.selected_spinner_item.value = value.toString();
+                          controller.itemName.value = value.toString();
+                          print('medname : '+controller.itemName.value);
+                          controller.controllerAvailableQty.value.text = '300';
+                        },
+                        //show selected item
+                        selectedItem:  controller.selected_spinner_item.value,
 
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+
+                      Row(
+                        children: [
+                          Expanded(child: TextField(
+                            readOnly: true,
+                            controller: controller.controllerAvailableQty.value,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'Available qty',
+                              hintText: 'Available qty',
+                            ),
+                          ), flex: 1,),
+
+                          SizedBox(
+                            width: 20,
+                          ),
+
+                          Expanded(child: TextField(
+                            keyboardType: TextInputType.number,
+                            controller: controller.dispatchQtyController.value,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'Dispatch qty',
+                              hintText: '0',
+                            ),
+                          ), flex: 1,)
+
+                        ],
+                      ),
+
+
+                      Container(
+                        margin: EdgeInsets.only(top: 20),
+                        alignment: Alignment.topRight,
+                        child: RaisedButton(
+                          padding: EdgeInsets.only(top: 13,bottom: 13,left: 35,right: 35),
+                          color: Color(0xff03A1E0),
+                          child: Text('Add',style: TextStyle(color: Colors.white),),
+                          onPressed: () {
+                            //FocusScope.of(context).unfocus();
+                            //controller.etSkillScore1Key.value.currentState!.reset();
+                            //FocusManager.instance.primaryFocus?.unfocus();
+                            controller.itemQty.value = int.parse(controller.dispatchQtyController.value.text);
+                            if (controller.itemName.value.isEmpty) {
+                              _showToast(context,'Enter medicine item name!');
+                            }else if(controller.itemQty.value == 0){
+                              _showToast(context,'Enter dispatch quantity!');
+                            }else{
+                              controller.selected_spinner_item.value = "Select item";
+                              controller.addItemToList();
+                              controller.dispatchQtyController.value.text = "0";
+                              controller.itemName.value = "";
+
+                            }
+                            FocusScope.of(context).unfocus();
+                            //controller.etSkillScore1Key.value.currentState!.dispose();
+                          },
+
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
              //Obx(() =>
-                 DropdownSearch<String>(
-                   //mode of dropdown
-                   mode: Mode.DIALOG,
-                   //to show search box
-                   showSearchBox: true,
-                   //selectedItem: true,
-                   //list of dropdown items
-                   items: controller.itemlist,
-                   label: "Item name",
-                   onChanged: (value) {
-                     controller.itemName.value = value.toString();
-                     print('medname : '+controller.itemName.value);
-                     controller.controllerAvailableQty.value.text = '300';
-                   },
-                   //show selected item
-                   selectedItem: "Select item",
-                 ),
+
             // ),
 
 
-                SizedBox(
-                  height: 20,
-                ),
 
-                Row(
-                  children: [
-                    Expanded(child: TextField(
-                      readOnly: true,
-                      controller: controller.controllerAvailableQty.value,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Available qty',
-                        hintText: 'Available qty',
-                      ),
-                    ), flex: 1,),
-
-                    SizedBox(
-                      width: 20,
-                    ),
-
-                    Expanded(child: TextField(
-                      keyboardType: TextInputType.number,
-                      controller: controller.dispatchQtyController.value,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Dispatch qty',
-                        hintText: '0',
-                      ),
-                    ), flex: 1,)
-
-                  ],
-                ),
-
-
-
-                Container(
-                  margin: EdgeInsets.only(top: 20),
-                  alignment: Alignment.topRight,
-                  child: RaisedButton(
-                    padding: EdgeInsets.only(top: 13,bottom: 13,left: 35,right: 35),
-                    color: Color(0xff03A1E0),
-                    child: Text('Add',style: TextStyle(color: Colors.white),),
-                    onPressed: () {
-                      //FocusManager.instance.primaryFocus?.unfocus();
-                      controller.itemQty.value = int.parse(controller.dispatchQtyController.value.text);
-                      if (controller.itemName.value.isEmpty) {
-                        _showToast(context,'Enter medicine item name!');
-                      }else if(controller.itemQty.value == 0){
-                        _showToast(context,'Enter dispatch quantity!');
-                      }else{
-                        controller.addItemToList();
-                        controller.dispatchQtyController.value.text = "0";
-                        controller.itemName.value = "";
-
-                      }
-
-                      },
-
-                  ),
-                ),
                 SizedBox(
                   height: 20,
                 ),
