@@ -92,7 +92,11 @@ class AfterLoginHomeView extends GetView<after_login_controller> {
           type: BottomNavigationBarType.fixed,
           //currentIndex: _currentIndex,
           currentIndex: 0,
-          //onTap: _updateIndex,
+          onTap: (int index) {
+            if(index == 2){
+              controller.get_drug_listFirst();
+            }
+            },
           selectedItemColor: Colors.white,
           selectedFontSize: 12,
           unselectedFontSize: 12,
@@ -146,7 +150,7 @@ class AfterLoginHomeView extends GetView<after_login_controller> {
                             //   child:
                               GestureDetector(
                                   onTap: () {
-                                    controller.get_drug_listFirst();
+
                                     //AppConstant.pageName = "Stock Receive";
                                     //Get.toNamed(Routes.Current_STOCK);
                                     //controller.get_drug_list(context);

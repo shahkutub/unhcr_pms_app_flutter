@@ -7,6 +7,8 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
+import '../../models/drug_list_response.dart';
+
 
 
 class CurrentStockController extends GetxController{
@@ -48,7 +50,7 @@ class CurrentStockController extends GetxController{
   var controllerQty = TextEditingController().obs;
   var controllerItemName = TextEditingController().obs;
 
-
+  final List<DrugInfo> drugList = <DrugInfo>[].obs;
   var pageName = ''.obs;
   var nameInput = ''.obs;
   var itemName = ''.obs;
@@ -70,8 +72,26 @@ class CurrentStockController extends GetxController{
     userRole.value = Get.find<AuthService>().currentUser.value.data!.roles![0].role_name!;
     //insert_patient_serialToLocalDB();
 
-     getPSerialNo();
+     //getPSerialNo();
+    get_drug_list();
 
+  }
+
+  get_drug_list() async {
+    var localdataSize2 = await dbHelper.queryAllDrugRows();
+    print('localdataDrugSize: ${localdataSize2.length}');
+    for (var i = 0; i < localdataSize2.length; i++) {
+      Map<String, dynamic> map = localdataSize2[i];
+      var drug_info = DrugInfo();
+      drug_info.name = map[DatabaseHelper.drug_name];
+      drug_info.id = map[DatabaseHelper.drug_id];
+      drug_info.generic_id = map[DatabaseHelper.drug_generic_id];
+      drug_info.generic_name = map[DatabaseHelper.drug_generic_name];
+      //drug_info.pstrength_name = map[DatabaseHelper.drug_pstrength_name];
+      //drug_info.pstrength_id = map[DatabaseHelper.drug_pstrength_id];
+      drugList.add(drug_info);
+    }
+    print("drugList: "+drugList.length.toString());
   }
 
   Future<void> getPSerialNo() async {

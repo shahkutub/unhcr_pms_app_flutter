@@ -105,8 +105,10 @@ class CurrentStockView extends GetView<CurrentStockController>{
                     Expanded(child:  Text("QTY",style: TextStyle(color: Colors.blueAccent,fontSize: 12),), flex: 2,),
                   ],
                 ),
+
+          Obx(() =>
                 Expanded(child: ListView.builder(
-                    itemCount: 50,
+                    itemCount: controller.drugList.length,
                     //primary: false,
                     shrinkWrap: true,
                     itemBuilder: (BuildContext context, int index) {
@@ -117,14 +119,14 @@ class CurrentStockView extends GetView<CurrentStockController>{
                           Row(
                             children: <Widget>[
                               Expanded(child:  Text(""+sl.toString(),style: TextStyle(color: Colors.black,fontSize: 12),), flex: 1,),
-                              Expanded(child:  Text("Montilucast  ",style: TextStyle(color: Colors.black,fontSize: 12),), flex: 5,),
+                              Expanded(child:  Text(""+controller.drugList[index].name.toString(),style: TextStyle(color: Colors.black,fontSize: 12),), flex: 5,),
                               Expanded(child:  Text("300",style: TextStyle(color: Colors.black,fontSize: 12),), flex: 2,),
                             ],
                           ),
                         ],
 
                       );
-                    }),),
+                    }),),)
 
                 // Container(
                 //   height: Get.height-150,
