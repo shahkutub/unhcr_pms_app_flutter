@@ -90,9 +90,9 @@ class DatabaseHelper {
             $drug_id INT NOT NULL,
             $drug_name TEXT NOT NULL,
             $drug_generic_name TEXT NOT NULL,
-            $drug_generic_id INT NOT NULL,
+            $drug_generic_id TEXT NOT NULL,
             $drug_pstrength_name TEXT NOT NULL,
-            $drug_pstrength_id INT NOT NULL
+            $drug_pstrength_id TEXT NOT NULL
             
           )
           ''');

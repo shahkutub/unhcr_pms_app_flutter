@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
 
 import 'package:brac_arna/app/models/user_model.dart';
 import 'package:brac_arna/app/repositories/auth_repository.dart';
@@ -44,6 +46,8 @@ class LoginController extends GetxController {
     super.onReady();
   }
 
+
+
   void login() async {
 
     //isNetConnected.value = Utils.checkConnection();
@@ -58,10 +62,12 @@ class LoginController extends GetxController {
 
       Ui.customLoaderDialogWithMessage();
       AuthRepository().userLogin(userData.value).then((response) {
-        print(response);
+        //print('logindata'+response);
+
 
         if(response != null){
-          //String? loginData = Get.find<AuthService>().currentUser.value.api_info!.original!.access_token;
+          //String? token = Get.find<AuthService>().currentUser.value.data!.access_token;
+
           Get.offAllNamed(Routes.AFTER_LOGIN);
           //Get.offAllNamed(Routes.HOME);
           // Get.find<RootController>().changePageOutRoot(0);

@@ -131,14 +131,15 @@ class ItemDispatchView extends GetView<ItemDispatchController>{
                   child: Column(
                     children: <Widget>[
                       DropdownSearch<String>(
-                        key: controller.etSkillScore1Key.value,
+                       // key: controller.etSkillScore1Key.value,
                         //mode of dropdown
                         mode: Mode.DIALOG,
                         //to show search box
                         showSearchBox: true,
                         //selectedItem: true,
                         //list of dropdown items
-                        items: controller.itemlist,
+                        //items: controller.itemlist,
+                        items: controller.drugList?.map((item) => item.name!).toList(),
                         label: "Item name",
                         onChanged: (value) {
                           controller.selected_spinner_item.value = value.toString();

@@ -2,6 +2,7 @@
 
 import 'package:brac_arna/app/modules/consumption_tally/controllers/consumption_tally_controller.dart';
 import 'package:brac_arna/app/modules/current_stock/current_stock_controller.dart';
+import 'package:brac_arna/common/AppConstant.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -48,7 +49,7 @@ class CurrentStockView extends GetView<CurrentStockController>{
               children: <Widget>[
                 Container(
                   alignment: Alignment.centerLeft,
-                  child: Text('Current Stock'),),
+                  child: Text(AppConstant.pageName),),
                 // Container(
                 //   alignment: Alignment.centerRight,
                 //   child: Column(

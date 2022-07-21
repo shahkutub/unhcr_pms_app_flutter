@@ -1,5 +1,6 @@
 
 import 'package:brac_arna/app/routes/app_pages.dart';
+import 'package:brac_arna/common/AppConstant.dart';
 import 'package:brac_arna/common/ui.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -145,7 +146,9 @@ class AfterLoginHomeView extends GetView<after_login_controller> {
                             //   child:
                               GestureDetector(
                                   onTap: () {
-                                    Get.toNamed(Routes.Current_STOCK);
+                                    controller.get_drug_listFirst();
+                                    //AppConstant.pageName = "Stock Receive";
+                                    //Get.toNamed(Routes.Current_STOCK);
                                     //controller.get_drug_list(context);
                                     // if(controller.drugList.length == 0){
                                     //   //controller.get_drug_list(context);
@@ -461,6 +464,8 @@ class AfterLoginHomeView extends GetView<after_login_controller> {
                             //   child:
                             GestureDetector(
                                 onTap: () {
+                                  AppConstant.pageName = "Opening Stock";
+                                  Get.toNamed(Routes.Current_STOCK);
                                   //Get.toNamed(Routes.Current_STOCK);
                                   // if(controller.drugList.length == 0){
                                   //   //controller.get_drug_list(context);
@@ -557,6 +562,7 @@ class AfterLoginHomeView extends GetView<after_login_controller> {
                             //child:
                             GestureDetector(
                                 onTap: () {
+                                  AppConstant.pageName = 'Current Stock';
                                   Get.toNamed(Routes.Current_STOCK);
                                   //Get.toNamed(Routes.INTERNAL_REQUEST);
                                 },

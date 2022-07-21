@@ -145,7 +145,7 @@ class Children {
 }
 
 class Role {
-    int? role_id;
+    String? role_id;
     String? role_name;
 
     Role({this.role_id, this.role_name});

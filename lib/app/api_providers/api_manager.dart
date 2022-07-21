@@ -52,6 +52,29 @@ class APIManager {
     return responseJson;
   }
 
+  Future<dynamic> postAPIloaginCall(String url, Map param) async {
+    print("Calling API: $url");
+    print("Calling parameters: $param");
+
+    var responseJson;
+    try {
+      final response = await http.post(Uri.parse(url), body: param);
+      responseJson = _response(response);
+      print(responseJson);
+
+      // Map<String, dynamic> user = jsonDecode(responseJson.body);
+      // var datanews = jsonEncode(user['data']);
+      //
+      // Map<String, dynamic> data = jsonDecode(datanews);
+      // var access_token = data['access_token'];
+      // print('access_token: '+access_token);
+
+    } on SocketException {
+      throw FetchDataException('No Internet connection');
+    }
+    return responseJson;
+  }
+
   Future<dynamic> get(String url,Map<String, String> headerData) async {
     print("Calling API: $url");
     var responseJson;

@@ -2,6 +2,7 @@
 
 import 'package:brac_arna/app/database_helper/offline_database_helper.dart';
 import 'package:brac_arna/app/services/auth_service.dart';
+import 'package:brac_arna/common/AppConstant.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -48,6 +49,7 @@ class CurrentStockController extends GetxController{
   var controllerItemName = TextEditingController().obs;
 
 
+  var pageName = ''.obs;
   var nameInput = ''.obs;
   var itemName = ''.obs;
   var itemAvQty = '0'.obs;
@@ -62,6 +64,7 @@ class CurrentStockController extends GetxController{
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+    pageName.value = AppConstant.pageName;
     controllerQty.value.text = "0";
     userNAme.value = Get.find<AuthService>().currentUser.value.data!.users!.username!.toString();
     userRole.value = Get.find<AuthService>().currentUser.value.data!.roles![0].role_name!;

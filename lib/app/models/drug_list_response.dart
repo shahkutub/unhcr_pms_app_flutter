@@ -26,23 +26,23 @@ class DrugListResponse {
 }
 
 class DrugInfo {
-    int? category_id;
+    String? category_id;
     String? category_name;
     String? code_no;
     Object? drug_category;
     Object? generic;
-    int? generic_id;
+    String? generic_id;
     String? generic_name;
     Object? group;
-    int? group_id;
+    String? group_id;
     String? group_name;
     int? id;
-    int? manufacturer_id;
+    String? manufacturer_id;
     String? name;
-    int? pstrength_id;
+    String? pstrength_id;
     int? pstrength_name;
-    int? ptype_id;
-    int? status;
+    String? ptype_id;
+    String? status;
 
     DrugInfo({this.category_id, this.category_name, this.code_no, this.drug_category, this.generic, this.generic_id, this.generic_name, this.group, this.group_id, this.group_name, this.id, this.manufacturer_id, this.name, this.pstrength_id,this.pstrength_name, this.ptype_id, this.status});
 

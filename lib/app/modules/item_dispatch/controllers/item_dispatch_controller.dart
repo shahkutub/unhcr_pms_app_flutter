@@ -64,8 +64,8 @@ class ItemDispatchController extends GetxController{
     // TODO: implement onInit
     super.onInit();
     dispatchQtyController.value.text = "0";
-    userNAme.value = Get.find<AuthService>().currentUser.value.data!.users!.username!.toString();
-    userRole.value = Get.find<AuthService>().currentUser.value.data!.roles![0].role_name!;
+    // userNAme.value = Get.find<AuthService>().currentUser.value.data!.users!.username!.toString();
+    // userRole.value = Get.find<AuthService>().currentUser.value.data!.roles![0].role_name!;
     //insert_patient_serialToLocalDB();
 
     //Utils.replaceEngMonthNameBangla();
@@ -85,7 +85,7 @@ class ItemDispatchController extends GetxController{
 
     var localdataSize = await dbHelper.getAllPatientSerial();
     itemSize.value = localdataSize.length;
-    print('localdataSize: ${localdataSize.length}');
+    print('pserialSize: ${localdataSize.length}');
     pSerialN0.value = '${localdataSize.length + 1}';
   }
 
@@ -173,7 +173,7 @@ class ItemDispatchController extends GetxController{
       drug_info.generic_id = map[DatabaseHelper.drug_generic_id];
       drug_info.generic_name = map[DatabaseHelper.drug_generic_name];
       //drug_info.pstrength_name = map[DatabaseHelper.drug_pstrength_name];
-      drug_info.pstrength_id = map[DatabaseHelper.drug_pstrength_id];
+      //drug_info.pstrength_id = map[DatabaseHelper.drug_pstrength_id];
       drugList.add(drug_info);
     }
     print("drugList: "+drugList.length.toString());
